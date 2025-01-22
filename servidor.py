@@ -20,6 +20,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             <h1>Hola desde un servidor Python</h1>
             <p>Este es un servidor simple que responde a solicitudes GET.</p>
             <p>Web del TTT.</p>
+            <img src="https://cdn.prod.website-files.com/64fa82cbdeed167ebaefef84/64fa868eecc183a3dd76ab4c_603ec5023c4ad8fde1783428_Ij2FnlaQX3wZEqCdfWmynR3kTFRlelaf-BXa21868XGfGWQiBv5FISkffcRaUhXrgoKiMX9FiLDGZ2jxwKGdt_vTyGUVHlqcm9uMjUBNQRgltzfgD3TulNwNixxWI2R3ay9vcAc7.jpeg"> 
         </body>
         </html>"""
 
