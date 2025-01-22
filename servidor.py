@@ -19,7 +19,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         <body>
             <h1>Hola desde un servidor Python</h1>
             <p>Este es un servidor simple que responde a solicitudes GET.</p>
-            <img src=https://cdn.prod.website-files.com/64fa82cbdeed167ebaefef84/64fa868eecc183a3dd76ab4c_603ec5023c4ad8fde1783428_Ij2FnlaQX3wZEqCdfWmynR3kTFRlelaf-BXa21868XGfGWQiBv5FISkffcRaUhXrgoKiMX9FiLDGZ2jxwKGdt_vTyGUVHlqcm9uMjUBNQRgltzfgD3TulNwNixxWI2R3ay9vcAc7.jpeg>
+            <img src=https://www.google.com/imgres?q=pulpo%20toad&imgurl=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F522%2F932%2Fpng-transparent-super-mario-bros-2-toad-octopus-ball-child-super-mario-bros-hand.png&imgrefurl=https%3A%2F%2Fwww.pngwing.com%2Fes%2Ffree-png-npibe&docid=4ELof4WGVUXZ_M&tbnid=MHF6lkRwpDirrM&vet=12ahUKEwjSz_Pt0omLAxW3RPEDHYXJMdIQM3oECHAQAA..i&w=920&h=786&hcb=2&ved=2ahUKEwjSz_Pt0omLAxW3RPEDHYXJMdIQM3oECHAQAA>
         </body>
         </html>"""
 
