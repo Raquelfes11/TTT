@@ -192,4 +192,18 @@ function generateRandomPassword() {
     }
     return password;  
 }
-    
+
+
+// JavaScript Functions Motos Detalles 
+function changeImage(imageName) {
+    document.getElementById('main-img').src = 'imgs/motos/' + imageName; // Cambiar el src de la imagen principal
+  }
+  
+  function addToCart(name, imgSrc, description) {
+    const product = { name, imgSrc, description }; // Crear un objeto del producto
+    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Obtener el carrito actual del localStorage
+  
+    cart.push(product); // Añadir el nuevo producto al carrito
+    localStorage.setItem("cart", JSON.stringify(cart)); // Guardar el carrito actualizado en localStorage
+    alert("Producto añadido a la cesta");
+  }

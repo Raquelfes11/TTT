@@ -520,6 +520,7 @@ footer {
     text-decoration: underline;
 }
 
+
 /* CSS for Motos */
 .main-motos {
     background-color: #949494; /* Gris clarito para el fondo */
@@ -580,3 +581,63 @@ footer {
 .product-card .btn-wishlist:hover {
     background-color: rgb(112, 112, 112);
 }
+
+/* CSS for Moto1 Detalles */
+#product-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+  
+#product-details h1 {
+    color: #333;
+    font-size: 2.5rem;
+    text-align: center;
+}
+  
+#product-details .product-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+  
+#product-details .main-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+  
+#product-details .image-thumbnails img {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+}
+  
+#product-details .product-description h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+  
+#product-details .product-description ul {
+    list-style: none;
+    padding-left: 0;
+}
+  
+#product-details .product-description li {
+    font-size: 1rem;
+    color: #666;
+}
+  
+#product-details .action-buttons button {
+    padding: 10px 20px;
+    background-color: rgb(244, 134, 228);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+  
+#product-details .action-buttons button:hover {
+    background-color: rgb(200, 100, 200);
+    }
