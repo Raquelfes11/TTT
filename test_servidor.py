@@ -39,5 +39,6 @@ class TestSimpleHTTPServer(unittest.TestCase):
         self.assertIn("<img src=https://mario.wiki.gallery/images/thumb/f/f6/SNW_Chef_Toad.png/1200px-SNW_Chef_Toad.png>", response.text)
 
 
+
 if __name__ == '__main__':
     unittest.main()
