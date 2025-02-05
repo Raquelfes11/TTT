@@ -146,4 +146,50 @@ function updateCities() {
     
       registerButton.disabled = true;
     });
+
+
+// JavaScript Functions LogIn Page (index)
+document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("email-login");
+    const passwordInput = document.getElementById("password-login");
+    const loginButton = document.getElementById("login-button");
+    const emailError = document.getElementById("email-login-error"); 
+  
+    function validateForm() {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const isEmailValid = emailPattern.test(email); 
+        const isPasswordFilled = password !== ""; 
+  
+        loginButton.disabled = !(isEmailValid && isPasswordFilled);
+    }
+  
+    emailInput.addEventListener("input", function () {
+        if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(this.value)) {
+            emailError.textContent = "Formato de email no válido"; 
+            emailError.style.color = "red";
+        } else {
+            emailError.textContent = "";
+        }
+        validateForm(); 
+    });
+  
+    passwordInput.addEventListener("input", validateForm);
+    loginButton.disabled = true; 
+  });
+  
+  
+  
+// JavaScript Functions Forgot Password Page
+function generateRandomPassword() {
+    const length = 8;  
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);  
+        password += characters[randomIndex];  
+    }
+    return password;  
+}
     

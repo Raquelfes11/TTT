@@ -285,3 +285,237 @@ footer {
 .form-register-page p a:hover {
     text-decoration: underline;
 }
+
+/* CSS for LogIn Page */
+#login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Para que el contenido principal ocupe el espacio disponible */
+    width: 100%;
+    height: 100vh;
+    background-image: url('imgs/ImagenFondo.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    padding: 50px 0; /* Espacio arriba y abajo */
+}
+
+.logo-container-login-page {
+    position: absolute;  
+    top: 20px; 
+    left: 20px; 
+}
+
+.logo-container-login-page img {
+    width: 50px;  
+    height: auto; 
+}
+
+.form-container-login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.form-box-login-page {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px; /* Reducir el ancho del cuadro para que quepa mejor */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    margin: auto;
+}
+
+#h1-login-page {
+    margin-bottom: 15px;
+    color: rgb(100, 100, 100);
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+.form-login-page label {
+    display: block;
+    margin: 8px 0 4px;
+    text-align: left;
+    color: grey;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.forgot-password-link {
+    font-size: 12px;
+    color: grey;
+    text-decoration: none; 
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.form-login-page input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+
+.form-login-page button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#login-button {
+    background-color: black; 
+    color: white;
+}
+
+.form-login-page button:hover {
+    opacity: 0.7;
+}
+
+.form-login-page p {
+    font-size: 12px;
+    color: grey;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.form-login-page p a {
+    color: black;
+    text-decoration: none; 
+}
+
+.form-login-page p a:hover {
+    text-decoration: underline;
+}
+
+/* CSS for Forgot Password Page*/
+#forgot-password-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Para que el contenido principal ocupe el espacio disponible */
+    width: 100%;
+    height: 100vh;
+    background-image: url('imgs/ImagenFondo.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    padding: 50px 0; /* Espacio arriba y abajo */
+}
+
+.logo-container-forgot-password-page {
+    position: absolute;  
+    top: 20px; 
+    left: 20px; 
+}
+
+.logo-container-forgot-password-page img {
+    width: 50px;  
+    height: auto; 
+}
+
+.form-container-forgot-password-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.form-box-forgot-password-page {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px; /* Reducir el ancho del cuadro para que quepa mejor */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    margin: auto;
+}
+
+#h1-forgot-password-page {
+    margin-bottom: 15px;
+    color: rgb(100, 100, 100);
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+.form-forgot-password-page label {
+    display: block;
+    margin: 8px 0 4px;
+    text-align: left;
+    color: grey;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.form-forgot-password-page input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+
+.form-forgot-password-page button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.forgot-password-button {
+    background-color: black; 
+    color: white;
+}
+
+.form-forgot-password-page button:hover {
+    opacity: 0.9;
+}
+
+.form-forgot-password-page p {
+    font-size: 12px;
+    color: grey;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.form-forgot-password-page p a {
+    color: black;
+    text-decoration: none; 
+}
+
+.form-forgot-password-page p a:hover {
+    text-decoration: underline;
+}
