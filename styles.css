@@ -519,3 +519,64 @@ footer {
 .form-forgot-password-page p a:hover {
     text-decoration: underline;
 }
+
+/* CSS for Motos */
+.main-motos {
+    background-color: #949494; /* Gris clarito para el fondo */
+    padding: 20px;
+    text-align: center;
+}
+
+.result-message {
+    margin-bottom: 30px;
+}
+  
+.result-message h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.product-gallery {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+  
+.product-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 23%;
+    text-align: center;
+}
+  
+.product-card img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin-bottom: 15px;
+}
+  
+.product-card h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+  
+.product-card .btn-more,
+.product-card .btn-wishlist {
+    background-color: rgb(81, 81, 81);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+  
+.product-card .btn-more:hover,
+.product-card .btn-wishlist:hover {
+    background-color: rgb(112, 112, 112);
+}

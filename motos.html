@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Motos</title>
+    <link rel="icon" type="image/x-icon" href="favicon.webp">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <section class="header-container">
+        <section class="logo-container">
+          <a href="index.html"><img src="imgs/cart.png" alt="Logo"></a>
+        </section>
+        <nav class="auth-links">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="my_account.html">My Account</a></li>
+            <li><a href="index.html">Wishlist</a></li>
+            <li><a href="cart.html">Shopping Cart</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <nav class="main-motos">
+        <form action="javascript:void(0);" onsubmit="handleSearch()" class="search-form">
+          <input type="text" placeholder="Buscar productos..." name="search" id="search-input">
+          <button type="submit">Buscar</button>
+        </form>
+      </nav>
+    </header>
+
+    <main>
+      <section class="result-message">
+        <h1>Results for search: Moto</h1> 
+      </section>
+
+      <section class="product-gallery">
+        <section class="product-card">
+          <img src="imgs/motos/moto1.jpg" alt="Moto 1">
+          <h3>Moto 1</h3>
+          <a href="moto1_detalle.html">
+            <button class="btn-more">Saber más</button>
+          </a>
+          <button class="btn-wishlist">Añadir a Wishlist</button>
+        </section>
+        <section class="product-card">
+          <img src="imgs/motos/moto2.jpg" alt="Moto 2">
+          <h3>Moto 2</h3>
+          <a href="moto2_detalle.html">
+            <button class="btn-more">Saber más</button>
+          </a>
+          <button class="btn-wishlist">Añadir a Wishlist</button>
+        </section>
+        <section class="product-card">
+          <img src="imgs/motos/moto3.jpg" alt="Moto 3">
+          <h3>Moto 3</h3>
+          <button class="btn-more">Saber más</button>
+          <button class="btn-wishlist">Añadir a Wishlist</button>
+        </section>
+        <section class="product-card">
+          <img src="imgs/motos/moto4.jpg" alt="Moto 4">
+          <h3>Moto 4</h3>
+          <button class="btn-more">Saber más</button>
+          <button class="btn-wishlist">Añadir a Wishlist</button>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>Creado por <strong>Raquel</strong> y <strong>María</strong> - <em>2025</em></p>
+    </footer>
+
+    <script src="scripts.js"></script> 
+  </body>
+</html>
