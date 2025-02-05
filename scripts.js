@@ -207,3 +207,34 @@ function changeImage(imageName) {
     localStorage.setItem("cart", JSON.stringify(cart)); // Guardar el carrito actualizado en localStorage
     alert("Producto añadido a la cesta");
   }
+
+// JavaScript Functions Cart page 
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartContainer = document.getElementById("cart-container");
+
+if (cart.length === 0) {
+  cartContainer.innerHTML += "<p>Tu carrito está vacío.</p>";
+} else {
+  const cartList = document.createElement("section");
+  cartList.classList.add("cart-list");
+
+  cart.forEach((product, index) => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+    productCard.innerHTML = `
+      <h2>${product.name}</h2>
+      <img src="${product.imgSrc}" alt="${product.name}" width="150">
+      <p>${product.description}</p>
+      <button class="btn-remove" onclick="removeFromCart(${index})">Eliminar</button>
+    `;
+    cartList.appendChild(productCard);
+  });
+
+  cartContainer.appendChild(cartList);
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  location.reload();
+}
