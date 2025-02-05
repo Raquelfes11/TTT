@@ -1,0 +1,152 @@
+/* Footer */
+footer {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    position: relative;
+}
+
+/*CSS Error Messages*/
+.error-message {
+    font-family: Arial, sans-serif;
+    font-size: 12px;  
+    color: red;  
+    margin-top: 5px;  
+    margin-bottom: 10px;  
+    text-align: left;  
+}
+
+/* CSS Index Page (HOME) */
+#home-page {
+    background-color: rgb(255, 244, 255);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+.hero-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('imgs/ImagenFondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+}
+
+#h1-home-page {
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #919090;
+  }
+  
+.logo-container {
+    flex: 0 0 auto;
+}
+  
+.logo-container img {
+    width: 70px;
+    height: auto;
+}
+  
+.auth-links {
+    flex: 0 0 auto;
+    text-align: right;
+}
+  
+.auth-links ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+  
+.auth-links li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: #333;
+}
+  
+.auth-links a:hover {
+    background-color: #ddd;
+}
+  
+.main-navigation {
+    background-color: #c7c7c7;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between; /* Para distribuir los elementos */
+    align-items: center;
+}
+  
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Asegura que los elementos estén en fila */
+}
+  
+.main-navigation li {
+    display: inline;
+    margin-right: 15px;
+}
+  
+.main-navigation a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: #333;
+}
+  
+.main-navigation a:hover {
+    background-color: #ddd;
+}
+  
+.search-form {
+    display: flex;
+    align-items: center;
+}
+  
+.search-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1rem;
+}
+  
+.search-form button {
+    padding: 8px 15px;
+    background-color: rgb(119, 118, 118);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+}
+  
+.search-form button:hover {
+    background-color: rgb(119, 118, 118);
+}
+
+#main-home-page {
+    flex: 1;
+    padding: 0;
+    text-align: center;
+  }
+
