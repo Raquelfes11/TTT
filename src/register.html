@@ -10,7 +10,7 @@
         <header>
             <section class="header-container">
               <section class="logo-container-register-page">
-                <a href="index.html"><img src="imgs/cart.png" alt="Logo"></a>
+                <a href="index.html"><img src="imgs/logo.png" alt="Logo"></a>
               </section>
             </section>
         </header> 
@@ -32,6 +32,10 @@
                     <label for="birth-date">Birth Date</label>
                     <input type="date" id="birth-date" required min="1925-01-01" max="2094-12-31" pattern="\d{4}-\d{2}-\d{2}">
                     <span id="birth-error" class="error-message"></span>
+
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" placeholder="Enter your DNI" required>
+                    <span id="dni-error" class="error-message"></span>
 
                     <label for="community">Community</label>
                     <select id="community" required onchange="updateCities()">
@@ -61,6 +65,9 @@
                     <select id="city" required>
                         <option value="">Select a City</option>
                     </select>
+
+                    <label for="adress">Adress</label>
+                    <input type="text" id="adress" placeholder="Enter your Adress" required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" placeholder="Enter your password" required>
