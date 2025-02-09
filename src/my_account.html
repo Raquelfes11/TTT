@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="home-page">
+  <header>
+    <section class="header-container">
+      <section class="logo-container">
+        <a href="index.html"><img src="imgs/cart.png" alt="Logo"></a>
+      </section>
+      <nav class="auth-links">
+        <ul>
+          <li><a href="log_in.html">Log In</a></li>
+          <li><a href="register.html">Sign up</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <nav class="main-navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="my_account.html">My Account</a></li>
+        <li><a href="index.html">Wishlist</a></li>
+        <li><a href="cart.html">Shopping Cart</a></li>
+      </ul>
+      <form action="javascript:void(0);" onsubmit="handleSearch()" class="search-form">
+        <input type="text" placeholder="Buscar productos..." name="search" id="search-input">
+        <button type="submit">Buscar</button>
+      </form>
+    </nav>
+  </header>
+
+  <main id="main-home-page">
+    <section class="hero-message">
+      <h1 id="h1-home-page">Información de la Cuenta</h1>
+    </section>
+
+    <section id="user-info" class="user-info-section">
+      <!-- Aquí se cargará la información del usuario -->
+    </section>
+  </main>
+
+  <footer>
+    <p id="footer-home-page">Creado por <strong>Raquel</strong> y <strong>María</strong> - <em>2025</em></p>
+  </footer>
+
+  <script>
+    // Cargar información del usuario almacenada
+    function loadUserProfile() {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+      if (userInfo) {
+        document.getElementById('user-info').innerHTML = `
+          <article class="profile-card">
+            <h2>Perfil del Usuario</h2>
+            <p><strong>Nombre:</strong> ${userInfo.name}</p>
+            <p><strong>Apellido:</strong> ${userInfo.lastName}</p>
+            <p><strong>Email:</strong> ${userInfo.email}</p>
+          </article>
+        `;
+      } else {
+        document.getElementById('user-info').textContent = 'No se encontraron datos del usuario.';
+      }
+    }
+
+    window.onload = loadUserProfile;
+  </script>
+</body>
+</html>

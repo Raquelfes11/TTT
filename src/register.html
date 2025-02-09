@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register Page</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body id="register-page">
+        <header>
+            <section class="header-container">
+              <section class="logo-container-register-page">
+                <a href="index.html"><img src="imgs/cart.png" alt="Logo"></a>
+              </section>
+            </section>
+        </header> 
+
+        <section class="form-container-register-page">
+            <article class="form-box-register-page">
+                <h1 id="h1-register-page">Create your account</h1>
+                <form class="form-register-page">
+                    <label for="name"> First Name</label>
+                    <input type="text" id="name" placeholder="Enter your First Name" required>
+
+                    <label for="first-name">Last Name</label>
+                    <input type="text" id="first-name" placeholder="Enter your Last Name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Email Adress" required>
+                    <span id="email-resgister-error" class="error-message"></span>
+
+                    <label for="birth-date">Birth Date</label>
+                    <input type="date" id="birth-date" required min="1925-01-01" max="2094-12-31" pattern="\d{4}-\d{2}-\d{2}">
+                    <span id="birth-error" class="error-message"></span>
+
+                    <label for="community">Community</label>
+                    <select id="community" required onchange="updateCities()">
+                        <option value="">Select a Community</option>
+                        <option value="Andalucia">Andalucia</option>
+                        <option value="Aragon">Aragon</option>
+                        <option value="Asturias">Asturias</option>
+                        <option value="Cantabria">Cantabria</option>
+                        <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+                        <option value="Castilla-Leon">Castilla-Leon</option>
+                        <option value="Cataluna">Cataluna</option>
+                        <option value="Ceuta">Ceuta</option>
+                        <option value="Extremadura">Extremadura</option>
+                        <option value="Galicia">Galicia</option>
+                        <option value="Islas-Baleares">Islas-Baleares</option>
+                        <option value="Islas-Canarias">Islas-Canarias</option>
+                        <option value="La-Rioja">La-Rioja</option>
+                        <option value="Madrid">Madrid</option>
+                        <option value="Melilla">Melilla</option>
+                        <option value="Murcia">Murcia</option>
+                        <option value="Navarra">Navarra</option>
+                        <option value="Pais-Vasco">Pais-Vasco</option>
+                        <option value="Valencia">Valencia</option>
+                    </select>
+
+                    <label for="city">City</label>
+                    <select id="city" required>
+                        <option value="">Select a City</option>
+                    </select>
+
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+
+                    <label for="verify-identity">Verify Identity (Upload ID Photo)</label>
+                    <input type="file" id="verify-identity" accept="image/*" required>
+
+                    <p>By creating an account, you agree to our <a href="terms-and-conditions.html" target="_blank">Terms and Conditions</a>.</p>
+
+                    <button type="button" id="register-button" onclick="window.location.href='sent.html'">Register</button>
+                    <p>Alredy have an account? <a href="log_in.html" target="_self"><strong><u>Sign in</u></strong></a>.</p>
+                </form>
+            </article>
+        </section>
+
+        <script src="scripts.js"></script>
+    </body>
+</html>

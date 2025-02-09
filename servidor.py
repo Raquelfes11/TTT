@@ -19,6 +19,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         <body>
             <h1>Hola desde un servidor Python</h1>
             <p>Este es un servidor simple que responde a solicitudes GET.</p>
+            <p>Web del TTT.</p>
+            <img src=https://mario.wiki.gallery/images/thumb/f/f6/SNW_Chef_Toad.png/1200px-SNW_Chef_Toad.png> 
         </body>
         </html>"""
 

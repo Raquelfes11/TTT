@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Detalles de Moto 2</title>
+    <link rel="icon" type="image/x-icon" href="favicon.webp">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <section class="header-container">
+        <section class="logo-container">
+          <a href="index.html"><img src="imgs/cart.png" alt="Logo"></a>
+        </section>
+        <nav class="auth-links">
+          <ul>
+            <li><a href="log_in.html">Log In</a></li>
+            <li><a href="register.html">Sign up</a></li>
+          </ul>
+        </nav>
+      </section>
+      
+      <nav class="main-navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="my_account.html">My Account</a></li>
+          <li><a href="index.html">Wishlist</a></li>
+          <li><a href="cart.html">Shopping Cart</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="product-details">
+      <section class="product-details">
+        <h1>Nombre del producto seleccionado</h1>
+        
+        <section class="product-info">
+          <section class="main-image">
+            <img src="imgs/motos/moto2.jpg" alt="Moto 2" id="main-img">
+          </section>
+          
+          <section class="image-thumbnails">
+            <img src="imgs/motos/moto2_detalle1.jpg" alt="Moto 1" onclick="changeImage('moto2_detalle1.jpg')">
+            <img src="imgs/motos/moto2_detalle2.jpg" alt="Moto 2" onclick="changeImage('moto2_detalle2.jpg')">
+            <img src="imgs/motos/moto2_detalle3.jpg" alt="Moto 3" onclick="changeImage('moto2_detalle3.jpg')">
+            <img src="imgs/motos/moto2.jpg" alt="Moto 4" onclick="changeImage('moto2.jpg')">
+        </section>
+
+          <section class="product-description">
+            <h3>Características:</h3>
+            <ul>
+              <li>Motor de 150cc</li>
+              <li>Suspensión delantera de doble horquilla</li>
+              <li>Rendimiento de combustible excelente</li>
+              <li>Colores disponibles: Rojo, Azul, Negro</li>
+            </ul>
+          </section>
+        </section>
+
+        <section class="action-buttons">
+          <button class="btn-add-to-cart" onclick="addToCart('Moto 2', 'imgs/motos/moto2.jpg', 'Motor de 150cc')">Añadir a la cesta</button>
+          <button class="btn-buy-now">Comprar ya</button>
+          <button class="btn-add-to-wishlist">Añadir a Wishlist</button>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>Creado por <strong>Raquel</strong> y <strong>María</strong> - <em>2025</em></p>
+    </footer>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
