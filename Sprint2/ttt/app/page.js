@@ -1,7 +1,7 @@
 "use client"; // Para que Next.js trate esto como un componente interactivo
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Hero from "./components/Hero";
+import Hero from "./components/Slogan/page";
 import ProductCard from "./components/ProductCard";
 import styles from "./styles/page.module.css";
 
