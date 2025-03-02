@@ -1,0 +1,10 @@
+.hero-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('imgs/ImagenFondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+}

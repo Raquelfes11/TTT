@@ -2,7 +2,7 @@
 export default function Footer() {
     return (
       <footer>
-        <p id="footer-home-page">
+        <p className="footer">
           Creado por <strong>Raquel</strong> y <strong>María</strong> - <em>2025</em>
         </p>
       </footer>
