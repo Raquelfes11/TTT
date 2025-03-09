@@ -1,0 +1,44 @@
+/* styles/page.module.css */
+.productGallery {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .productCard {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .productCard img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .btnMore,
+  .btnWishlist {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btnMore {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btnWishlist {
+    background-color: #ff5733;
+    color: white;
+  }
+  
