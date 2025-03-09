@@ -12,7 +12,7 @@ function Navigation({ products, setFilteredProducts, user }) {
       setFilteredProducts(products);
     } else {
       const filtered = products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.title && product.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredProducts(filtered);
     }
@@ -24,13 +24,22 @@ function Navigation({ products, setFilteredProducts, user }) {
   };
 
   return (
-    <nav className={styles['main-navigation']}>  {/* Asegúrate de que la clase sea correcta */}
+    <nav className={styles['main-navigation']}>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/cart">Pujas</a></li>
-        <li><a href="/wishlist">WishList</a></li>
+        {user ? (
+          <>
+            <li>Bienvenido, {user.username}</li>
+            <li><a href="/usuario">Mi cuenta</a></li>
+          </>
+        ) : (
+          <>
+            <li><a href="/wishlist"> WishList</a></li>
+          </>
+        )}
       </ul>
-      <form onSubmit={handleSearchSubmit} className={styles['search-form']}> {/* Asegúrate de que la clase sea correcta */}
+      <form onSubmit={handleSearchSubmit} className={styles['search-form']}>
         <input
           type="text"
           placeholder="Buscar productos..."

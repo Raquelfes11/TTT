@@ -2,56 +2,63 @@ import { useState, useEffect } from "react";
 
 export default function ProductSearch({ setFilteredProducts }) {
   const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda
-  const [products, setProducts] = useState([]); // Almacena los productos obtenidos de la API
+  const [products, setProducts] = useState([]); // Lista de productos
+  const [filtered, setFiltered] = useState([]); // Productos filtrados
+  const [noResults, setNoResults] = useState(false); // Indica si no hay resultados
 
   // Obtener productos desde la API de DummyJSON
   useEffect(() => {
     fetch("https://dummyjson.com/products") // Endpoint para obtener todos los productos
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data.products); // Almacenar los productos en el estado
+        if (data.products && Array.isArray(data.products)) {
+          console.log("Productos obtenidos:", data.products); // Debug: Ver qué productos se reciben
+          setProducts(data.products);
+          setFiltered(data.products); // Inicialmente mostrar todos los productos
+        }
       })
       .catch((error) => {
-        console.error('Error al cargar los productos:', error);
+        console.error("Error al cargar los productos:", error);
       });
   }, []);
 
   // Función que se ejecuta al escribir en el input
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+    const term = e.target.value.trim().toLowerCase(); // Eliminar espacios extra
+    setSearchTerm(term);
 
-  // Función que se ejecuta al hacer clic en el botón de búsqueda
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-
-    if (searchTerm === "") {
-      // Si no se ha introducido nada, mostrar todos los productos
-      setFilteredProducts(products);
+    if (term === "") {
+      setFiltered(products);
+      setNoResults(false);
     } else {
-      // Filtrar los productos que coincidan con el término de búsqueda
-      const filtered = products.filter((product) =>
-        product.title && product.title.toLowerCase().includes(searchTerm.toLowerCase()) // Asegúrate de que 'title' existe
+      const filteredProducts = products.filter((product) =>
+        product.title && typeof product.title === "string"
+          ? product.title.trim().toLowerCase().includes(term)
+          : false
       );
-      setFilteredProducts(filtered);
+
+      console.log("Productos filtrados:", filteredProducts); // Debug: Ver los productos que pasan el filtro
+
+      setFiltered(filteredProducts);
+      setNoResults(filteredProducts.length === 0);
     }
   };
+
+  // Actualizar los productos filtrados en el estado principal
+  useEffect(() => {
+    setFilteredProducts(filtered);
+  }, [filtered, setFilteredProducts]);
 
   return (
     <div>
       <h1>Buscar Productos</h1>
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Buscar producto..."
-        />
-        <button type="submit">Buscar</button>
-      </form>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        placeholder="Buscar producto..."
+      />
+      {noResults && <p>No hay productos que coincidan con la búsqueda.</p>}
     </div>
   );
 }
-
-
-
