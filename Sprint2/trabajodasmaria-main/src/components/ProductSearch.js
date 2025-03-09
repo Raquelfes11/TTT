@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import ProductList from './ProductList';
 
-export default function ProductSearch({ setFilteredProducts }) {
+export default function ProductSearch() {
   const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda
+  const [minPrice, setMinPrice] = useState(""); // Precio mínimo
+  const [maxPrice, setMaxPrice] = useState(""); // Precio máximo
   const [products, setProducts] = useState([]); // Lista de productos
-  const [filtered, setFiltered] = useState([]); // Productos filtrados
+  const [filteredProducts, setFilteredProducts] = useState([]); // Productos filtrados
   const [noResults, setNoResults] = useState(false); // Indica si no hay resultados
 
   // Obtener productos desde la API de DummyJSON
@@ -12,9 +15,8 @@ export default function ProductSearch({ setFilteredProducts }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.products && Array.isArray(data.products)) {
-          console.log("Productos obtenidos:", data.products); // Debug: Ver qué productos se reciben
           setProducts(data.products);
-          setFiltered(data.products); // Inicialmente mostrar todos los productos
+          setFilteredProducts(data.products); // Inicialmente mostrar todos los productos
         }
       })
       .catch((error) => {
@@ -22,32 +24,42 @@ export default function ProductSearch({ setFilteredProducts }) {
       });
   }, []);
 
-  // Función que se ejecuta al escribir en el input
-  const handleSearchChange = (e) => {
-    const term = e.target.value.trim().toLowerCase(); // Eliminar espacios extra
-    setSearchTerm(term);
+  // Función para filtrar productos por nombre y precio
+  const filterProducts = () => {
+    const filtered = products.filter((product) => {
+      const matchesSearchTerm =
+        product.title.toLowerCase().startsWith(searchTerm.toLowerCase());
 
-    if (term === "") {
-      setFiltered(products);
-      setNoResults(false);
-    } else {
-      const filteredProducts = products.filter((product) =>
-        product.title && typeof product.title === "string"
-          ? product.title.trim().toLowerCase().includes(term)
-          : false
-      );
+      const matchesMinPrice = minPrice ? product.price >= minPrice : true;
+      const matchesMaxPrice = maxPrice ? product.price <= maxPrice : true;
 
-      console.log("Productos filtrados:", filteredProducts); // Debug: Ver los productos que pasan el filtro
+      return matchesSearchTerm && matchesMinPrice && matchesMaxPrice;
+    });
 
-      setFiltered(filteredProducts);
-      setNoResults(filteredProducts.length === 0);
-    }
+    setFilteredProducts(filtered);
+    setNoResults(filtered.length === 0); // Si no hay productos, mostramos mensaje
   };
 
-  // Actualizar los productos filtrados en el estado principal
-  useEffect(() => {
-    setFilteredProducts(filtered);
-  }, [filtered, setFilteredProducts]);
+  // Detectar cambio en el término de búsqueda
+  const handleSearchChange = (e) => {
+    const term = e.target.value.trim().toLowerCase();
+    setSearchTerm(term);
+    filterProducts(); // Filtramos cada vez que cambia el término de búsqueda
+  };
+
+  // Detectar cambio en el precio mínimo
+  const handleMinPriceChange = (e) => {
+    const value = e.target.value;
+    setMinPrice(value);
+    filterProducts(); // Filtramos cada vez que cambia el precio mínimo
+  };
+
+  // Detectar cambio en el precio máximo
+  const handleMaxPriceChange = (e) => {
+    const value = e.target.value;
+    setMaxPrice(value);
+    filterProducts(); // Filtramos cada vez que cambia el precio máximo
+  };
 
   return (
     <div>
@@ -56,9 +68,28 @@ export default function ProductSearch({ setFilteredProducts }) {
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="Buscar producto..."
+        placeholder="Buscar por nombre..."
       />
+      <br />
+      <input
+        type="number"
+        value={minPrice}
+        onChange={handleMinPriceChange}
+        placeholder="Precio mínimo"
+      />
+      <input
+        type="number"
+        value={maxPrice}
+        onChange={handleMaxPriceChange}
+        placeholder="Precio máximo"
+      />
+      <br />
+      <button onClick={filterProducts}>Aplicar Filtros</button>
+
       {noResults && <p>No hay productos que coincidan con la búsqueda.</p>}
+
+      {/* Pasamos los productos filtrados a ProductList */}
+      <ProductList filteredProducts={filteredProducts} />
     </div>
   );
 }

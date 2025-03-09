@@ -28,16 +28,7 @@ function Navigation({ products, setFilteredProducts, user }) {
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/cart">Pujas</a></li>
-        {user ? (
-          <>
-            <li>Bienvenido, {user.username}</li>
-            <li><a href="/usuario">Mi cuenta</a></li>
-          </>
-        ) : (
-          <>
-            <li><a href="/wishlist"> WishList</a></li>
-          </>
-        )}
+        <li><a href="/wishlist"> WishList</a></li>
       </ul>
       <form onSubmit={handleSearchSubmit} className={styles['search-form']}>
         <input
