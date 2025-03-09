@@ -1,0 +1,89 @@
+/* CSS for ProductDetail */
+.productDetails {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.productDetailContent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.mainImage {
+  flex: 1;
+  max-width: 600px;
+  margin-right: 20px;
+}
+
+.mainImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Bordes redondeados en la imagen */
+}
+
+.productInfo {
+  flex: 2;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+.productDetails h2 {
+  color: #333;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.productDescription h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.productDescription ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.productDescription li {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* Contenedor de botones */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra los botones */
+  gap: 15px; /* Espacio entre los botones */
+  margin-top: 20px;
+}
+
+.actionButtons button {
+  padding: 10px 20px;
+  background-color: rgb(244, 134, 228);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px; /* Max ancho para los botones */
+  transition: background-color 0.3s;
+}
+
+.actionButtons button:hover {
+  background-color: rgb(200, 100, 200);
+}
+
+/* Estilo cuando el botón está deshabilitado */
+.actionButtons button:disabled {
+  background-color: #ccc; /* Gris cuando está deshabilitado */
+  cursor: not-allowed;
+}

@@ -1,0 +1,65 @@
+.register-page {
+    background-image: url('../../assets/imgs/ImagenFondo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-container-register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .form-box-register-page {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+  }
+  
+  #h1-register-page {
+    color: rgb(100, 100, 100);
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-register-page input,
+  .form-register-page select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  
+  .form-register-page button:hover {
+    opacity: 0.7;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+
+  .form-register-page button {
+    background-color: black;
+    color: white;
+}
+
+.form-register-page button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  margin-top: 10px;
+}
