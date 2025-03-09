@@ -1,0 +1,386 @@
+/*CSS Error Messages*/
+.error-message {
+    font-family: Arial, sans-serif;
+    font-size: 12px;  
+    color: red;  
+    margin-top: 5px;  
+    margin-bottom: 10px;  
+    text-align: left;  
+}
+
+/* CSS Index Page (HOME) */
+#home-page {
+    background-color: rgb(255, 244, 255);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+
+#h1-home-page {
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #919090;
+  }
+  
+.logo-container {
+    flex: 0 0 auto;
+}
+  
+.logo-container img {
+    width: 70px;
+    height: auto;
+}
+  
+.auth-links {
+    flex: 0 0 auto;
+    text-align: right;
+}
+  
+.auth-links ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+  
+.auth-links li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: #333;
+}
+  
+.auth-links a:hover {
+    background-color: #ddd;
+}
+  
+
+  
+#main-home-page {
+    flex: 1;
+    padding: 0;
+    text-align: center;
+  }
+
+
+
+/* CSS for Register Page */
+#register-page {
+    background-image: url('assets/imgs/ImagenFondo.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    min-height: 100vh; /* Cambiado de height a min-height */
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 50px 20px; /* Añadir margen */
+}
+
+
+.logo-container-register-page {
+    position: absolute;  
+    top: 20px; 
+    left: 20px; 
+}
+
+.logo-container-register-page img {
+    width: 50px;  
+    height: auto; 
+}
+
+.form-container-register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    min-height: auto; /* Para que crezca según el contenido */
+    padding: 20px; 
+}
+
+.form-box-register-page {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+    max-width: 85%;
+    box-sizing: border-box;
+    overflow: auto;
+    max-height: none; /* Eliminar la restricción de altura */
+}
+
+#h1-register-page {
+    margin-bottom: 15px;
+    color: rgb(100, 100, 100);
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+.form-register-page label {
+    display: block;
+    margin: 1px;
+    text-align: left;
+    color: grey;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.form-register-page input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.form-register-page input[type="file"] {
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+.form-register-page select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    box-sizing: border-box;
+    background-color: white;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.input-error {
+    border: 1px solid red;
+}
+
+.form-register-page button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#register-button {
+    background-color: black; 
+    color: white;
+}
+
+.form-register-page button:hover {
+    opacity: 0.7;
+}
+
+.form-register-page p {
+    font-size: 12px;
+    color: grey;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.form-register-page p a {
+    color: black;
+    text-decoration: none; 
+}
+
+.form-register-page p a:hover {
+    text-decoration: underline;
+}
+/* CSS for Forgot Password Page*/
+#forgot-password-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Para que el contenido principal ocupe el espacio disponible */
+    width: 100%;
+    height: 100vh;
+    background-image: url('assets/imgs/ImagenFondo.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    padding: 50px 0; /* Espacio arriba y abajo */
+}
+
+.logo-container-forgot-password-page {
+    position: absolute;  
+    top: 20px; 
+    left: 20px; 
+}
+
+.logo-container-forgot-password-page img {
+    width: 50px;  
+    height: auto; 
+}
+
+.form-container-forgot-password-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.form-box-forgot-password-page {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px; /* Reducir el ancho del cuadro para que quepa mejor */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    margin: auto;
+}
+
+#h1-forgot-password-page {
+    margin-bottom: 15px;
+    color: rgb(100, 100, 100);
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+.form-forgot-password-page label {
+    display: block;
+    margin: 8px 0 4px;
+    text-align: left;
+    color: grey;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.form-forgot-password-page input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+
+.form-forgot-password-page button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.forgot-password-button {
+    background-color: black; 
+    color: white;
+}
+
+.form-forgot-password-page button:hover {
+    opacity: 0.9;
+}
+
+.form-forgot-password-page p {
+    font-size: 12px;
+    color: grey;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.form-forgot-password-page p a {
+    color: black;
+    text-decoration: none; 
+}
+
+.form-forgot-password-page p a:hover {
+    text-decoration: underline;
+}
+
+/* CSS for Motos */
+.main-motos {
+    background-color: #949494; /* Gris clarito para el fondo */
+    padding: 20px;
+    text-align: center;
+}
+
+.result-message {
+    margin-bottom: 30px;
+}
+  
+.result-message h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.product-gallery {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+  
+.product-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 23%;
+    text-align: center;
+}
+  
+.product-card img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin-bottom: 15px;
+}
+  
+.product-card h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+  
+.product-card .btn-more,
+.product-card .btn-wishlist {
+    background-color: rgb(81, 81, 81);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+  
+.product-card .btn-more:hover,
+.product-card .btn-wishlist:hover {
+    background-color: rgb(112, 112, 112);
+}
+

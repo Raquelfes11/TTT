@@ -1,0 +1,18 @@
+/* HeroMessage.module.css */
+.heroMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../assets/imgs/ImagenFondo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+}
+
+.h1HomePage {
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
