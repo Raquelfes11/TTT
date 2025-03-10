@@ -12,7 +12,6 @@ function Header({ user, onLogout }) {
         </section>
         <nav className="auth-links">
           {user ? (
-            // Si el usuario está logueado, mostrar el botón con su nombre y logout
             <ul>
               <li>
                 <button onClick={onLogout}>Logout</button>
@@ -22,7 +21,6 @@ function Header({ user, onLogout }) {
               </li>
             </ul>
           ) : (
-            // Si no está logueado, mostrar los botones de login y registro
             <ul>
               <li><Link to="/login">Login</Link></li>
               <li><Link to="/register">Register</Link></li>

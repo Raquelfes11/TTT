@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Para la navegación después de hacer logout
-import './page.module.css';  // Asegúrate de importar el archivo CSS
+import { useNavigate } from 'react-router-dom';  
+import './page.module.css';  
 
 function Profile() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState('');
-  const navigate = useNavigate();  // Redirigir al login después del logout
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem('accessToken');  // Obtenemos el token desde localStorage
+      const token = localStorage.getItem('accessToken');  
 
       if (!token) {
         setError('No autorizado');
@@ -27,7 +27,7 @@ function Profile() {
 
         const data = await response.json();
         if (response.ok) {
-          setUserData(data);  // Si todo va bien, guardamos los datos del usuario
+          setUserData(data);  
         } else {
           setError('No se pudo obtener la información del usuario');
         }
@@ -36,13 +36,13 @@ function Profile() {
       }
     };
 
-    fetchProfile();  // Llamamos a la función para obtener los datos
-  }, []);  // Este efecto solo se ejecutará una vez, al montar el componente
+    fetchProfile();  
+  }, []); 
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
-    navigate('/login');  // Redirigimos al usuario a la página de login después de hacer logout
+    navigate('/login');  
   };
 
   if (error) return <p>{error}</p>;

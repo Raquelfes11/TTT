@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from "./UserDetails.module.css"
 
 function UserDetail({ user, setUser }) {
   const [userDetails, setUserDetails] = useState(null);

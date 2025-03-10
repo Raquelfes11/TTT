@@ -1,26 +1,24 @@
 import { useState, useEffect } from "react";
 
 export default function ProductSearch({ setFilteredProducts }) {
-  const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda por nombre
-  const [selectedCategory, setSelectedCategory] = useState(""); // Filtro de categoría
-  const [minPrice, setMinPrice] = useState(""); // Filtro de precio mínimo
-  const [maxPrice, setMaxPrice] = useState(""); // Filtro de precio máximo
-  const [categories, setCategories] = useState([]); // Categorías disponibles
-  const [products, setProducts] = useState([]); // Lista de productos
-  const [filtered, setFiltered] = useState([]); // Productos filtrados
-  const [noResults, setNoResults] = useState(false); // Indica si no hay resultados
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState(""); 
+  const [minPrice, setMinPrice] = useState(""); 
+  const [maxPrice, setMaxPrice] = useState(""); 
+  const [categories, setCategories] = useState([]); 
+  const [products, setProducts] = useState([]); 
+  const [filtered, setFiltered] = useState([]); 
+  const [noResults, setNoResults] = useState(false); 
 
-  // Obtener productos y categorías desde la API de DummyJSON
   useEffect(() => {
-    fetch("https://dummyjson.com/products") // Endpoint para obtener todos los productos
+    fetch("https://dummyjson.com/products") 
       .then((response) => response.json())
       .then((data) => {
         if (data.products && Array.isArray(data.products)) {
-          console.log("Productos obtenidos:", data.products); // Debug: Ver qué productos se reciben
+          console.log("Productos obtenidos:", data.products); 
           setProducts(data.products);
-          setFiltered(data.products); // Inicialmente mostrar todos los productos
+          setFiltered(data.products);
 
-          // Obtener categorías únicas de los productos
           const uniqueCategories = [
             ...new Set(data.products.map((product) => product.category)),
           ];
@@ -32,14 +30,12 @@ export default function ProductSearch({ setFilteredProducts }) {
       });
   }, []);
 
-  // Función que se ejecuta al escribir en el input de búsqueda
   const handleSearchChange = (e) => {
-    const term = e.target.value.trim().toLowerCase(); // Eliminar espacios extra
+    const term = e.target.value.trim().toLowerCase(); 
     setSearchTerm(term);
     filterProducts(term, selectedCategory, minPrice, maxPrice);
   };
 
-  // Filtrar productos según los filtros seleccionados
   const filterProducts = (term, category, min, max) => {
     const filteredProducts = products.filter((product) => {
       const matchesCategory = category ? product.category === category : true;
@@ -57,7 +53,6 @@ export default function ProductSearch({ setFilteredProducts }) {
     setNoResults(filteredProducts.length === 0);
   };
 
-  // Función para manejar los cambios en los filtros de categoría y precio
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     setSelectedCategory(category);
@@ -71,7 +66,6 @@ export default function ProductSearch({ setFilteredProducts }) {
     filterProducts(searchTerm, selectedCategory, minPrice, maxPrice);
   };
 
-  // Actualizar los productos filtrados en el estado principal
   useEffect(() => {
     setFilteredProducts(filtered);
   }, [filtered, setFilteredProducts]);

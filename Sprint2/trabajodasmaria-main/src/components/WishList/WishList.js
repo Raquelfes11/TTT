@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import styles from "./WishList.module.css"; // Asegúrate de que la importación sea correcta
+import styles from "./WishList.module.css"; 
 
 function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Obtener wishlist desde localStorage
-    setWishlistItems(storedWishlist); // Establecer los productos en el estado
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || []; 
+    setWishlistItems(storedWishlist); 
   }, []);
 
   return (
-    <div className={styles.wishlist}> {/* Usar styles.wishlist */}
-      <h2 className={styles.h2WishlistPage}>Lista de Deseos</h2> {/* Usar styles.h2WishlistPage */}
+    <div className={styles.wishlist}>
+      <h2 className={styles.h2WishlistPage}>Lista de Deseos</h2> 
       {wishlistItems.length > 0 ? (
-        <div className={styles.wishlistItems}> {/* Usar styles.wishlistItems */}
+        <div className={styles.wishlistItems}> 
           {wishlistItems.map((item, index) => (
-            <div className={styles.wishlistItem} key={index}> {/* Usar styles.wishlistItem */}
+            <div className={styles.wishlistItem} key={index}> 
               <img src={item.thumbnail} alt={item.title} />
               <h3>{item.title}</h3>
               <p>Precio: ${item.price}</p>

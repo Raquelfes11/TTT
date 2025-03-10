@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
+import styles from "./ProductList.module.css"
 
 function ProductList({ filteredProducts }) {
 
   const addToCart = (product) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Obtener el carrito actual desde localStorage
-    cart.push(product); // Añadir el producto al carrito
-    localStorage.setItem("cart", JSON.stringify(cart)); // Guardar el carrito actualizado
+    let cart = JSON.parse(localStorage.getItem("cart")) || []; 
+    cart.push(product); 
+    localStorage.setItem("cart", JSON.stringify(cart)); 
     alert("Producto añadido al carrito");
   };
   
-  // Función para añadir productos a la wishlist
   const addToWishlist = (product) => {
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; // Obtener wishlist desde localStorage
-    wishlist.push(product); // Añadir el producto a la wishlist
-    localStorage.setItem("wishlist", JSON.stringify(wishlist)); // Guardar wishlist actualizada
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || []; 
+    wishlist.push(product); 
+    localStorage.setItem("wishlist", JSON.stringify(wishlist)); 
     alert("Producto añadido a la wishlist");
   };
 
@@ -26,7 +26,6 @@ function ProductList({ filteredProducts }) {
           {filteredProducts.map((product) => (
             <div className="product-card" key={product.id}>
               <img src={product.thumbnail} alt={product.title} />
-              {/* Mostramos el nombre del producto */}
               <h3>{product.title}</h3>
               <p>Precio: ${product.price}</p>
               <Link to={`/products/${product.id}`}>

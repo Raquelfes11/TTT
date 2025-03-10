@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styles from './ProductDetails.module.css'; // Importar el CSS como módulo
+import styles from './ProductDetails.module.css'; 
 
 function ProductDetail() {
-  const { id } = useParams(); // Obtener el id del producto desde la URL
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    // Función para obtener los detalles del producto desde DummyJSON
     const fetchProductDetails = async () => {
       try {
-        // Hacemos la solicitud a la API de DummyJSON para obtener los detalles del producto
         const response = await fetch(`https://dummyjson.com/products/${id}`);
         if (response.ok) {
           const data = await response.json();
@@ -23,8 +21,8 @@ function ProductDetail() {
       }
     };
 
-    fetchProductDetails(); // Ejecutamos la función al cargar el componente
-  }, [id]); // Dependencia de `id`, para que se ejecute cada vez que cambie el id en la URL
+    fetchProductDetails();
+  }, [id]); 
 
   const addToCart = (product) => {
     if (product.stock > 0) {
@@ -37,7 +35,6 @@ function ProductDetail() {
     }
   };
 
-  // Función para añadir productos a la wishlist
   const addToWishlist = (product) => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     wishlist.push(product);
@@ -73,7 +70,7 @@ function ProductDetail() {
             <button 
               className={styles.btnCart} 
               onClick={() => addToCart(product)}
-              disabled={product.stock <= 0} // Deshabilitar si el stock es 0
+              disabled={product.stock <= 0} 
             >
               {product.stock > 0 ? 'Pujar' : 'Producto agotado'}
             </button>

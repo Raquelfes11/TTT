@@ -21,15 +21,15 @@
 .mainImage img {
   width: 100%;
   height: auto;
-  border-radius: 8px; /* Bordes redondeados en la imagen */
+  border-radius: 8px; 
 }
 
 .productInfo {
   flex: 2;
   background-color: white;
   padding: 20px;
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .productDetails h2 {
@@ -60,8 +60,8 @@
 .actionButtons {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra los botones */
-  gap: 15px; /* Espacio entre los botones */
+  align-items: center; 
+  gap: 15px; 
   margin-top: 20px;
 }
 
@@ -74,7 +74,7 @@
   font-size: 1rem;
   cursor: pointer;
   width: 100%;
-  max-width: 250px; /* Max ancho para los botones */
+  max-width: 250px;
   transition: background-color 0.3s;
 }
 
@@ -82,8 +82,7 @@
   background-color: rgb(200, 100, 200);
 }
 
-/* Estilo cuando el botón está deshabilitado */
 .actionButtons button:disabled {
-  background-color: #ccc; /* Gris cuando está deshabilitado */
+  background-color: #ccc; 
   cursor: not-allowed;
 }

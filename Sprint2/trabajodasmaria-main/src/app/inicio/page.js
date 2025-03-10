@@ -9,16 +9,15 @@ function ProductList() {
     fetch("https://dummyjson.com/products")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Verifica la estructura de los datos
+        console.log(data); 
         setProducts(data.products);
-        setFilteredProducts(data.products); // Mostrar todos los productos inicialmente
+        setFilteredProducts(data.products); 
       })
       .catch((error) => {
         console.error("Error al cargar los productos:", error);
       });
   }, []);
 
-  // Función para manejar la búsqueda
   const handleSearch = (event) => {
     event.preventDefault();
     const searchTermLowerCase = searchTerm.trim().toLowerCase();
@@ -46,9 +45,7 @@ function ProductList() {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <div className="product-card" key={product.id}>
-              {/* Mostrar imagen del producto */}
               <img src={product.thumbnail} alt={product.title} />
-              {/* Mostrar el título del producto */}
               <h3>${product.title}</h3>
               <p>Precio:{product.price}</p>
               <button className="btn-more">Ver más</button>

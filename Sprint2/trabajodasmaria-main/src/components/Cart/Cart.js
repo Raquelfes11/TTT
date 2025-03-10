@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Cart.module.css'; // Asegúrate de que la ruta sea correcta
+import styles from './Cart.module.css'; 
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || []; // Obtener el carrito desde localStorage
-    setCartItems(storedCart); // Establecer los productos en el estado
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || []; 
+    setCartItems(storedCart); 
   }, []);
 
-  // Función para eliminar un producto del carrito
   const removeItemFromCart = (index) => {
-    // Eliminar el producto en el índice indicado
     const updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
-    setCartItems(updatedCart); // Actualizar el estado del carrito
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Actualizar el carrito en localStorage
+    setCartItems(updatedCart); 
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); 
   };
 
   return (

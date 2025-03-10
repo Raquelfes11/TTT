@@ -1,28 +1,26 @@
-// pages/products/[id].js
-import { useRouter } from 'next/router'; // Para acceder al id de la URL
+import { useRouter } from 'next/router'; 
 import { useEffect, useState } from 'react';
 
 const ProductDetails = () => {
   const router = useRouter();
-  const { id } = router.query; // Obtener el id del producto de la URL
+  const { id } = router.query; 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     if (id) {
-      // Hacer la solicitud a la API para obtener el producto por ID
       fetch(`https://dummyjson.com/products/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          setProduct(data); // Almacenar los detalles del producto
+          setProduct(data); 
         })
         .catch((error) => {
           console.error('Error al cargar los detalles del producto:', error);
         });
     }
-  }, [id]); // Solo se ejecuta si cambia el id
+  }, [id]); 
 
   if (!product) {
-    return <p>Cargando detalles...</p>; // Mientras carga el producto
+    return <p>Cargando detalles...</p>;
   }
 
   return (

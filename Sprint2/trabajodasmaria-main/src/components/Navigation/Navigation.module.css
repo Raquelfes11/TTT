@@ -12,7 +12,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Asegura que los elementos estén en fila */
+    display: flex; 
 }
   
 .main-navigation li {
