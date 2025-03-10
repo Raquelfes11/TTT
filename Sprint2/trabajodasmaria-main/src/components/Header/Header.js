@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImg from "../assets/imgs/logo.png";
+import logoImg from "../../assets/imgs/logo.png";
+import styles from "./Header.module.css"
 
 function Header({ user, onLogout }) {
   return (

@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from "react";
-import ProductList from './ProductList';
+import { useState, useEffect } from "react";
 
-export default function ProductSearch() {
-  const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda
-  const [minPrice, setMinPrice] = useState(""); // Precio mínimo
-  const [maxPrice, setMaxPrice] = useState(""); // Precio máximo
+export default function ProductSearch({ setFilteredProducts }) {
+  const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda por nombre
+  const [selectedCategory, setSelectedCategory] = useState(""); // Filtro de categoría
+  const [minPrice, setMinPrice] = useState(""); // Filtro de precio mínimo
+  const [maxPrice, setMaxPrice] = useState(""); // Filtro de precio máximo
+  const [categories, setCategories] = useState([]); // Categorías disponibles
   const [products, setProducts] = useState([]); // Lista de productos
-  const [filteredProducts, setFilteredProducts] = useState([]); // Productos filtrados
+  const [filtered, setFiltered] = useState([]); // Productos filtrados
   const [noResults, setNoResults] = useState(false); // Indica si no hay resultados
 
-  // Obtener productos desde la API de DummyJSON
+  // Obtener productos y categorías desde la API de DummyJSON
   useEffect(() => {
     fetch("https://dummyjson.com/products") // Endpoint para obtener todos los productos
       .then((response) => response.json())
       .then((data) => {
         if (data.products && Array.isArray(data.products)) {
+          console.log("Productos obtenidos:", data.products); // Debug: Ver qué productos se reciben
           setProducts(data.products);
-          setFilteredProducts(data.products); // Inicialmente mostrar todos los productos
+          setFiltered(data.products); // Inicialmente mostrar todos los productos
+
+          // Obtener categorías únicas de los productos
+          const uniqueCategories = [
+            ...new Set(data.products.map((product) => product.category)),
+          ];
+          setCategories(uniqueCategories);
         }
       })
       .catch((error) => {
@@ -24,42 +32,49 @@ export default function ProductSearch() {
       });
   }, []);
 
-  // Función para filtrar productos por nombre y precio
-  const filterProducts = () => {
-    const filtered = products.filter((product) => {
-      const matchesSearchTerm =
-        product.title.toLowerCase().startsWith(searchTerm.toLowerCase());
+  // Función que se ejecuta al escribir en el input de búsqueda
+  const handleSearchChange = (e) => {
+    const term = e.target.value.trim().toLowerCase(); // Eliminar espacios extra
+    setSearchTerm(term);
+    filterProducts(term, selectedCategory, minPrice, maxPrice);
+  };
 
-      const matchesMinPrice = minPrice ? product.price >= minPrice : true;
-      const matchesMaxPrice = maxPrice ? product.price <= maxPrice : true;
+  // Filtrar productos según los filtros seleccionados
+  const filterProducts = (term, category, min, max) => {
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory = category ? product.category === category : true;
+      const matchesPrice =
+        (min === "" || product.price >= parseFloat(min)) &&
+        (max === "" || product.price <= parseFloat(max));
+      const matchesTitle = product.title
+        ? product.title.toLowerCase().includes(term)
+        : false;
 
-      return matchesSearchTerm && matchesMinPrice && matchesMaxPrice;
+      return matchesCategory && matchesPrice && matchesTitle;
     });
 
+    setFiltered(filteredProducts);
+    setNoResults(filteredProducts.length === 0);
+  };
+
+  // Función para manejar los cambios en los filtros de categoría y precio
+  const handleCategoryChange = (e) => {
+    const category = e.target.value;
+    setSelectedCategory(category);
+    filterProducts(searchTerm, category, minPrice, maxPrice);
+  };
+
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "minPrice") setMinPrice(value);
+    if (name === "maxPrice") setMaxPrice(value);
+    filterProducts(searchTerm, selectedCategory, minPrice, maxPrice);
+  };
+
+  // Actualizar los productos filtrados en el estado principal
+  useEffect(() => {
     setFilteredProducts(filtered);
-    setNoResults(filtered.length === 0); // Si no hay productos, mostramos mensaje
-  };
-
-  // Detectar cambio en el término de búsqueda
-  const handleSearchChange = (e) => {
-    const term = e.target.value.trim().toLowerCase();
-    setSearchTerm(term);
-    filterProducts(); // Filtramos cada vez que cambia el término de búsqueda
-  };
-
-  // Detectar cambio en el precio mínimo
-  const handleMinPriceChange = (e) => {
-    const value = e.target.value;
-    setMinPrice(value);
-    filterProducts(); // Filtramos cada vez que cambia el precio mínimo
-  };
-
-  // Detectar cambio en el precio máximo
-  const handleMaxPriceChange = (e) => {
-    const value = e.target.value;
-    setMaxPrice(value);
-    filterProducts(); // Filtramos cada vez que cambia el precio máximo
-  };
+  }, [filtered, setFilteredProducts]);
 
   return (
     <div>
@@ -70,26 +85,44 @@ export default function ProductSearch() {
         onChange={handleSearchChange}
         placeholder="Buscar por nombre..."
       />
-      <br />
-      <input
-        type="number"
-        value={minPrice}
-        onChange={handleMinPriceChange}
-        placeholder="Precio mínimo"
-      />
-      <input
-        type="number"
-        value={maxPrice}
-        onChange={handleMaxPriceChange}
-        placeholder="Precio máximo"
-      />
-      <br />
-      <button onClick={filterProducts}>Aplicar Filtros</button>
-
+      <div>
+        <label htmlFor="category">Categoría:</label>
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+        >
+          <option value="">Todas las categorías</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="minPrice">Precio Mínimo:</label>
+        <input
+          type="number"
+          id="minPrice"
+          name="minPrice"
+          value={minPrice}
+          onChange={handlePriceChange}
+          placeholder="Min"
+        />
+      </div>
+      <div>
+        <label htmlFor="maxPrice">Precio Máximo:</label>
+        <input
+          type="number"
+          id="maxPrice"
+          name="maxPrice"
+          value={maxPrice}
+          onChange={handlePriceChange}
+          placeholder="Max"
+        />
+      </div>
       {noResults && <p>No hay productos que coincidan con la búsqueda.</p>}
-
-      {/* Pasamos los productos filtrados a ProductList */}
-      <ProductList filteredProducts={filteredProducts} />
     </div>
   );
 }

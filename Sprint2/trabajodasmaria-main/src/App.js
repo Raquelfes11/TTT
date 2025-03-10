@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import HeroMessage from './components/HeroMessage/HeroMessage';
 import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
