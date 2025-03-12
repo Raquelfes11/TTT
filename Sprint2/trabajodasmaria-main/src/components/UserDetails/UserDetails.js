@@ -31,11 +31,6 @@ function UserDetail({ user, setUser }) {
     fetchUserDetails();
   }, [user]);
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('accessToken');
-  };
-
   return (
     <div className={styles.background}>
       <div className={styles.container}>

@@ -14,9 +14,6 @@ function Header({ user, onLogout }) {
           {user ? (
             <ul>
               <li>
-                <button onClick={onLogout}>Logout</button>
-              </li>
-              <li>
                 <Link to="/usuario">Hola, {user.username}</Link>
               </li>
             </ul>
