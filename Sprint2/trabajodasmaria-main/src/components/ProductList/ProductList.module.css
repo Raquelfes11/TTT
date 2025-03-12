@@ -1,62 +1,108 @@
-/* CSS for Motos */
+/* CSS para ProductList - Estilo Refinado */
 .main-motos {
-    background-color: #949494; /* Gris clarito para el fondo */
-    padding: 20px;
-    text-align: center;
-}
-
-.result-message {
-    margin-bottom: 30px;
-}
-  
-.result-message h1 {
-    font-size: 2rem;
+    background-color: #f4f4f4;
+    padding: 40px;
+    font-family: 'Roboto', sans-serif;
     color: #333;
 }
 
+.result-message {
+    margin-bottom: 50px;
+}
 
+.result-message h1 {
+    font-size: 2.5rem;
+    color: #444;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+}
 
 .product-gallery {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 }
-  
+
 .product-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    width: 23%;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    width: 22%;
     text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-  
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
 .product-card img {
     width: 100%;
     height: auto;
-    max-width: 200px;
-    margin-bottom: 15px;
+    max-width: 220px;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
-  
+
 .product-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
-  
+
+.product-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Botones (gris con hover para ambos) */
 .product-card .btn-more,
 .product-card .btn-wishlist {
-    background-color: rgb(81, 81, 81);
+    background-color: #6c757d;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px 20px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 6px;
     font-size: 1rem;
+    margin-top: 15px;
+    transition: background 0.3s ease;
 }
-  
+
+/* Hover común para los botones */
 .product-card .btn-more:hover,
 .product-card .btn-wishlist:hover {
-    background-color: rgb(112, 112, 112);
+    background-color: #5a6268;
+}
+
+.product-card .btn-wishlist {
+    background-color: #6c757d;
+}
+
+/* Título centrado y elegante */
+h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 700;
+    text-align: center; /* Centrado */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif; /* Fuente más elegante */
+}
+
+.product-list p {
+    font-size: 1.1rem;
+    color: #777;
+    font-style: italic;
+    margin-top: 20px;
 }
