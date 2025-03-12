@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from "./UserDetails.module.css"
+import styles from "./UserDetails.module.css";
 
 function UserDetail({ user, setUser }) {
   const [userDetails, setUserDetails] = useState(null);
@@ -37,18 +37,19 @@ function UserDetail({ user, setUser }) {
   };
 
   return (
-    <div>
-      {userDetails ? (
-        <div>
-          <h2>Detalle de Usuario</h2>
-          <p>Nombre: {userDetails.first_name} {userDetails.last_name}</p>
-          <p>Email: {userDetails.email}</p>
-          <p>Fecha de Nacimiento: {userDetails.birth_date}</p>
-          <button onClick={handleLogout}>Cerrar sesión</button>
-        </div>
-      ) : (
-        <p>Cargando detalles...</p>
-      )}
+    <div className={styles.background}>
+      <div className={styles.container}>
+        {userDetails ? (
+          <div>
+            <h2>Detalle de Usuario</h2>
+            <p><strong>Nombre:</strong> {userDetails.first_name} {userDetails.last_name}</p>
+            <p><strong>Email:</strong> {userDetails.email}</p>
+            <p><strong>Fecha de Nacimiento:</strong> {userDetails.birth_date}</p>
+          </div>
+        ) : (
+          <p>Cargando detalles...</p>
+        )}
+      </div>
     </div>
   );
 }
