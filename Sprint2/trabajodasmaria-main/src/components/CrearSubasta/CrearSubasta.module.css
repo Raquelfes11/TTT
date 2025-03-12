@@ -1,0 +1,56 @@
+.crear-subasta {
+    padding: 40px;
+    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .crear-subasta h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #444;
+    margin-bottom: 40px;
+    font-family: 'Georgia', serif;
+  }
+  
+  .subasta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subasta-form label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .subasta-form input,
+  .subasta-form textarea {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+  
+  .subasta-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .subasta-form button:hover {
+    background-color: #0056b3;
+  }
+  

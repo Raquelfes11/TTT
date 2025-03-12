@@ -12,6 +12,8 @@ import ProductSearch from './components/ProductSearch/ProductSearch';
 import UserDetails from './components/UserDetails/UserDetails';
 import Cart from './components/Cart/Cart'; 
 import Wishlist from './components/WishList/WishList'; 
+import MisSubastas from './components/MisSubastas/MisSubastas';
+import CrearSubasta from './components/CrearSubasta/CrearSubasta';
 import './styles.css';
 
 function App() {
@@ -66,6 +68,8 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
           <Route path="/usuario" element={<UserDetails user={user} />} />
+          <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
+          <Route path="/crear-subasta" element={<CrearSubasta />} />
         </Routes>
         <Footer />
       </div>

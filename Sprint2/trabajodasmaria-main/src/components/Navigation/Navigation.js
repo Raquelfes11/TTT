@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './Navigation.module.css';  
+import styles from './Navigation.module.css';
 
 function Navigation({ products, setFilteredProducts, user, setUser }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate(); // ✅ useNavigate() dentro de Navigation
+  const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
   };
 
   const handleLogout = () => {
-    navigate('/'); // ✅ Primero redirigir a Home
+    navigate('/'); 
     setTimeout(() => {
       if (setUser) { 
         setUser(null);
@@ -58,9 +58,9 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
             </button>
             {menuOpen && (
               <div className={styles.dropdownMenu}>
-                <button onClick={() => navigate('/usuario')}>Perfil</button> {/* ✅ Redirige a perfil */}
+                <button onClick={() => navigate('/usuario')}>Perfil</button>
                 <button onClick={handleLogout}>Cerrar sesión</button>
-                <button onClick={() => navigate('/crear-subasta')}>Crear subasta</button>
+                <button onClick={() => navigate('/mis-subastas')}>Mis Subastas</button> {/* Aquí se redirige a Mis Subastas */}
               </div>
             )}
           </li>

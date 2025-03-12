@@ -88,17 +88,7 @@
     background-color: #6c757d;
 }
 
-/* Título centrado y elegante */
-h2 {
-    font-size: 2.5rem;
-    color: #333;
-    font-weight: 700;
-    text-align: center; /* Centrado */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    font-family: 'Georgia', serif; /* Fuente más elegante */
-}
+
 
 .product-list p {
     font-size: 1.1rem;
