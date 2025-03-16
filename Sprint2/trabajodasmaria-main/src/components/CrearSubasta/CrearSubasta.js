@@ -13,68 +13,68 @@ function CrearSubasta() {
     e.preventDefault();
 
     const newSubasta = {
-      id: new Date().getTime(),  // Usamos el timestamp como un ID único
+      id: new Date().getTime(),
       title,
       description,
       startPrice: parseFloat(startPrice),
       endDate,
-      creatorId: 1, // Suponemos que el ID del usuario es 1, lo que deberías cambiar dependiendo de tu lógica
+      creatorId: 1, // Ajustar según la lógica de usuario
     };
 
-    // Guardar la subasta en localStorage
+    // Guardar en localStorage
     const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
     existingSubastas.push(newSubasta);
     localStorage.setItem('subastas', JSON.stringify(existingSubastas));
 
-    // Redirigir a "Mis Subastas"
+    // Redirigir a Mis Subastas
     navigate('/mis-subastas');
   };
 
   return (
-    <div className={styles['crear-subasta']}>
-      <h2>Crear Nueva Subasta</h2>
-      <form onSubmit={handleSubmit} className={styles['subasta-form']}>
-        <div>
-          <label htmlFor="title">Título:</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+    <div className={styles['crear-subasta-page']}>
+      <div className={styles['form-container']}>
+        <div className={styles['form-box']}>
+          <h2 className={styles['h2-subasta']}>Crear Nueva Subasta</h2>
+          <form onSubmit={handleSubmit} className={styles['form-subasta']}>
+            <label htmlFor="title">Título:</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+
+            <label htmlFor="description">Descripción:</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+
+            <label htmlFor="startPrice">Precio de Inicio:</label>
+            <input
+              type="number"
+              id="startPrice"
+              value={startPrice}
+              onChange={(e) => setStartPrice(e.target.value)}
+              required
+            />
+
+            <label htmlFor="endDate">Fecha de Finalización:</label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+            />
+
+            <button type="submit">Crear Subasta</button>
+          </form>
         </div>
-        <div>
-          <label htmlFor="description">Descripción:</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="startPrice">Precio de Inicio:</label>
-          <input
-            type="number"
-            id="startPrice"
-            value={startPrice}
-            onChange={(e) => setStartPrice(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate">Fecha de Finalización:</label>
-          <input
-            type="date"
-            id="endDate"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Crear Subasta</button>
-      </form>
+      </div>
     </div>
   );
 }

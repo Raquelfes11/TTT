@@ -7,24 +7,22 @@ function MisSubastas({ user }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Aquí deberíamos traer las subastas creadas por el usuario, por ejemplo desde una API o localStorage.
-    // Esto es solo un ejemplo con datos estáticos.
     const userSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
     setSubastas(userSubastas.filter(subasta => subasta.creatorId === user.id));
   }, [user]);
 
   const handleCreateSubasta = () => {
-    navigate('/crear-subasta');  // Redirige a la página para crear una nueva subasta
+    navigate('/crear-subasta');  
   };
 
   const handleDeleteSubasta = (id) => {
     const updatedSubastas = subastas.filter(subasta => subasta.id !== id);
     setSubastas(updatedSubastas);
-    localStorage.setItem('subastas', JSON.stringify(updatedSubastas)); // Guardamos los cambios en el localStorage
+    localStorage.setItem('subastas', JSON.stringify(updatedSubastas)); 
   };
 
   const handleUpdateSubasta = (id) => {
-    navigate(`/editar-subasta/${id}`);  // Redirige a la página para editar la subasta
+    navigate(`/editar-subasta/${id}`);  
   };
 
   const handleClearSubastas = () => {
@@ -36,13 +34,14 @@ function MisSubastas({ user }) {
     <div className={styles['mis-subastas']}>
       <h2>Mis Subastas</h2>
 
-      <button className={styles['btn-create']} onClick={handleCreateSubasta}>
-        Crear Subasta
-      </button>
-
-      <button className={styles['btn-clear']} onClick={handleClearSubastas}>
-        Limpiar Subastas
-      </button>
+      <div className={styles['buttons-container']}>
+        <button className={styles['btn-create']} onClick={handleCreateSubasta}>
+          Crear Subasta
+        </button>
+        <button className={styles['btn-clear']} onClick={handleClearSubastas}>
+          Limpiar Subastas
+        </button>
+      </div>
 
       {subastas.length > 0 ? (
         <div className={styles['subastas-list']}>
@@ -56,7 +55,7 @@ function MisSubastas({ user }) {
           ))}
         </div>
       ) : (
-        <p>No tienes subastas creadas aún.</p>
+        <p className={styles['no-subastas']}>No tienes subastas creadas aún.</p>
       )}
     </div>
   );
