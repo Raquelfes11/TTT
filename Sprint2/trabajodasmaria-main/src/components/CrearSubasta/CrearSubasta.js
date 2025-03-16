@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CrearSubasta.module.css';
 
-function CrearSubasta() {
+function CrearSubasta({ user }) {  // <-- Recibir user como prop
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startPrice, setStartPrice] = useState('');
@@ -18,7 +18,7 @@ function CrearSubasta() {
       description,
       startPrice: parseFloat(startPrice),
       endDate,
-      creatorId: 1, // Ajustar según la lógica de usuario
+      creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
     };
 
     // Guardar en localStorage

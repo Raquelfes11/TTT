@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './MisSubastas.module.css';
 
-function MisSubastas({ user }) {
+function MisSubastas({ user }) {  // <-- Recibir user como prop
   const [subastas, setSubastas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
-    setSubastas(userSubastas.filter(subasta => subasta.creatorId === user.id));
+    if (user) {  // <-- Asegurar que user existe antes de filtrar
+      const userSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
+      setSubastas(userSubastas.filter(subasta => subasta.creatorId === user.id)); // <-- Filtrar por user.id
+    }
   }, [user]);
 
   const handleCreateSubasta = () => {
