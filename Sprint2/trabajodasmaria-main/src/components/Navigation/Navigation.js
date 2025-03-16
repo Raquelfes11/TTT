@@ -32,17 +32,12 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
   };
 
   const handleLogout = () => {
-    navigate('/'); 
-    setTimeout(() => {
-      if (setUser) { 
-        setUser(null);
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-      } else {
-        console.error("Error: setUser no está definido");
-      }
-    }, 5);
+    setUser(null);  // <-- Reiniciar el estado del usuario
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    navigate('/');  
   };
+  
 
   return (
     <nav className={styles['main-navigation']}>

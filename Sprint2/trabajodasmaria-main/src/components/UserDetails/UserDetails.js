@@ -5,8 +5,10 @@ function UserDetail({ user, setUser }) {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
+    if (!user) return; // Si user es null, no cargar detalles
+    
     const fetchUserDetails = async () => {
-      const accessToken = user.accessToken || localStorage.getItem('accessToken');
+      const accessToken = user?.accessToken || localStorage.getItem('accessToken');
       if (accessToken) {
         try {
           const response = await fetch('https://das-p2-backend.onrender.com/api/users/profile', {
@@ -15,7 +17,7 @@ function UserDetail({ user, setUser }) {
               'Authorization': `Bearer ${accessToken}`,
             },
           });
-
+  
           if (response.ok) {
             const data = await response.json();
             setUserDetails(data);
@@ -27,9 +29,10 @@ function UserDetail({ user, setUser }) {
         }
       }
     };
-
+  
     fetchUserDetails();
   }, [user]);
+  
 
   return (
     <div className={styles.background}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from "../../assets/imgs/logo.png";
-import styles from "./Header.module.css"
+import styles from "./Header.module.css";
 
-function Header({ user, onLogout }) {
+function Header({ user }) {
   return (
     <header>
       <section className="header-container">
@@ -30,6 +30,7 @@ function Header({ user, onLogout }) {
 }
 
 export default Header;
+
 
 
 
