@@ -58,6 +58,9 @@ function LoginForm({ onLogin }) {
           accessToken: data.access,
         };
         localStorage.setItem("user", JSON.stringify(userInfo));
+        if (userData.accessToken) {
+          localStorage.setItem("accessToken", userData.accessToken);
+        }
         onLogin(data);
         navigate('/'); 
       } else {
