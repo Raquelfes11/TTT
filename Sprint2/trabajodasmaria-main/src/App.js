@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import HeroMessage from './components/HeroMessage/HeroMessage';
@@ -37,6 +38,8 @@ function App() {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  const navigate = useNavigate();
 
   const handleLogin = (userData) => {
     setUser(userData);
