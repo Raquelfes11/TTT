@@ -32,7 +32,6 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
   };
 
   const handleLogout = () => {
-    setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
