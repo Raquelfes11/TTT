@@ -53,8 +53,11 @@ function LoginForm({ onLogin }) {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('accessToken', data.access);
-        localStorage.setItem('username', data.username);
+        const userInfo = {
+          username: data.username,
+          accessToken: data.access,
+        };
+        localStorage.setItem("user", JSON.stringify(userInfo));
         onLogin(data);
         navigate('/'); 
       } else {

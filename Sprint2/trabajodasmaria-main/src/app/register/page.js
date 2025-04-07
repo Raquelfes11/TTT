@@ -81,9 +81,12 @@ function RegisterForm({ onLogin }) {
       const data = await response.json();
   
       if (response.ok) {
+        const userInfo = {
+          username: data.username,
+          accessToken: data.access,
+        };
         onLogin(data);
-        localStorage.setItem('accessToken', data.access);
-        localStorage.setItem('username', data.username);
+        localStorage.setItem("user", JSON.stringify(userInfo));
         navigate('/login'); 
       } else {
         setError(data.message || 'Error al registrar el usuario.');
