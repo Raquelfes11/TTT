@@ -1,83 +1,99 @@
 import { useState, useEffect } from "react";
 
-export default function ProductSearch({ setFilteredProducts }) {
+export default function AuctionSearch({ setFilteredAuctions }) {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [selectedCategory, setSelectedCategory] = useState(""); 
   const [minPrice, setMinPrice] = useState(""); 
   const [maxPrice, setMaxPrice] = useState(""); 
   const [categories, setCategories] = useState([]); 
-  const [products, setProducts] = useState([]); 
+  const [auctions, setAuctions] = useState([]); 
   const [filtered, setFiltered] = useState([]); 
   const [noResults, setNoResults] = useState(false); 
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products") 
+    // Obtener las categorías
+    fetch("http://localhost:8000/api/auctions/categories")
       .then((response) => response.json())
-      .then((data) => {
-        if (data.products && Array.isArray(data.products)) {
-          console.log("Productos obtenidos:", data.products); 
-          setProducts(data.products);
-          setFiltered(data.products);
-
-          const uniqueCategories = [
-            ...new Set(data.products.map((product) => product.category)),
-          ];
-          setCategories(uniqueCategories);
+      .then((categoriesData) => {
+        if (Array.isArray(categoriesData)) {
+          setCategories(categoriesData);
         }
       })
       .catch((error) => {
-        console.error("Error al cargar los productos:", error);
+        console.error("Error al cargar las categorías:", error);
       });
+    
+    // Llamada inicial para obtener todas las subastas
+    fetchAuctions();
   }, []);
+
+  const fetchAuctions = () => {
+    let url = "http://localhost:8000/api/auctions?";
+    
+    // Añadir parámetros de filtrado a la URL
+    if (searchTerm) {
+      url += `texto=${searchTerm}&`;
+    }
+    if (selectedCategory) {
+      url += `categoría=${selectedCategory}&`;
+    }
+    if (minPrice) {
+      url += `precioMin=${minPrice}&`;
+    }
+    if (maxPrice) {
+      url += `precioMax=${maxPrice}&`;
+    }
+
+    // Eliminar el último '&' si está presente
+    url = url.endsWith('&') ? url.slice(0, -1) : url;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          console.log("Subastas obtenidas:", data);
+          setAuctions(data);
+          setFiltered(data);
+          setNoResults(data.length === 0);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al cargar las subastas:", error);
+        setNoResults(true);
+      });
+  };
 
   const handleSearchChange = (e) => {
     const term = e.target.value.trim().toLowerCase(); 
     setSearchTerm(term);
-    filterProducts(term, selectedCategory, minPrice, maxPrice);
-  };
-
-  const filterProducts = (term, category, min, max) => {
-    const filteredProducts = products.filter((product) => {
-      const matchesCategory = category ? product.category === category : true;
-      const matchesPrice =
-        (min === "" || product.price >= parseFloat(min)) &&
-        (max === "" || product.price <= parseFloat(max));
-      const matchesTitle = product.title
-        ? product.title.toLowerCase().includes(term)
-        : false;
-
-      return matchesCategory && matchesPrice && matchesTitle;
-    });
-
-    setFiltered(filteredProducts);
-    setNoResults(filteredProducts.length === 0);
+    fetchAuctions();
   };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     setSelectedCategory(category);
-    filterProducts(searchTerm, category, minPrice, maxPrice);
+    fetchAuctions();
   };
 
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
     if (name === "minPrice") setMinPrice(value);
     if (name === "maxPrice") setMaxPrice(value);
-    filterProducts(searchTerm, selectedCategory, minPrice, maxPrice);
+    fetchAuctions();
   };
 
   useEffect(() => {
-    setFilteredProducts(filtered);
-  }, [filtered, setFilteredProducts]);
+    setFilteredAuctions(filtered);
+  }, [filtered, setFilteredAuctions]);
 
   return (
     <div>
-      <h1>Buscar Productos</h1>
+      <h1>Buscar Subastas</h1>
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="Buscar por nombre..."
+        placeholder="Buscar por título o descripción..."
       />
       <div>
         <label htmlFor="category">Categoría:</label>
@@ -88,8 +104,8 @@ export default function ProductSearch({ setFilteredProducts }) {
         >
           <option value="">Todas las categorías</option>
           {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+            <option key={category.id} value={category.name}>
+              {category.name}
             </option>
           ))}
         </select>
@@ -116,7 +132,7 @@ export default function ProductSearch({ setFilteredProducts }) {
           placeholder="Max"
         />
       </div>
-      {noResults && <p>No hay productos que coincidan con la búsqueda.</p>}
+      {noResults && <p>No hay subastas que coincidan con la búsqueda.</p>}
     </div>
   );
 }
