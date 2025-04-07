@@ -40,13 +40,11 @@ function Profile() {
   }, []); 
 
   const handleLogout = () => {
-    setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
     navigate('/');
   };
-  
 
   if (error) return <p>{error}</p>;
   if (!userData) return <p>Cargando...</p>;
