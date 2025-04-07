@@ -34,17 +34,17 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
     fetchCategories();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newSubasta = {
       id: new Date().getTime(),
       title,
       description,
-      endDate,
+      closing_date: endDate,
       startDate,
-      image,
-      startPrice: parseFloat(startPrice),
+      thumbnail: image,
+      price: parseFloat(startPrice),
       stock: parseInt(stock),
       rating: parseFloat(rating),
       category: selectedCategory,
@@ -53,13 +53,36 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
     };
 
-    // Guardar en localStorage
-    const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
-    existingSubastas.push(newSubasta);
-    localStorage.setItem('subastas', JSON.stringify(existingSubastas));
-
-    // Redirigir a Mis Subastas
-    navigate('/mis-subastas');
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/auctions/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}` si usás autenticación
+        },
+        body: JSON.stringify(newSubasta),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error al crear la subasta:', errorData);
+        alert(`Error: ${JSON.stringify(errorData)}`);
+        return;
+      }
+  
+      const result = await response.json();
+      console.log('Subasta creada con éxito:', result);
+  
+      // También lo guardas en localStorage si quieres mantener esa lógica
+      const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
+      existingSubastas.push(result);
+      localStorage.setItem('subastas', JSON.stringify(existingSubastas));
+  
+      navigate('/mis-subastas');
+    } catch (error) {
+      console.error('Error de red o del servidor:', error);
+      alert('Error del servidor o de red. Intenta de nuevo.');
+    }
   };
 
   return (
@@ -140,7 +163,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
             >
               <option value="">Selecciona una categoría</option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.name}>
+                <option key={cat.id} value={cat.id}>
                   {cat.name}
                 </option>
               ))}
