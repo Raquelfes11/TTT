@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import { Navigate } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';  // Importa correctamente 'Navigate'
+import { Route, Routes } from 'react-router-dom';  // No es necesario BrowserRouter aquí
 import Header from './components/Header/Header';
 import HeroMessage from './components/HeroMessage/HeroMessage';
 import Navigation from './components/Navigation/Navigation';
@@ -40,7 +39,7 @@ function App() {
     }
   }, []);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();  // Aquí ya es válido
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -56,32 +55,29 @@ function App() {
   };
 
   return (
-    <Router>
-      <div id="home-page">
-        <Header user={user} onLogout={handleLogout} /> 
-        <Navigation
-          products={products}
-          setFilteredProducts={setFilteredProducts}
-          user={user} 
-          onLogout={handleLogout} 
-        />
-        <Routes>
-          <Route path="/" element={<HeroMessage />} />
-          <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-          <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
-          <Route path="/product-list" element={<ProductList filteredProducts={filteredProducts} />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
-          <Route path="/usuario" element={user ? <UserDetails user={user} /> : <Navigate to="/login" />} />
-          <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
-          <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
-
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div id="home-page">
+      <Header user={user} onLogout={handleLogout} /> 
+      <Navigation
+        products={products}
+        setFilteredProducts={setFilteredProducts}
+        user={user} 
+        onLogout={handleLogout} 
+      />
+      <Routes>
+        <Route path="/" element={<HeroMessage />} />
+        <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
+        <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
+        <Route path="/product-list" element={<ProductList filteredProducts={filteredProducts} />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
+        <Route path="/usuario" element={user ? <UserDetails user={user} /> : <Navigate to="/login" />} />
+        <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
+        <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 
