@@ -91,6 +91,12 @@ function EditarSubasta({ user }) {
         if (response.ok) {
           const result = await response.json();
           console.log('Subasta actualizada con éxito:', result);
+          // Actualizar el localStorage
+          const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
+          const updatedSubastas = existingSubastas.map(subasta =>
+            subasta.id === result.id ? result : subasta
+          );
+          localStorage.setItem('subastas', JSON.stringify(updatedSubastas));
           navigate('/mis-subastas'); // Redirigir a "Mis Subastas" después de la actualización
         } else {
           const errorData = await response.json();
