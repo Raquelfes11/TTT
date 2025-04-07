@@ -12,6 +12,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
   const [stock, setStock] = useState('');
   const [rating, setRating] = useState('');
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [brand, setBrand] = useState('');
   const navigate = useNavigate();
 
@@ -46,7 +47,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       startPrice: parseFloat(startPrice),
       stock: parseInt(stock),
       rating: parseFloat(rating),
-      categories,
+      category: selectedCategory,
       brand,
 
       creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
@@ -133,8 +134,8 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
             <label htmlFor="category">Categoría:</label>
             <select
               id="category"
-              value={categories}
-              onChange={(e) => setCategories(e.target.value)}
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
               required
             >
               <option value="">Selecciona una categoría</option>
