@@ -1,0 +1,85 @@
+.editar-subasta-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #e0e0e0;
+  padding: 50px 0;
+  position: relative;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Caja del formulario */
+.form-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  margin: 0;
+}
+
+/* Título */
+.h2-subasta {
+  margin-bottom: 15px;
+  color: rgb(100, 100, 100);
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+}
+
+/* Labels */
+.form-subasta label {
+  display: block;
+  margin: 8px 0 4px;
+  text-align: left;
+  color: grey;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Inputs y textarea */
+.form-subasta input,
+.form-subasta textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Botón */
+.form-subasta button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.form-subasta button:hover {
+  background-color: #0056b3;
+}
