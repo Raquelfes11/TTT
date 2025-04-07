@@ -70,7 +70,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
-          <Route path="/usuario" element={<UserDetails user={user} />} />
+          <Route path="/usuario" element={user ? <UserDetails user={user} /> : <Navigate to="/login" />} />
           <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
           <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
 
