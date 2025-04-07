@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from "../../assets/imgs/logo.png";
-import styles from "./Header.module.css";
 
-function Header({ user }) {
+function Header() {
+  const [user, setUser] = useState(null);
+
+  // Verificar si hay un usuario en el localStorage cuando el componente se monta
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // Establecer el usuario desde el localStorage
+    }
+  }, []);
+
   return (
     <header>
       <section className="header-container">
@@ -30,6 +39,7 @@ function Header({ user }) {
 }
 
 export default Header;
+
 
 
 
