@@ -51,6 +51,7 @@ function App() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
     navigate('/');
+    window.location.reload();
   };
 
   return (

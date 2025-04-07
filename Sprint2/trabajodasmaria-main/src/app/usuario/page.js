@@ -44,6 +44,7 @@ function Profile() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
     navigate('/');
+    window.location.reload();
   };
 
   if (error) return <p>{error}</p>;

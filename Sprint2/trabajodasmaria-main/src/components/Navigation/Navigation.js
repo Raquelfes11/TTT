@@ -46,6 +46,7 @@ function Navigation({ products, setFilteredProducts }) {
     localStorage.removeItem('username');
     setUser(null); // Limpiar el estado local del usuario
     navigate('/');
+    window.location.reload();
   };
 
   return (
