@@ -32,10 +32,11 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
   };
 
   const handleLogout = () => {
-    setUser(null);  // <-- Reiniciar el estado del usuario
+    setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
-    navigate('/');  
+    localStorage.removeItem('username');
+    navigate('/');
   };
   
 

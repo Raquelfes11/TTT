@@ -40,10 +40,11 @@ function Profile() {
   }, []); 
 
   const handleLogout = () => {
-    setUser(null); // <-- Asegurar que se borra el usuario
-    navigate('/');  // <-- Redirigir a home
+    setUser(null);
+    localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
+    navigate('/');
   };
   
 

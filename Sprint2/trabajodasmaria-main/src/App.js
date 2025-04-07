@@ -45,7 +45,10 @@ function App() {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('username');
+    navigate('/');
   };
 
   return (
