@@ -32,16 +32,16 @@ export default function AuctionSearch({ setFilteredAuctions }) {
     
     // Añadir parámetros de filtrado a la URL
     if (searchTerm) {
-      url += `texto=${searchTerm}&`;
+      url += "texto=${searchTerm}&";
     }
     if (selectedCategory) {
-      url += `categoría=${selectedCategory}&`;
+      url += "categoría=${selectedCategory}&";
     }
     if (minPrice) {
-      url += `precioMin=${minPrice}&`;
+      url += "precioMin=${minPrice}&";
     }
     if (maxPrice) {
-      url += `precioMax=${maxPrice}&`;
+      url += "precioMax=${maxPrice}&";
     }
 
     // Eliminar el último '&' si está presente
