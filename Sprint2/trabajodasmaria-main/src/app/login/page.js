@@ -62,6 +62,7 @@ function LoginForm({ onLogin }) {
         localStorage.setItem("username", userInfo.accessToken);
         onLogin(data);
         navigate('/'); 
+        window.location.reload();
       } else {
         setError('Usuario o contraseña incorrectos');
       }
