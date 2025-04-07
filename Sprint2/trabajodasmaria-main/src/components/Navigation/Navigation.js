@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
-function Navigation({ products, setFilteredProducts, user }) {
+function Navigation({ products, setFilteredProducts }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null); // Estado local para el usuario
   const navigate = useNavigate();
+
+  // Verificar si hay un usuario en el localStorage cuando el componente se monta
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // Establece el usuario desde el localStorage
+    }
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -35,9 +44,9 @@ function Navigation({ products, setFilteredProducts, user }) {
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
+    setUser(null); // Limpiar el estado local del usuario
     navigate('/');
   };
-  
 
   return (
     <nav className={styles['main-navigation']}>
@@ -60,6 +69,7 @@ function Navigation({ products, setFilteredProducts, user }) {
             )}
           </li>
         )}
+
       </ul>
 
       <form onSubmit={handleSearchSubmit} className={styles['search-form']}>
@@ -92,4 +102,5 @@ function Navigation({ products, setFilteredProducts, user }) {
 }
 
 export default Navigation;
+
 
