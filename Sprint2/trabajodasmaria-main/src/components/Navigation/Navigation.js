@@ -55,7 +55,7 @@ function Navigation({ products, setFilteredProducts, user, setUser }) {
               <div className={styles.dropdownMenu}>
                 <button onClick={() => navigate('/usuario')}>Perfil</button>
                 <button onClick={handleLogout}>Cerrar sesión</button>
-                <button onClick={() => navigate('/mis-subastas')}>Mis Subastas</button> {/* Aquí se redirige a Mis Subastas */}
+                <button onClick={() => navigate('/mis-subastas')}>Mis Subastas</button> 
               </div>
             )}
           </li>
