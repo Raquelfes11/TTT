@@ -9,7 +9,7 @@ function Header() {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Establecer el usuario desde el localStorage
+      setUser(JSON.parse(storedUser)); // Establece el usuario desde el localStorage
     }
   }, []);
 
