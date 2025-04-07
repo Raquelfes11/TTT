@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
-function Navigation({ products, setFilteredProducts, user, setUser }) {
+function Navigation({ products, setFilteredProducts, user }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
