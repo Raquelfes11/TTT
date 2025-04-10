@@ -81,7 +81,7 @@
     text-decoration: underline;
 }
 
-.form-login-page input[type="email"],
+.form-login-page input[type="text"],
 .form-login-page input[type="password"] {
     width: 100%;
     padding: 12px;

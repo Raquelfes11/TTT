@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './page.module.css'; 
 
 function RegisterForm({ onLogin }) {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,7 +24,7 @@ function RegisterForm({ onLogin }) {
 
   useEffect(() => {
     validateForm();
-  }, [email, password, confirmPassword, firstName, lastName, birthDate, locality, municipality, dni, communitySelected]);
+  }, [username, email, password, confirmPassword, firstName, lastName, birthDate, locality, municipality, dni, communitySelected]);
 
   const validatePassword = (password) => {
     return password.length >= 8 && /[a-zA-Z]/.test(password) && /\d/.test(password);
@@ -58,19 +59,18 @@ function RegisterForm({ onLogin }) {
     e.preventDefault();
   
     const userData = {
-      username: email,
-      email,
-      password,
+      username: username,
+      email: email,
+      password: password,
       first_name: firstName,
       last_name: lastName,
       birth_date: birthDate,
-      locality,
-      municipality,
-      dni,
+      locality: locality,
+      municipality: municipality,
     };
   
     try {
-      const response = await fetch('https://das-p2-backend.onrender.com/api/users/register/', { // 
+      const response = await fetch('http://localhost:8000/api/users/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -202,6 +202,16 @@ function RegisterForm({ onLogin }) {
               placeholder="Enter your Last Name"
               value={lastName}
               onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
 

@@ -3,37 +3,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './page.module.css';  
 
 function LoginForm({ onLogin }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return emailPattern.test(email);
-  };
-
-  const handleEmailChange = (e) => {
-    const value = e.target.value;
-    setEmail(value);
-    if (!validateEmail(value)) {
-      setEmailError('Formato de email no válido');
-    } else {
-      setEmailError('');
-    }
-    validateForm(value, password);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    validateForm(e.target.value, password);
   };
 
   const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-    validateForm(email, value);
+    setPassword(e.target.value);
+    validateForm(username, e.target.value);
   };
 
-  const validateForm = (email, password) => {
-    if (validateEmail(email) && password.trim() !== '') {
+  const validateForm = (username, password) => {
+    if (username.trim() !== '' && password.trim() !== '') {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
@@ -43,12 +30,12 @@ function LoginForm({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://das-p2-backend.onrender.com/api/users/login/', {
+      const response = await fetch('http://localhost:8000/api/users/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
@@ -59,7 +46,6 @@ function LoginForm({ onLogin }) {
         };
         localStorage.setItem("user", JSON.stringify(userInfo));
         localStorage.setItem("accessToken", userInfo.accessToken);
-        localStorage.setItem("username", userInfo.accessToken);
         onLogin(data);
         navigate('/'); 
         window.location.reload();
@@ -78,16 +64,15 @@ function LoginForm({ onLogin }) {
           <h1 className={styles['h1-login-page']}>Sign in to TTT</h1>
           {error && <p className={styles['error-message']}>{error}</p>}
           <form onSubmit={handleSubmit} className={styles['form-login-page']}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              type="email"
-              id="email-login"
-              placeholder="Email Address"
-              value={email}
-              onChange={handleEmailChange}
+              type="text"
+              id="username-login"
+              placeholder="Username"
+              value={username}
+              onChange={handleUsernameChange}
               required
             />
-            {emailError && <span className={styles['error-message']}>{emailError}</span>}
 
             <section className={styles['password-container']}>
               <label htmlFor="password">Password</label>
@@ -113,3 +98,4 @@ function LoginForm({ onLogin }) {
 }
 
 export default LoginForm;
+
