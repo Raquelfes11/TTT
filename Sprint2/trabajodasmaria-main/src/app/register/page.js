@@ -87,6 +87,8 @@ function RegisterForm({ onLogin }) {
         };
         onLogin(data);
         localStorage.setItem("user", JSON.stringify(userInfo));
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("accessToken", data.access);
         navigate('/login'); 
       } else {
         setError(data.message || 'Error al registrar el usuario.');
@@ -134,6 +136,9 @@ function RegisterForm({ onLogin }) {
         break;
       case 'community':
         setCommunitySelected(value);
+        break;
+      case "username":
+        setUsername(value);
         break;
       default:
         break;
@@ -211,7 +216,7 @@ function RegisterForm({ onLogin }) {
               id="username"
               placeholder="Username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleChange}
               required
             />
 

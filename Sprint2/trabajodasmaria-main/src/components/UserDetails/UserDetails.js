@@ -11,7 +11,7 @@ function UserDetail({ user, setUser }) {
       const accessToken = user?.accessToken || localStorage.getItem('accessToken');
       if (accessToken) {
         try {
-          const response = await fetch('https://das-p2-backend.onrender.com/api/users/profile', {
+          const response = await fetch('http://localhost:8000/api/users/profile/', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${accessToken}`,
