@@ -28,20 +28,20 @@ export default function AuctionSearch({ setFilteredAuctions }) {
   }, []);
 
   const fetchAuctions = () => {
-    let url = "http://localhost:8000/api/auctions?";
+    let url = 'http://localhost:8000/api/auctions?';
     
     // Añadir parámetros de filtrado a la URL
     if (searchTerm) {
-      url += "texto=${searchTerm}&";
+      url += 'texto=${searchTerm}&';
     }
     if (selectedCategory) {
-      url += "categoría=${selectedCategory}&";
+      url += 'categoría=${selectedCategory}&';
     }
     if (minPrice) {
-      url += "precioMin=${minPrice}&";
+      url += 'precioMin=${minPrice}&';
     }
     if (maxPrice) {
-      url += "precioMax=${maxPrice}&";
+      url += 'precioMax=${maxPrice}&';
     }
 
     // Eliminar el último '&' si está presente
@@ -50,11 +50,11 @@ export default function AuctionSearch({ setFilteredAuctions }) {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          console.log("Subastas obtenidas:", data);
-          setAuctions(data);
-          setFiltered(data);
-          setNoResults(data.length === 0);
+        if (Array.isArray(data.results)) {
+          console.log("Subastas obtenidas:", data.results);
+          setAuctions(data.results);
+          setFiltered(data.results);
+          setNoResults(data.results.length === 0);
         }
       })
       .catch((error) => {
