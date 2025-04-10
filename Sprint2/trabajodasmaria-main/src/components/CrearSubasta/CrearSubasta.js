@@ -6,7 +6,6 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [startDate, setStartDate] = useState('');
   const [image, setImage] = useState('');
   const [startPrice, setStartPrice] = useState('');
   const [stock, setStock] = useState('');
@@ -42,7 +41,6 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       title,
       description,
       closing_date: endDate,
-      startDate,
       thumbnail: image,
       price: parseFloat(startPrice),
       stock: parseInt(stock),
@@ -50,7 +48,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       category: selectedCategory,
       brand,
 
-      auctioneer: user?.email || 1,  // <-- Asegurar que se guarda con el ID correcto
+      creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
     };
 
     try {
@@ -116,15 +114,6 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
               onChange={(e) => setStartPrice(e.target.value)}
               required
             />
-
-            <label htmlFor="startDate">Fecha de Inicio:</label>
-            <input
-              type="date"
-              id="startDate"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />    
 
             <label htmlFor="endDate">Fecha de Finalización:</label>
             <input

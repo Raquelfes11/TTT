@@ -8,7 +8,6 @@ function EditarSubasta({ user }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [startDate, setStartDate] = useState('');
     const [image, setImage] = useState('');
     const [startPrice, setStartPrice] = useState('');
     const [stock, setStock] = useState('');
@@ -49,7 +48,6 @@ function EditarSubasta({ user }) {
               setSelectedCategory(data.category.id);  // Usamos el ID de la categoría aquí
               setImage(data.thumbnail);
               setEndDate(data.closing_date);  // Usamos 'closing_date' según tu modelo
-              setStartDate(data.startDate)
             } else {
               console.error('Error al obtener la subasta');
             }
@@ -70,7 +68,6 @@ function EditarSubasta({ user }) {
         title,
         description,
         closing_date: endDate,
-        startDate,
         thumbnail: image,
         price: parseFloat(startPrice),
         stock: parseInt(stock),
@@ -144,15 +141,6 @@ function EditarSubasta({ user }) {
                 onChange={(e) => setStartPrice(e.target.value)}
                 required
               />
-  
-              <label htmlFor="startDate">Fecha de Inicio:</label>
-              <input
-                type="date"
-                id="startDate"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                required
-              />    
   
               <label htmlFor="endDate">Fecha de Finalización:</label>
               <input
