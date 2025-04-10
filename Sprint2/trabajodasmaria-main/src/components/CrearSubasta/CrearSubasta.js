@@ -50,7 +50,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       category: selectedCategory,
       brand,
 
-      creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
+      auctioneer: user?.email || 1,  // <-- Asegurar que se guarda con el ID correcto
     };
 
     try {

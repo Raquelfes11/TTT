@@ -9,7 +9,8 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        //const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`);
         if (response.ok) {
           const data = await response.json();
           setProduct(data); // Establecemos el producto en el estado
@@ -47,7 +48,7 @@ function ProductDetail() {
       {product ? (
         <div className={styles.productDetailContent}>
           <div className={styles.mainImage}>
-            <img src={product.thumbnail} alt={product.title} />
+            <img src={product.image || product.thumbnail} alt={product.title} />
           </div>
           
           <div className={styles.productInfo}>
@@ -56,9 +57,13 @@ function ProductDetail() {
               <h3>Descripción:</h3>
               <p>{product.description}</p>
               <ul>
-                <li><strong>Precio:</strong> ${product.price}</li>
-                <li><strong>Categoría:</strong> {product.category}</li>
-                <li><strong>Stock:</strong> {product.stock} unidades disponibles</li>
+                <li><strong>Precio inicial:</strong> ${product.price}</li>
+                <li><strong>Stock:</strong> {product.stock}</li>
+                <li><strong>Marca:</strong> {product.brand}</li>
+                <li><strong>Categoría:</strong> {product.category?.name || product.category}</li>
+                <li><strong>Rating:</strong> {product.rating}</li>
+                <li><strong>Fecha de creación:</strong> {product.creation_date}</li>
+                <li><strong>Fecha de cierre:</strong> {product.closing_date}</li>
               </ul>
             </div>
           </div>
@@ -67,13 +72,17 @@ function ProductDetail() {
             <button className={styles.btnWishlist} onClick={() => addToWishlist(product)}>
               Añadir a wishlist
             </button>
-            <button 
-              className={styles.btnCart} 
-              onClick={() => addToCart(product)}
-              disabled={product.stock <= 0} 
-            >
-              {product.stock > 0 ? 'Pujar' : 'Producto agotado'}
-            </button>
+            {product.isOpen ? (
+                <button 
+                  className={styles.btnCart} 
+                  onClick={() => addToCart(product)}
+                  disabled={product.stock <= 0}
+                >
+                  Pujar
+                </button>
+              ) : (
+                <p className={styles.inactiveAuction}>Puja no disponible</p>
+              )}
           </div>
         </div>
       ) : (
