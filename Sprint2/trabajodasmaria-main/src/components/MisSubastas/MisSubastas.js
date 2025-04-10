@@ -2,34 +2,62 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './MisSubastas.module.css';
 
-function MisSubastas({ user }) {  // <-- Recibir user como prop
+function MisSubastas() {
   const [subastas, setSubastas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {  // <-- Asegurar que user existe antes de filtrar
-      const userSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
-      setSubastas(userSubastas.filter(subasta => subasta.creatorId === user.id)); // <-- Filtrar por user.id
-    }
-  }, [user]);
+    const fetchSubastas = async () => {
+      try {
+        setLoading(true);  // Empezamos a cargar
+        const accessToken = localStorage.getItem('accessToken');  // Obtener el token desde el localStorage
+        
+        if (!accessToken) {
+          setError('No estás autenticado. Por favor, inicia sesión.');
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch('http://localhost:8000/api/auctions/missubastas', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,  // Autenticación con el token
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('No se pudieron obtener tus subastas');
+        }
+
+        const data = await response.json();
+        setSubastas(data);  // Establecer las subastas obtenidas
+      } catch (error) {
+        setError(error.message);  // Mostrar el error si ocurre
+      } finally {
+        setLoading(false);  // Finalizar la carga
+      }
+    };
+
+    fetchSubastas();  // Llamar a la función para obtener las subastas
+  }, []);
 
   const handleCreateSubasta = () => {
-    navigate('/crear-subasta');  
+    navigate('/crear-subasta');
   };
 
   const handleDeleteSubasta = (id) => {
     const updatedSubastas = subastas.filter(subasta => subasta.id !== id);
     setSubastas(updatedSubastas);
-    localStorage.setItem('subastas', JSON.stringify(updatedSubastas)); 
   };
 
   const handleUpdateSubasta = (id) => {
-    navigate(`/editar-subasta/${id}`);  
+    navigate(`/editar-subasta/${id}`);
   };
 
   const handleClearSubastas = () => {
     setSubastas([]);
-    localStorage.removeItem('subastas');
   };
 
   return (
@@ -45,7 +73,11 @@ function MisSubastas({ user }) {  // <-- Recibir user como prop
         </button>
       </div>
 
-      {subastas.length > 0 ? (
+      {loading ? (
+        <p>Cargando tus subastas...</p>
+      ) : error ? (
+        <p className={styles['error']}>{error}</p>
+      ) : subastas.length > 0 ? (
         <div className={styles['subastas-list']}>
           {subastas.map(subasta => (
             <div className={styles['subasta-card']} key={subasta.id}>
