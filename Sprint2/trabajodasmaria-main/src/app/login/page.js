@@ -30,7 +30,7 @@ function LoginForm({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/users/login/', {
+      const response = await fetch('http://127.0.0.1:8000/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,11 +40,10 @@ function LoginForm({ onLogin }) {
 
       const data = await response.json();
       if (response.ok) {
-        const result = await response.json();
         const userInfo = {
           username: data.username,
           accessToken: data.access,
-          id: result.user.id,
+          id: data.id,
         };
         console.log(data.id)
         localStorage.setItem("user", JSON.stringify(userInfo));

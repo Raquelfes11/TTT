@@ -47,7 +47,7 @@ function CrearSubasta() {
       return;
     }
 
-    if (!user || !user.id) {
+    if (!user || !user.user.id) {
       alert('El usuario no está correctamente autenticado.');
       navigate('/login');
       return;
@@ -63,7 +63,7 @@ function CrearSubasta() {
       rating: parseFloat(rating),
       category: selectedCategory,
       brand,
-      auctioneer: user.id,  // Usamos el ID del usuario autenticado para el campo 'auctioneer'
+      auctioneer: user.user.id,  // Usamos el ID del usuario autenticado para el campo 'auctioneer'
     };
 
     try {
@@ -144,7 +144,9 @@ function CrearSubasta() {
               type="number"
               id="stock"
               value={stock}
-              onChange={(e) => setStock(e.target.value)}
+              onChange={(e) => setStock(Math.max(0, e.target.value))} // Asegura que el stock sea positivo
+              min="0"
+              inputMode="numeric"  // Opcional: Ayuda a evitar caracteres no numéricos
               required
             />
 
@@ -152,12 +154,14 @@ function CrearSubasta() {
             <input
               type="number"
               id="rating"
-              step="0.1"
               value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              onChange={(e) => setRating(Math.min(5, Math.max(0, e.target.value)))} // Asegura que el rating esté entre 0 y 5
+              min="0"
+              max="5"
+              step="0.1"
               required
             />
-
+            
             <label htmlFor="category">Categoría:</label>
             <select
               id="category"

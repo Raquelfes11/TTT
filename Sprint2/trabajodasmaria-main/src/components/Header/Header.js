@@ -23,7 +23,7 @@ function Header() {
           {user ? (
             <ul>
               <li>
-                <Link to="/usuario">Hola, {user.username}</Link>
+                <Link to="/usuario">Hola, {user.user.username}</Link>
               </li>
             </ul>
           ) : (

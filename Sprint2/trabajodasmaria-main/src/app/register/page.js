@@ -81,11 +81,10 @@ function RegisterForm({ onLogin }) {
       const data = await response.json();
   
       if (response.ok) {
-        const result = await response.json();
         const userInfo = {
-          username: data.username,
+          username: data.user.username,
           accessToken: data.access,
-          id: result.user.id,
+          id: data.user.id,
         };
         onLogin(data);
         localStorage.setItem("user", JSON.stringify(userInfo));
