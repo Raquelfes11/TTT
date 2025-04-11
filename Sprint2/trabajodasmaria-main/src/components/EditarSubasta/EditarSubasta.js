@@ -75,12 +75,19 @@ function EditarSubasta({ user }) {
         category: selectedCategory,
         brand,
       };
+
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        alert('No se encuentra el token de acceso. Inicia sesión nuevamente.');
+        return;
+      }
   
       try {
         const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
           },
           body: JSON.stringify(updatedSubasta),
         });
@@ -97,7 +104,6 @@ function EditarSubasta({ user }) {
           navigate('/mis-subastas'); // Redirigir a "Mis Subastas" después de la actualización
         } else {
           const errorData = await response.json();
-          console.error('Error al actualizar la subasta:', errorData);
           alert('Error al actualizar la subasta. Por favor, inténtalo de nuevo.');
         }
       } catch (error) {
