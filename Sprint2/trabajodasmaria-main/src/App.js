@@ -11,7 +11,7 @@ import ProductList from './components/ProductList/ProductList';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import ProductSearch from './components/ProductSearch/ProductSearch'; 
 import UserDetails from './components/UserDetails/UserDetails';
-import Cart from './components/Cart/Cart'; 
+import MisPujas from './components/MisPujas/MisPujas'; 
 import Wishlist from './components/WishList/WishList'; 
 import MisSubastas from './components/MisSubastas/MisSubastas';
 import CrearSubasta from './components/CrearSubasta/CrearSubasta';
@@ -70,7 +70,7 @@ function App() {
         <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
         <Route path="/product-list" element={<ProductList filteredProducts={filteredProducts} />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/MisPujas" element={<MisPujas />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
         <Route path="/usuario" element={user ? <UserDetails user={user} /> : <Navigate to="/login" />} />

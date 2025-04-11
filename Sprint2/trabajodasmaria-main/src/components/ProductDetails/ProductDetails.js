@@ -25,12 +25,12 @@ function ProductDetail() {
     fetchProductDetails();
   }, [id]); 
 
-  const addToCart = (product) => {
+  const addToPujas = (product) => {
     if (product.stock > 0) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert("Producto añadido al carrito");
+      let pujas = JSON.parse(localStorage.getItem("misPujas")) || [];
+      pujas.push(product);
+      localStorage.setItem("misPujas", JSON.stringify(pujas));
+      alert("Has pujado por este producto");
     } else {
       alert("Este producto está agotado");
     }
@@ -74,8 +74,8 @@ function ProductDetail() {
             </button>
             {product.isOpen ? (
                 <button 
-                  className={styles.btnCart} 
-                  onClick={() => addToCart(product)}
+                  className={styles.btnPujas} 
+                  onClick={() => addToPujas(product)}
                   disabled={product.stock <= 0}
                 >
                   Pujar

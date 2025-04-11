@@ -53,7 +53,7 @@ function Navigation({ products, setFilteredProducts }) {
     <nav className={styles['main-navigation']}>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/cart">Pujas</a></li>
+        <li><a href="/MisPujas">Pujas</a></li>
         <li><a href="/wishlist">WishList</a></li>
 
         {user && (
