@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CrearSubasta.module.css';
 
-function CrearSubasta({ user }) {  // <-- Recibir user como prop
+function CrearSubasta() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -36,8 +36,24 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Obtener el token y el usuario desde localStorage
+    const accessToken = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // Verificar que el accessToken y user están presentes
+    if (!accessToken) {
+      alert('No estás autenticado. Inicia sesión primero.');
+      navigate('/login');
+      return;
+    }
+
+    if (!user || !user.id) {
+      alert('El usuario no está correctamente autenticado.');
+      navigate('/login');
+      return;
+    }
+
     const newSubasta = {
-      id: new Date().getTime(),
       title,
       description,
       closing_date: endDate,
@@ -47,8 +63,7 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
       rating: parseFloat(rating),
       category: selectedCategory,
       brand,
-
-      creatorId: user?.id || 1,  // <-- Asegurar que se guarda con el ID correcto
+      auctioneer: user.id,  // Usamos el ID del usuario autenticado para el campo 'auctioneer'
     };
 
     try {
@@ -56,26 +71,26 @@ function CrearSubasta({ user }) {  // <-- Recibir user como prop
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}` si usás autenticación
+          'Authorization': `Bearer ${accessToken}`,  // Autenticación con el token
         },
         body: JSON.stringify(newSubasta),
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Error al crear la subasta:', errorData);
         alert(`Error: ${JSON.stringify(errorData)}`);
         return;
       }
-  
+
       const result = await response.json();
       console.log('Subasta creada con éxito:', result);
-  
+
       // También lo guardas en localStorage si quieres mantener esa lógica
       const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
       existingSubastas.push(result);
       localStorage.setItem('subastas', JSON.stringify(existingSubastas));
-  
+
       navigate('/mis-subastas');
     } catch (error) {
       console.error('Error de red o del servidor:', error);

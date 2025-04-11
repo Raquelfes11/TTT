@@ -20,7 +20,7 @@ function MisSubastas() {
           return;
         }
 
-        const response = await fetch('http://localhost:8000/api/auctions/missubastas', {
+        const response = await fetch('http://localhost:8000/api/auctions/misSubastas', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${accessToken}`,  // Autenticación con el token

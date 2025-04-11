@@ -40,10 +40,13 @@ function LoginForm({ onLogin }) {
 
       const data = await response.json();
       if (response.ok) {
+        const result = await response.json();
         const userInfo = {
           username: data.username,
           accessToken: data.access,
+          id: result.user.id,
         };
+        console.log(data.id)
         localStorage.setItem("user", JSON.stringify(userInfo));
         localStorage.setItem("accessToken", userInfo.accessToken);
         onLogin(data);
