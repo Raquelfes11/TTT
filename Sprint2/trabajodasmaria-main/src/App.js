@@ -47,12 +47,44 @@ function App() {
     localStorage.setItem("user", JSON.stringify(userData));
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('username');
-    navigate('/');
-    window.location.reload();
+  const handleLogout = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user'));  // Convierte la cadena JSON a un objeto
+    const refreshToken = user ? user.refresh : null;  // Accede al refreshToken de manera segura
+
+  
+    if (!refreshToken) {
+      alert('No se encontró el refresh token. Por favor, inicie sesión nuevamente.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/users/log-out/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Asegúrate de enviar el contenido en JSON
+          'Authorization': `Bearer ${accessToken}`, // Esto sigue siendo útil para validar la sesión en el backend
+        },
+        body: JSON.stringify({ refresh: refreshToken })  // Enviar el refreshToken en el cuerpo de la solicitud
+      });
+  
+      if (response.ok) {
+        // Si la respuesta es exitosa, eliminar del localStorage
+        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('username');
+        localStorage.removeItem('subastas');
+        localStorage.removeItem('misPujas');
+        setUser(null); // Limpiar el estado local del usuario
+        navigate('/');
+        window.location.reload(); // Recargar la página para limpiar cualquier estado adicional
+      } else {
+        const errorData = await response.json();
+        alert('Error al cerrar sesión. Intenta de nuevo.');
+      }
+    } catch (error) {
+      alert('Hubo un problema con la conexión al servidor. Intenta de nuevo.');
+    }
   };
 
   return (
