@@ -47,10 +47,31 @@ function MisSubastas() {
     navigate('/crear-subasta');
   };
 
-  const handleDeleteSubasta = (id) => {
-    const updatedSubastas = subastas.filter(subasta => subasta.id !== id);
-    setSubastas(updatedSubastas);
+  const handleDeleteSubasta = async (id) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar esta subasta?");
+    if (!confirmDelete) return;
+  
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const response = await fetch(`http://localhost:8000/api/auctions/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.status === 204) {
+        const updatedSubastas = subastas.filter(subasta => subasta.id !== id);
+        setSubastas(updatedSubastas);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Error al eliminar la subasta');
+      }
+    } catch (error) {
+      alert(`Hubo un error al eliminar la subasta: ${error.message}`);
+    }
   };
+  
 
   const handleUpdateSubasta = (id) => {
     navigate(`/editar-subasta/${id}`);
