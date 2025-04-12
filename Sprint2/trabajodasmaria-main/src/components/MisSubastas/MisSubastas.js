@@ -71,7 +71,6 @@ function MisSubastas() {
       alert(`Hubo un error al eliminar la subasta: ${error.message}`);
     }
   };
-  
 
   const handleUpdateSubasta = (id) => {
     navigate(`/editar-subasta/${id}`);
@@ -92,7 +91,6 @@ function MisSubastas() {
       });
   
       if (response.status === 204 || response.ok) {
-        // Eliminadas con éxito, limpiamos el estado local
         setSubastas([]);
       } else {
         const errorData = await response.json();
@@ -101,8 +99,7 @@ function MisSubastas() {
     } catch (error) {
       alert(`Error al eliminar todas tus subastas: ${error.message}`);
     }
-  };
-  
+  };  
 
   return (
     <div className={styles['mis-subastas']}>
