@@ -48,6 +48,10 @@ function EditarDetallesUsuario({ user }) {
     }
   };
 
+  const handleGoToForgotPassword = () => {
+    navigate('/ChangePassword');
+  };
+
   return (
     <div className={styles['editar-subasta-page']}>
       <div className={styles['form-container']}>
@@ -70,7 +74,11 @@ function EditarDetallesUsuario({ user }) {
             <input type="text" name="locality" value={formData.locality} onChange={handleChange} />
 
             {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
-
+            
+            <button className={styles.button} onClick={handleGoToForgotPassword}>
+                ¿Cambiar contraseña?
+            </button>
+            
             <button type="submit">Guardar Cambios</button>
           </form>
         </div>
