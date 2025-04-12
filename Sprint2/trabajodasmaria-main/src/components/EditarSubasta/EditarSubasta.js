@@ -45,7 +45,7 @@ function EditarSubasta({ user }) {
               setStock(data.stock);
               setRating(data.rating);
               setBrand(data.brand);
-              setSelectedCategory(data.category.id);  // Usamos el ID de la categoría aquí
+              setSelectedCategory(data.category);  // Usamos el ID de la categoría aquí
               setImage(data.thumbnail);
               setEndDate(data.closing_date);  // Usamos 'closing_date' según tu modelo
             } else {
