@@ -65,8 +65,8 @@ function RegisterForm({ onLogin }) {
       first_name: firstName,
       last_name: lastName,
       birth_date: birthDate,
-      locality: locality,
-      municipality: municipality,
+      municipality: communitySelected,
+      locality: municipality,
     };
   
     try {
