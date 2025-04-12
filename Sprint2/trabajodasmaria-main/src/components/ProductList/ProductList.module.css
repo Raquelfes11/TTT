@@ -79,20 +79,21 @@
 }
 
 /* Hover común para los botones */
-.product-card .btn-more:hover,
 .product-card:hover {
+    background-color: lightgrey;
+}
+.btn-more:hover {
     background-color: #5a6268;
 }
 
 .product-card  {
-    background-color: #6c757d;
+    background-color: lightgray;
 }
-
 
 
 .product-list p {
     font-size: 1.1rem;
-    color: #777;
+    color: grey;
     font-style: italic;
     margin-top: 20px;
 }
