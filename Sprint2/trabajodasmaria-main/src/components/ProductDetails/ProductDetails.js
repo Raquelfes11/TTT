@@ -94,6 +94,24 @@ function ProductDetail() {
                 <li><strong>Fecha de cierre:</strong> {product.closing_date}</li>
               </ul>
             </div>
+
+            {/* Historial de Pujas */}
+            <div className={styles.bidsSection}>
+              <h3 className={styles.bidsTitle}>Historial de Pujas</h3>
+              {product.bids && product.bids.length > 0 ? (
+                <ul className={styles.bidList}>
+                  {product.bids.map((bid) => (
+                    <li key={bid.id} className={styles.bidItem}>
+                      💰 <strong>{bid.price}€</strong> — 👤 {bid.bidder_username} — 🕒{" "}
+                      {new Date(bid.creation_date).toLocaleString()}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.noBids}>No hay pujas aún para este producto.</p>
+              )}
+            </div>
+
           </div>
 
           <div className={styles.actionButtons}>
