@@ -26,6 +26,7 @@ function MisPujas() {
               <img src={item.thumbnail} alt={item.title} />
               <h3>{item.title}</h3>
               <p>Precio: ${item.price}</p>
+              <p>Cantidad Puja: ${item.pujaAmount}</p> {/* Muestra la cantidad de la puja */}
               <button 
                 className={styles['btn-remove']} 
                 onClick={() => removeItemFromPujas(index)}
