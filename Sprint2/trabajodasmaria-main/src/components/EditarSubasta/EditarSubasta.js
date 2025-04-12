@@ -47,7 +47,8 @@ function EditarSubasta({ user }) {
               setBrand(data.brand);
               setSelectedCategory(data.category);  // Usamos el ID de la categoría aquí
               setImage(data.thumbnail);
-              setEndDate(data.closing_date);  // Usamos 'closing_date' según tu modelo
+              const formattedDate = new Date(data.closing_date).toISOString().split('T')[0]; // 'YYYY-MM-DD'
+              setEndDate(formattedDate); // Usamos 'closing_date' según tu modelo
             } else {
               console.error('Error al obtener la subasta');
             }
