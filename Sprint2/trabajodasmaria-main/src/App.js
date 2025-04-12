@@ -24,15 +24,25 @@ function App() {
   const [user, setUser] = useState(null); 
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
-        setFilteredProducts(data.products);
-      })
-      .catch((error) => {
-        console.error("Error al cargar los productos:", error);
-      });
+    const fetchAllProducts = async () => {
+      let allProducts = [];
+      let url = 'http://127.0.0.1:8000/api/auctions/';
+  
+      try {
+        while (url) {
+          const response = await fetch(url);
+          const data = await response.json();
+          allProducts = [...allProducts, ...data.results];
+          url = data.next; // Avanza a la siguiente página si existe
+        }
+        setProducts(allProducts);
+        setFilteredProducts(allProducts);
+      } catch (error) {
+        console.error("Error al cargar los productos desde el backend:", error);
+      }
+    };
+  
+    fetchAllProducts();
 
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
