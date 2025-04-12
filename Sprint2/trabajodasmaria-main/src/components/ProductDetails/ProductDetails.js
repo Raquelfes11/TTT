@@ -99,12 +99,6 @@ function ProductDetail() {
     setIsPujaModalOpen(false); // Cierra el modal
   };
 
-  const addToWishlist = (product) => {
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    wishlist.push(product);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    alert("Producto añadido a la wishlist");
-  };
 
   return (
     <div className={styles.productDetails}>
@@ -150,9 +144,6 @@ function ProductDetail() {
           <div className={styles.actionButtons}>
             {!isPujaInProgress && (
               <>
-                <button className={styles.btnWishlist} onClick={() => addToWishlist(product)}>
-                  Añadir a wishlist
-                </button>
                 {product.isOpen ? (
                   <button 
                     className={styles.btnPujas} 

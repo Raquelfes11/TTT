@@ -3,13 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from './ProductList.module.css';
 
 function ProductList({ filteredProducts }) {
-  
-  const addToWishlist = (product) => {
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    wishlist.push(product);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    alert("Producto añadido a la wishlist");
-  };
 
   return (
     <div className={styles['product-list']}>
@@ -24,7 +17,6 @@ function ProductList({ filteredProducts }) {
               <Link to={`/products/${product.id}`}>
                 <button className={styles['btn-more']}>Ver más</button>
               </Link>
-              <button className={styles['btn-wishlist']} onClick={() => addToWishlist(product)}>Añadir a wishlist</button>
             </div>
           ))}
         </div>

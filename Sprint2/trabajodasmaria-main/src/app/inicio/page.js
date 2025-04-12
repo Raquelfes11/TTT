@@ -50,7 +50,6 @@ function ProductList() {
               <h3>${product.title}</h3>
               <p>Precio:{product.price}</p>
               <button className="btn-more">Ver más</button>
-              <button className="btn-wishlist">Añadir a favoritos</button>
             </div>
           ))
         ) : (

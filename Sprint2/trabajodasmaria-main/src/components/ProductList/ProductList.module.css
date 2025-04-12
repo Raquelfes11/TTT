@@ -66,7 +66,7 @@
 
 /* Botones (gris con hover para ambos) */
 .product-card .btn-more,
-.product-card .btn-wishlist {
+.product-card  {
     background-color: #6c757d;
     color: white;
     border: none;
@@ -80,11 +80,11 @@
 
 /* Hover común para los botones */
 .product-card .btn-more:hover,
-.product-card .btn-wishlist:hover {
+.product-card:hover {
     background-color: #5a6268;
 }
 
-.product-card .btn-wishlist {
+.product-card  {
     background-color: #6c757d;
 }
 
