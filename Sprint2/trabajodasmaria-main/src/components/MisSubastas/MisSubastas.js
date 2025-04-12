@@ -77,9 +77,32 @@ function MisSubastas() {
     navigate(`/editar-subasta/${id}`);
   };
 
-  const handleClearSubastas = () => {
-    setSubastas([]);
+  const handleClearSubastas = async () => {
+    const confirmClear = window.confirm("¿Estás seguro de que quieres eliminar TODAS tus subastas?");
+    if (!confirmClear) return;
+  
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+  
+      const response = await fetch('http://localhost:8000/api/auctions/misSubastas', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.status === 204 || response.ok) {
+        // Eliminadas con éxito, limpiamos el estado local
+        setSubastas([]);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'No se pudieron eliminar las subastas');
+      }
+    } catch (error) {
+      alert(`Error al eliminar todas tus subastas: ${error.message}`);
+    }
   };
+  
 
   return (
     <div className={styles['mis-subastas']}>
