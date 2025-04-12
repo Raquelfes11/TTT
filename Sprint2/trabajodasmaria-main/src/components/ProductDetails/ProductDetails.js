@@ -91,6 +91,7 @@ function ProductDetail() {
     } catch (error) {
       console.error("Error al registrar la puja:", error);
     }
+    window.location.reload();
   };
 
   const handleCancelPuja = () => {
