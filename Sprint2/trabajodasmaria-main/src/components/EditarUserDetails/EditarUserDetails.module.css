@@ -77,4 +77,22 @@
   .form-subasta button:hover {
     background-color: darkgrey;
   }
+
+  .button:hover {
+    background-color: darkgrey;
+  }
+
+  .button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+    background-color: grey;
+    color: white;
+    transition: background 0.3s ease;
+  }
   
