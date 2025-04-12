@@ -41,7 +41,7 @@ function UserDetail({ user, setUser }) {
           <div>
             <h2>Detalle de Usuario</h2>
             <p><strong>Nombre de Usuario:</strong> {userDetails.username}</p>
-            <p><strong>Nombre:</strong> {userDetails.first_name} {userDetails.last_name}</p>
+            <p><strong>Nombre Completo:</strong> {userDetails.first_name} {userDetails.last_name}</p>
             <p><strong>Email:</strong> {userDetails.email}</p>
             <p><strong>Fecha de Nacimiento:</strong> {userDetails.birth_date}</p>
             <p><strong>Comunidad Autónoma:</strong> {userDetails.municipality}</p>
