@@ -41,7 +41,7 @@ function EditarDetallesUsuario({ user }) {
 
       const data = await response.json();
       console.log('Actualizado:', data);
-      navigate('/usuario'); // o a donde quieras redirigir
+      navigate('/usuario');
     } catch (err) {
       console.error(err);
       setError('Error al actualizar los datos.');

@@ -7,15 +7,14 @@ function Navigation({ products, setFilteredProducts }) {
   const [priceFilter, setPriceFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState(null); // Estado local para el usuario
+  const [user, setUser] = useState(null); 
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
-  // Verificar si hay un usuario en el localStorage cuando el componente se monta
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Establece el usuario desde el localStorage
+      setUser(JSON.parse(storedUser)); 
     }
 
     const fetchCategories = async () => {
@@ -23,7 +22,7 @@ function Navigation({ products, setFilteredProducts }) {
         const response = await fetch('http://127.0.0.1:8000/api/auctions/categories/');
         if (response.ok) {
           const data = await response.json();
-          setCategories(data.results); // Guardamos las categorías en el estado
+          setCategories(data.results); 
         } else {
           console.error('No se pudieron cargar las categorías');
         }
@@ -50,7 +49,7 @@ function Navigation({ products, setFilteredProducts }) {
     }
 
     if (categoryFilter) {
-      filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); // Aquí a lo mejor tengo que quitar el útimo igual
+      filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); 
     }
     
     setFilteredProducts(filtered);
@@ -59,8 +58,8 @@ function Navigation({ products, setFilteredProducts }) {
 
   const handleLogout = async () => {
     const accessToken = localStorage.getItem('accessToken');
-    const user = JSON.parse(localStorage.getItem('user'));  // Convierte la cadena JSON a un objeto
-    const refreshToken = user ? user.refresh : null;  // Accede al refreshToken de manera segura
+    const user = JSON.parse(localStorage.getItem('user'));  
+    const refreshToken = user ? user.refresh : null; 
 
   
     if (!refreshToken) {
@@ -72,22 +71,22 @@ function Navigation({ products, setFilteredProducts }) {
       const response = await fetch('http://127.0.0.1:8000/api/users/log-out/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Asegúrate de enviar el contenido en JSON
-          'Authorization': `Bearer ${accessToken}`, // Esto sigue siendo útil para validar la sesión en el backend
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${accessToken}`, 
         },
-        body: JSON.stringify({ refresh: refreshToken })  // Enviar el refreshToken en el cuerpo de la solicitud
+        body: JSON.stringify({ refresh: refreshToken })  
       });
   
       if (response.ok) {
-        // Si la respuesta es exitosa, eliminar del localStorage
+
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('username');
         localStorage.removeItem('subastas');
         localStorage.removeItem('misPujas');
-        setUser(null); // Limpiar el estado local del usuario
+        setUser(null); 
         navigate('/');
-        window.location.reload(); // Recargar la página para limpiar cualquier estado adicional
+        window.location.reload(); 
       } else {
         const errorData = await response.json();
         alert('Error al cerrar sesión. Intenta de nuevo.');

@@ -108,7 +108,7 @@
     align-items: center;
     width: 100%;
     position: relative;
-    min-height: auto; /* Para que crezca según el contenido */
+    min-height: auto; 
     padding: 20px; 
 }
 
@@ -122,7 +122,7 @@
     max-width: 85%;
     box-sizing: border-box;
     overflow: auto;
-    max-height: none; /* Eliminar la restricción de altura */
+    max-height: none; 
 }
 
 #h1-register-page {
@@ -216,13 +216,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Para que el contenido principal ocupe el espacio disponible */
+    flex-grow: 1; 
     width: 100%;
     height: 100vh;
     background-image: url('assets/imgs/ImagenFondo.jpg'); 
     background-size: cover; 
     background-position: center; 
-    padding: 50px 0; /* Espacio arriba y abajo */
+    padding: 50px 0; 
 }
 
 .logo-container-forgot-password-page {
@@ -251,7 +251,7 @@
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 400px; /* Reducir el ancho del cuadro para que quepa mejor */
+    width: 400px; 
     max-width: 100%;
     box-sizing: border-box;
     overflow: auto;
@@ -325,7 +325,7 @@
 
 /* CSS for Motos */
 .main-motos {
-    background-color: #949494; /* Gris clarito para el fondo */
+    background-color: #949494; 
     padding: 20px;
     text-align: center;
 }

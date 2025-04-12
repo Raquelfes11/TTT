@@ -8,7 +8,7 @@ function ProductDetail() {
   const [pujaAmount, setPujaAmount] = useState('');
   const [isPujaModalOpen, setIsPujaModalOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isPujaInProgress, setIsPujaInProgress] = useState(false); // Nuevo estado
+  const [isPujaInProgress, setIsPujaInProgress] = useState(false); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -22,7 +22,7 @@ function ProductDetail() {
         if (response.ok) {
           const data = await response.json();
           console.log(data.auctioneer)
-          // Aseguramos que las pujas estén ordenadas de mayor a menor
+
           const sortedBids = data.bids.sort((a, b) => b.price - a.price);
           setProduct({...data, bids: sortedBids});
   
@@ -45,7 +45,7 @@ function ProductDetail() {
 
   const handlePujar = () => {
     if (product.stock > 0 && isAuthenticated) {
-      setIsPujaInProgress(true); // Activa el estado de puja
+      setIsPujaInProgress(true); 
       setIsPujaModalOpen(true);
     } else if (!isAuthenticated) {
       alert("Por favor, inicia sesión para poder pujar.");
@@ -82,8 +82,8 @@ function ProductDetail() {
 
       if (response.ok) {
         alert("Has pujado por este producto");
-        setIsPujaInProgress(false); // Desactiva el estado de puja
-        setIsPujaModalOpen(false); // Cierra el modal
+        setIsPujaInProgress(false); 
+        setIsPujaModalOpen(false); 
       } else {
         const errorData = await response.json();
         console.error("Error en la puja:", errorData);
@@ -96,8 +96,8 @@ function ProductDetail() {
   };
 
   const handleCancelPuja = () => {
-    setIsPujaInProgress(false); // Desactiva el estado de puja
-    setIsPujaModalOpen(false); // Cierra el modal
+    setIsPujaInProgress(false); 
+    setIsPujaModalOpen(false); 
   };
 
 

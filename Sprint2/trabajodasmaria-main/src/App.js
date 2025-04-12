@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';  // Importa correctamente 'Navigate'
-import { Route, Routes } from 'react-router-dom';  // No es necesario BrowserRouter aquí
+import { useNavigate, Navigate } from 'react-router-dom';  
+import { Route, Routes } from 'react-router-dom';  
 import Header from './components/Header/Header';
 import HeroMessage from './components/HeroMessage/HeroMessage';
 import Navigation from './components/Navigation/Navigation';
@@ -34,7 +34,7 @@ function App() {
           const response = await fetch(url);
           const data = await response.json();
           allProducts = [...allProducts, ...data.results];
-          url = data.next; // Avanza a la siguiente página si existe
+          url = data.next; 
         }
         setProducts(allProducts);
         setFilteredProducts(allProducts);
@@ -51,7 +51,7 @@ function App() {
     }
   }, []);
 
-  const navigate = useNavigate();  // Aquí ya es válido
+  const navigate = useNavigate();  
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -60,8 +60,8 @@ function App() {
 
   const handleLogout = async () => {
     const accessToken = localStorage.getItem('accessToken');
-    const user = JSON.parse(localStorage.getItem('user'));  // Convierte la cadena JSON a un objeto
-    const refreshToken = user ? user.refresh : null;  // Accede al refreshToken de manera segura
+    const user = JSON.parse(localStorage.getItem('user'));  
+    const refreshToken = user ? user.refresh : null;  
 
   
     if (!refreshToken) {
@@ -73,22 +73,22 @@ function App() {
       const response = await fetch('http://127.0.0.1:8000/api/users/log-out/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Asegúrate de enviar el contenido en JSON
-          'Authorization': `Bearer ${accessToken}`, // Esto sigue siendo útil para validar la sesión en el backend
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${accessToken}`, 
         },
-        body: JSON.stringify({ refresh: refreshToken })  // Enviar el refreshToken en el cuerpo de la solicitud
+        body: JSON.stringify({ refresh: refreshToken })  
       });
   
       if (response.ok) {
-        // Si la respuesta es exitosa, eliminar del localStorage
+
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('username');
         localStorage.removeItem('subastas');
         localStorage.removeItem('misPujas');
-        setUser(null); // Limpiar el estado local del usuario
+        setUser(null); 
         navigate('/');
-        window.location.reload(); // Recargar la página para limpiar cualquier estado adicional
+        window.location.reload(); 
       } else {
         const errorData = await response.json();
         alert('Error al cerrar sesión. Intenta de nuevo.');

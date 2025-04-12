@@ -11,8 +11,8 @@ function MisSubastas() {
   useEffect(() => {
     const fetchSubastas = async () => {
       try {
-        setLoading(true);  // Empezamos a cargar
-        const accessToken = localStorage.getItem('accessToken');  // Obtener el token desde el localStorage
+        setLoading(true); 
+        const accessToken = localStorage.getItem('accessToken');  
         
         if (!accessToken) {
           setError('No estás autenticado. Por favor, inicia sesión.');
@@ -23,7 +23,7 @@ function MisSubastas() {
         const response = await fetch('http://localhost:8000/api/auctions/misSubastas', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${accessToken}`,  // Autenticación con el token
+            'Authorization': `Bearer ${accessToken}`, 
           },
         });
 
@@ -32,15 +32,15 @@ function MisSubastas() {
         }
 
         const data = await response.json();
-        setSubastas(data);  // Establecer las subastas obtenidas
+        setSubastas(data);  
       } catch (error) {
-        setError(error.message);  // Mostrar el error si ocurre
+        setError(error.message);  
       } finally {
-        setLoading(false);  // Finalizar la carga
+        setLoading(false);  
       }
     };
 
-    fetchSubastas();  // Llamar a la función para obtener las subastas
+    fetchSubastas(); 
   }, []);
 
   const handleCreateSubasta = () => {

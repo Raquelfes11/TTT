@@ -36,11 +36,9 @@ function CrearSubasta() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Obtener el token y el usuario desde localStorage
     const accessToken = localStorage.getItem('accessToken');
     const user = JSON.parse(localStorage.getItem('user'));
 
-    // Verificar que el accessToken y user están presentes
     if (!accessToken) {
       alert('No estás autenticado. Inicia sesión primero.');
       navigate('/login');
@@ -63,7 +61,7 @@ function CrearSubasta() {
       rating: parseFloat(rating),
       category: selectedCategory,
       brand,
-      auctioneer: user.user.id,  // Usamos el ID del usuario autenticado para el campo 'auctioneer'
+      auctioneer: user.user.id,  
     };
 
     try {
@@ -71,7 +69,7 @@ function CrearSubasta() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,  // Autenticación con el token
+          'Authorization': `Bearer ${accessToken}`,  
         },
         body: JSON.stringify(newSubasta),
       });
@@ -86,7 +84,6 @@ function CrearSubasta() {
       const result = await response.json();
       console.log('Subasta creada con éxito:', result);
 
-      // También lo guardas en localStorage si quieres mantener esa lógica
       const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
       existingSubastas.push(result);
       localStorage.setItem('subastas', JSON.stringify(existingSubastas));
@@ -144,9 +141,9 @@ function CrearSubasta() {
               type="number"
               id="stock"
               value={stock}
-              onChange={(e) => setStock(Math.max(0, e.target.value))} // Asegura que el stock sea positivo
+              onChange={(e) => setStock(Math.max(0, e.target.value))} 
               min="0"
-              inputMode="numeric"  // Opcional: Ayuda a evitar caracteres no numéricos
+              inputMode="numeric"  
               required
             />
 
@@ -155,7 +152,7 @@ function CrearSubasta() {
               type="number"
               id="rating"
               value={rating}
-              onChange={(e) => setRating(Math.min(5, Math.max(0, e.target.value)))} // Asegura que el rating esté entre 0 y 5
+              onChange={(e) => setRating(Math.min(5, Math.max(0, e.target.value)))} 
               min="0"
               max="5"
               step="0.1"

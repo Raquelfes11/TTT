@@ -5,11 +5,10 @@ import logoImg from "../../assets/imgs/logo.png";
 function Header() {
   const [user, setUser] = useState(null);
 
-  // Verificar si hay un usuario en el localStorage cuando el componente se monta
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Establece el usuario desde el localStorage
+      setUser(JSON.parse(storedUser)); 
     }
   }, []);
 

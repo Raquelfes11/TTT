@@ -11,7 +11,7 @@ export default function AuctionSearch({ setFilteredAuctions }) {
   const [noResults, setNoResults] = useState(false); 
 
   useEffect(() => {
-    // Obtener las categorías
+
     fetch("http://localhost:8000/api/auctions/categories")
       .then((response) => response.json())
       .then((categoriesData) => {
@@ -23,7 +23,6 @@ export default function AuctionSearch({ setFilteredAuctions }) {
         console.error("Error al cargar las categorías:", error);
       });
     
-    // Llamada inicial para obtener todas las subastas
     fetchAuctions();
   }, []);
 

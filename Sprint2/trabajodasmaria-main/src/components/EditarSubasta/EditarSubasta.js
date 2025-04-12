@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styles from './EditarSubasta.module.css'; // Estilos opcionales
+import styles from './EditarSubasta.module.css'; 
 
 function EditarSubasta({ user }) {
-    const { id } = useParams(); // Obtén el ID de la subasta desde la URL
+    const { id } = useParams(); 
     const [subasta, setSubasta] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -17,14 +17,13 @@ function EditarSubasta({ user }) {
     const [brand, setBrand] = useState('');
     const navigate = useNavigate();
   
-    // Cargar los datos de la subasta cuando se monta el componente
     useEffect(() => {
         const fetchCategories = async () => {
           try {
-            const response = await fetch('http://127.0.0.1:8000/api/auctions/categories/');  // Asegúrate de que esta sea la URL correcta
+            const response = await fetch('http://127.0.0.1:8000/api/auctions/categories/');  
             if (response.ok) {
               const data = await response.json();
-              setCategories(data.results);  // Cargar las categorías disponibles
+              setCategories(data.results);  
             } else {
               console.error('Error al obtener las categorías');
             }
@@ -41,14 +40,14 @@ function EditarSubasta({ user }) {
               setSubasta(data);
               setTitle(data.title);
               setDescription(data.description);
-              setStartPrice(data.price);  // Asegúrate de que el campo sea 'price'
+              setStartPrice(data.price);  
               setStock(data.stock);
               setRating(data.rating);
               setBrand(data.brand);
-              setSelectedCategory(data.category);  // Usamos el ID de la categoría aquí
+              setSelectedCategory(data.category);  
               setImage(data.thumbnail);
-              const formattedDate = new Date(data.closing_date).toISOString().split('T')[0]; // 'YYYY-MM-DD'
-              setEndDate(formattedDate); // Usamos 'closing_date' según tu modelo
+              const formattedDate = new Date(data.closing_date).toISOString().split('T')[0]; 
+              setEndDate(formattedDate); 
             } else {
               console.error('Error al obtener la subasta');
             }
@@ -61,7 +60,6 @@ function EditarSubasta({ user }) {
         fetchSubasta();
       }, [id]);
   
-    // Función para manejar la actualización de la subasta
     const handleSubmit = async (e) => {
       e.preventDefault();
   
@@ -96,13 +94,13 @@ function EditarSubasta({ user }) {
         if (response.ok) {
           const result = await response.json();
           console.log('Subasta actualizada con éxito:', result);
-          // Actualizar el localStorage
+
           const existingSubastas = JSON.parse(localStorage.getItem('subastas')) || [];
           const updatedSubastas = existingSubastas.map(subasta =>
             subasta.id === result.id ? result : subasta
           );
           localStorage.setItem('subastas', JSON.stringify(updatedSubastas));
-          navigate('/mis-subastas'); // Redirigir a "Mis Subastas" después de la actualización
+          navigate('/mis-subastas'); 
         } else {
           const errorData = await response.json();
           alert('Error al actualizar la subasta. Por favor, inténtalo de nuevo.');
@@ -114,7 +112,7 @@ function EditarSubasta({ user }) {
     };
   
     if (!subasta) {
-      return <div>Cargando...</div>; // Si aún no se cargaron los datos, muestra un cargando
+      return <div>Cargando...</div>; 
     }
   
     return (

@@ -43,7 +43,7 @@ function ChangePassword({ user }) {
 
       if (response.ok) {
         alert('¡Contraseña cambiada correctamente!');
-        navigate('/'); // Redirige a la página principal
+        navigate('/'); 
       } else {
         const data = await response.json();
         setError(data?.detail || data?.old_password || data?.new_password || 'Error al cambiar la contraseña.');
@@ -53,7 +53,6 @@ function ChangePassword({ user }) {
     }
   };
 
-  // Verifica si las contraseñas coinciden en tiempo real
   const handleConfirmPasswordChange = (e) => {
     const value = e.target.value;
     setConfirmPassword(value);
@@ -83,7 +82,7 @@ function ChangePassword({ user }) {
             value={newPassword}
             onChange={(e) => {
               setNewPassword(e.target.value);
-              setPasswordMismatch(e.target.value !== confirmPassword); // actualiza si cambia la original
+              setPasswordMismatch(e.target.value !== confirmPassword); 
             }}
             required
           />
