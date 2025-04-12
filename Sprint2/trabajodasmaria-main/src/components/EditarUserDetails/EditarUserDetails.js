@@ -80,7 +80,7 @@ function EditarDetallesUsuario({ user }) {
 
           <button className={styles.button} onClick={handleGoToForgotPassword}>
                 ¿Cambiar contraseña?
-            </button>
+          </button>
         </div>
       </div>
     </div>
