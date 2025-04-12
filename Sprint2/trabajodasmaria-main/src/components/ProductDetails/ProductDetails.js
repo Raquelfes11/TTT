@@ -21,6 +21,7 @@ function ProductDetail() {
         const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`);
         if (response.ok) {
           const data = await response.json();
+          console.log(data.auctioneer)
           // Aseguramos que las pujas estén ordenadas de mayor a menor
           const sortedBids = data.bids.sort((a, b) => b.price - a.price);
           setProduct({...data, bids: sortedBids});
@@ -122,6 +123,10 @@ function ProductDetail() {
                 <li><strong>Fecha de creación:</strong> {product.creation_date}</li>
                 <li><strong>Fecha de cierre:</strong> {product.closing_date}</li>
               </ul>
+              <div className={styles.auctioneerInfo}>
+                <h4>Subastador:</h4>
+                <p>{product.auctioneer}</p>
+              </div>
             </div>
 
             <div className={styles.bidsSection}>
