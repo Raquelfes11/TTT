@@ -17,12 +17,14 @@ function ProductDetail() {
         if (token) {
           setIsAuthenticated(true);
         }
-
+  
         const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`);
         if (response.ok) {
           const data = await response.json();
-          setProduct(data);
-
+          // Aseguramos que las pujas estén ordenadas de mayor a menor
+          const sortedBids = data.bids.sort((a, b) => b.price - a.price);
+          setProduct({...data, bids: sortedBids});
+  
           const storedPujas = JSON.parse(localStorage.getItem("misPujas")) || [];
           const productPujas = storedPujas.filter(puja => puja.id === data.id);
           if (productPujas.length > 0) {
@@ -36,7 +38,7 @@ function ProductDetail() {
         console.error("Error al obtener el producto:", error);
       }
     };
-
+  
     fetchProductDetails();
   }, [id]);
 
