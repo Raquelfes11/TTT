@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from "./UserDetails.module.css";
 
 function UserDetail({ user, setUser }) {
   const [userDetails, setUserDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) return; // Si user es null, no cargar detalles
+    if (!user) return;
     
     const fetchUserDetails = async () => {
       const accessToken = user?.accessToken || localStorage.getItem('accessToken');
@@ -32,7 +34,10 @@ function UserDetail({ user, setUser }) {
   
     fetchUserDetails();
   }, [user]);
-  
+
+  const handleGoToForgotPassword = () => {
+    navigate('/forgot-password');
+  };
 
   return (
     <div className={styles.background}>
@@ -50,6 +55,9 @@ function UserDetail({ user, setUser }) {
         ) : (
           <p>Cargando detalles...</p>
         )}
+        <button className={styles.button} onClick={handleGoToForgotPassword}>
+          ¿Cambiar contraseña?
+        </button>
       </div>
     </div>
   );

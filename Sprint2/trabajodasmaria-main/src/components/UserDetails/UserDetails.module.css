@@ -14,5 +14,22 @@
     text-align: center;
     width: 300px;
   }
+
+  .button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 10px;
+    background-color: darkgrey;
+    color: black;
+  }
+
+  .button:hover {
+    opacity: 0.7;
+}
   
   
