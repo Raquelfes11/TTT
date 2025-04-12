@@ -36,7 +36,7 @@ function UserDetail({ user, setUser }) {
   }, [user]);
 
   const handleGoToForgotPassword = () => {
-    navigate('/forgot-password');
+    navigate('/ChangePassword');
   };
 
   return (
