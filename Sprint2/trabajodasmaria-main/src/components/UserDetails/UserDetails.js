@@ -39,6 +39,10 @@ function UserDetail({ user, setUser }) {
     navigate('/ChangePassword');
   };
 
+  const handleGoToChangeUserDetails = () => {
+    navigate('/change-users-details');
+  }
+
   return (
     <div className={styles.background}>
       <div className={styles.container}>
@@ -57,6 +61,9 @@ function UserDetail({ user, setUser }) {
         )}
         <button className={styles.button} onClick={handleGoToForgotPassword}>
           ¿Cambiar contraseña?
+        </button>
+        <button className={styles.button} onClick={handleGoToChangeUserDetails}>
+          Editar detalles del Usuario
         </button>
       </div>
     </div>
