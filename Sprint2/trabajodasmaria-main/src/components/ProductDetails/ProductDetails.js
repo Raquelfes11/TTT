@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styles from './ProductDetails.module.css'; 
+import styles from './ProductDetails.module.css';
 
 function ProductDetail() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [pujaAmount, setPujaAmount] = useState('');
   const [isPujaModalOpen, setIsPujaModalOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isPujaInProgress, setIsPujaInProgress] = useState(false); // Nuevo estado
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        //const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          setIsAuthenticated(true);
+        }
+
         const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`);
         if (response.ok) {
           const data = await response.json();
-          setProduct(data); // Establecemos el producto en el estado
-          
-          // Agrega las pujas guardadas en localStorage a las pujas del producto
-        const storedPujas = JSON.parse(localStorage.getItem("misPujas")) || [];
-        const productPujas = storedPujas.filter(puja => puja.id === data.id); // Filtra las pujas por el id del producto
-        if (productPujas.length > 0) {
-          data.bids = [...data.bids, ...productPujas]; // Añade las pujas de localStorage al producto
-        }
-        setProduct(data);
+          setProduct(data);
 
+          const storedPujas = JSON.parse(localStorage.getItem("misPujas")) || [];
+          const productPujas = storedPujas.filter(puja => puja.id === data.id);
+          if (productPujas.length > 0) {
+            data.bids = [...data.bids, ...productPujas];
+          }
+          setProduct(data);
         } else {
           console.error("No se pudo obtener el producto");
         }
@@ -34,43 +38,55 @@ function ProductDetail() {
     };
 
     fetchProductDetails();
-  }, [id]); 
+  }, [id]);
 
-  // Maneja la apertura y cierre del modal
   const handlePujar = () => {
-    if (product.stock > 0) {
-      setIsPujaModalOpen(true); // Muestra el formulario para pujar
+    if (product.stock > 0 && isAuthenticated) {
+      setIsPujaInProgress(true); // Activa el estado de puja
+      setIsPujaModalOpen(true);
+    } else if (!isAuthenticated) {
+      alert("Por favor, inicia sesión para poder pujar.");
     } else {
       alert("Este producto está agotado");
     }
   };
 
-  // Función que guarda la puja en el localStorage
-  const handleConfirmPuja = () => {
+  const handleConfirmPuja = async (e) => {
+    e.preventDefault();
+
     if (pujaAmount <= 0 || isNaN(pujaAmount)) {
       alert("Por favor, ingresa una cantidad válida para pujar.");
       return;
     }
 
-    let pujas = JSON.parse(localStorage.getItem("misPujas")) || [];
-    pujas.push({
-      ...product,
-      pujaAmount: parseFloat(pujaAmount), // Guarda la cantidad que se puja
-    });
-    localStorage.setItem("misPujas", JSON.stringify(pujas));
-    setIsPujaModalOpen(false); // Cierra el modal
-    alert("Has pujado por este producto");
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/bids/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({
+          price: pujaAmount,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Has pujado por este producto");
+        setIsPujaInProgress(false); // Desactiva el estado de puja
+        setIsPujaModalOpen(false); // Cierra el modal
+      } else {
+        const errorData = await response.json();
+        alert(errorData.detail || "Hubo un error al registrar tu puja");
+      }
+    } catch (error) {
+      console.error("Error al registrar la puja:", error);
+    }
   };
 
-  const addToPujas = (product) => {
-    if (product.stock > 0) {
-      let pujas = JSON.parse(localStorage.getItem("misPujas")) || [];
-      pujas.push(product);
-      localStorage.setItem("misPujas", JSON.stringify(pujas));
-      alert("Has pujado por este producto");
-    } else {
-      alert("Este producto está agotado");
-    }
+  const handleCancelPuja = () => {
+    setIsPujaInProgress(false); // Desactiva el estado de puja
+    setIsPujaModalOpen(false); // Cierra el modal
   };
 
   const addToWishlist = (product) => {
@@ -87,7 +103,7 @@ function ProductDetail() {
           <div className={styles.mainImage}>
             <img src={product.image || product.thumbnail} alt={product.title} />
           </div>
-          
+
           <div className={styles.productInfo}>
             <div className={styles.productDescription}>
               <h2>{product.title}</h2>
@@ -104,7 +120,6 @@ function ProductDetail() {
               </ul>
             </div>
 
-            {/* Historial de Pujas */}
             <div className={styles.bidsSection}>
               <h3 className={styles.bidsTitle}>Historial de Pujas</h3>
               {product.bids && product.bids.length > 0 ? (
@@ -120,41 +135,47 @@ function ProductDetail() {
                 <p className={styles.noBids}>No hay pujas aún para este producto.</p>
               )}
             </div>
-
           </div>
 
           <div className={styles.actionButtons}>
-            <button className={styles.btnWishlist} onClick={() => addToWishlist(product)}>
-              Añadir a wishlist
-            </button>
-            {product.isOpen ? (
-                <button 
-                  className={styles.btnPujas} 
-                  // onClick={() => addToPujas(product)}
-                  onClick = {handlePujar}
-                  disabled={product.stock <= 0}
-                >
-                  Pujar
+            {!isPujaInProgress && (
+              <>
+                <button className={styles.btnWishlist} onClick={() => addToWishlist(product)}>
+                  Añadir a wishlist
                 </button>
-              ) : (
-                <p className={styles.inactiveAuction}>Puja no disponible</p>
-              )}
+                {product.isOpen ? (
+                  <button 
+                    className={styles.btnPujas} 
+                    onClick={handlePujar}
+                    disabled={product.stock <= 0 || !isAuthenticated}
+                  >
+                    Pujar
+                  </button>
+                ) : (
+                  <p className={styles.inactiveAuction}>Puja no disponible</p>
+                )}
+              </>
+            )}
           </div>
-          {/* Modal de Puja */}
+
           {isPujaModalOpen && (
             <div className={styles.pujaModal}>
               <div className={styles.modalContent}>
+                <form onSubmit={handleConfirmPuja} className={styles.pujaForm}>
                 <h3>Ingresa la cantidad por la que deseas pujar</h3>
-                <input
-                  type="number"
-                  value={pujaAmount}
-                  onChange={(e) => setPujaAmount(e.target.value)}
-                  placeholder="Cantidad de puja"
-                  min="1"
-                  required
-                />
-                <button onClick={handleConfirmPuja}>Confirmar Pujas</button>
-                <button onClick={() => setIsPujaModalOpen(false)}>Cancelar</button>
+                  <input
+                    type="number"
+                    value={pujaAmount}
+                    onChange={(e) => setPujaAmount(e.target.value)}
+                    placeholder="Cantidad de puja"
+                    min="1"
+                    required
+                  />
+                  <div className={styles.formButtons}>
+                    <button type="submit">Confirmar Pujas</button>
+                    <button type="button" onClick={handleCancelPuja}>Cancelar</button>
+                  </div>
+                </form>
               </div>
             </div>
           )}

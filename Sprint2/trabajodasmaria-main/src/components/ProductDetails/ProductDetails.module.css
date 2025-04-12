@@ -118,3 +118,50 @@
   font-style: italic;
   color: #888;
 }
+
+/* Estilo para el formulario de la puja */
+.pujaForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.pujaForm input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.pujaForm button {
+  padding: 10px 20px;
+  background-color: rgb(244, 134, 228);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.3s;
+  margin: 0 auto;
+}
+
+.pujaForm button:hover {
+  background-color: rgb(200, 100, 200);
+}
+
+.pujaForm .formButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
