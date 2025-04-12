@@ -16,6 +16,15 @@ function ProductDetail() {
         if (response.ok) {
           const data = await response.json();
           setProduct(data); // Establecemos el producto en el estado
+          
+          // Agrega las pujas guardadas en localStorage a las pujas del producto
+        const storedPujas = JSON.parse(localStorage.getItem("misPujas")) || [];
+        const productPujas = storedPujas.filter(puja => puja.id === data.id); // Filtra las pujas por el id del producto
+        if (productPujas.length > 0) {
+          data.bids = [...data.bids, ...productPujas]; // Añade las pujas de localStorage al producto
+        }
+        setProduct(data);
+
         } else {
           console.error("No se pudo obtener el producto");
         }
