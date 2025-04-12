@@ -50,7 +50,7 @@ function Navigation({ products, setFilteredProducts }) {
     }
 
     if (categoryFilter) {
-      filtered = filtered.filter(product => product.category === categoryFilter);
+      filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); // Aquí a lo mejor tengo que quitar el útimo igual
     }
     
     setFilteredProducts(filtered);
@@ -101,7 +101,7 @@ function Navigation({ products, setFilteredProducts }) {
     <nav className={styles['main-navigation']}>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/MisPujas">Pujas</a></li>
+        <li><a href="/misPujas">Pujas</a></li>
         <li><a href="/wishlist">WishList</a></li>
 
         {user && (
@@ -140,8 +140,8 @@ function Navigation({ products, setFilteredProducts }) {
           onChange={(e) => setCategoryFilter(e.target.value)}
         >
           <option value="">Todas las categorías</option>
-          {Array.from(new Set(products.map(p => p.category))).map(category => (
-            <option key={category} value={category}>{category}</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
         <button type="submit">Buscar</button>
@@ -151,5 +151,3 @@ function Navigation({ products, setFilteredProducts }) {
 }
 
 export default Navigation;
-
-
