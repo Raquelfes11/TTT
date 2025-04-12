@@ -40,9 +40,12 @@ function UserDetail({ user, setUser }) {
         {userDetails ? (
           <div>
             <h2>Detalle de Usuario</h2>
+            <p><strong>Nombre de Usuario::</strong> {userDetails.user_name}</p>
             <p><strong>Nombre:</strong> {userDetails.first_name} {userDetails.last_name}</p>
             <p><strong>Email:</strong> {userDetails.email}</p>
             <p><strong>Fecha de Nacimiento:</strong> {userDetails.birth_date}</p>
+            <p><strong>Comunidad Autónoma:</strong> {userDetails.municipality}</p>
+            <p><strong>Provincia:</strong> {userDetails.locality}</p>
           </div>
         ) : (
           <p>Cargando detalles...</p>
