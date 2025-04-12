@@ -56,6 +56,8 @@ function ProductDetail() {
   const handleConfirmPuja = async (e) => {
     e.preventDefault();
 
+    const user = JSON.parse(localStorage.getItem('user')); 
+
     if (pujaAmount <= 0 || isNaN(pujaAmount)) {
       alert("Por favor, ingresa una cantidad válida para pujar.");
       return;
@@ -69,9 +71,13 @@ function ProductDetail() {
           'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify({
-          price: pujaAmount,
+          price: parseInt(pujaAmount, 10),
+          auction_id: parseInt(id, 10),
+          bidder: user.user.id,
         }),
       });
+
+      console.log(parseInt(pujaAmount, 10), parseInt(id, 10), user.user.id)
 
       if (response.ok) {
         alert("Has pujado por este producto");
@@ -79,6 +85,7 @@ function ProductDetail() {
         setIsPujaModalOpen(false); // Cierra el modal
       } else {
         const errorData = await response.json();
+        console.error("Error en la puja:", errorData);
         alert(errorData.detail || "Hubo un error al registrar tu puja");
       }
     } catch (error) {
