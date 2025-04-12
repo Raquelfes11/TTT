@@ -2,103 +2,88 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './EditarUserDetails.module.css';
 
-
 function EditarDetallesUsuario({ user }) {
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [error, setError] = useState('');
-    const [touched, setTouched] = useState(false);
-    const navigate = useNavigate();
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setTouched(true);
-      setError('');
-  
-      if (newPassword.length < 8) {
+  const [formData, setFormData] = useState({
+    first_name: user.first_name || '',
+    last_name: user.last_name || '',
+    email: user.email || '',
+    municipality: user.municipality || '',
+    locality: user.locality || '',
+  });
+
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:8000/api/users/profile/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(Object.values(errorData).join(' '));
         return;
       }
-  
-      const accessToken = user?.accessToken || localStorage.getItem('accessToken');
-  
-      if (!accessToken) {
-        setError('Token no disponible. Inicia sesión de nuevo.');
-        return;
-      }
-  
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/change-password/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            old_password: oldPassword,
-            new_password: newPassword,
-          }),
-        });
-  
-        if (response.ok) {
-          alert('¡Contraseña cambiada correctamente!');
-          navigate('/'); // Redirige a la página principal
-        } else {
-          const data = await response.json();
-          setError(data?.detail || data?.old_password || data?.new_password || 'Error al cambiar la contraseña.');
-        }
-      } catch (err) {
-        setError('Error de red o del servidor.');
-      }
-    };
-  
-    return (
-      <div className={styles.background}>
-        <div className={styles.container}>
-          <h2>Cambiar Contraseña</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="oldPassword">Contraseña Actual</label>
-            <input
-              type="password"
-              id="oldPassword"
-              placeholder="Introduce tu contraseña actual"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              required
-            />
-  
-            <label htmlFor="newPassword">Nueva Contraseña</label>
-            <input
-              type="password"
-              id="newPassword"
-              placeholder="Introduce tu nueva contraseña"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-  
-            {touched && newPassword.length < 8 && (
-              <p className={styles['error-message']}>La nueva contraseña debe tener al menos 8 caracteres.</p>
-            )}
-  
-            {error && (
-              <p className={styles['error-message']}>{error}</p>
-            )}
-  
-            <button className={styles.button} type="submit">
-              Cambiar Contraseña
+
+      const data = await response.json();
+      console.log('Actualizado:', data);
+      navigate('/usuario'); // o a donde quieras redirigir
+    } catch (err) {
+      console.error(err);
+      setError('Error al actualizar los datos.');
+    }
+  };
+
+  const handleGoToForgotPassword = () => {
+    navigate('/ChangePassword');
+  };
+
+  return (
+    <div className={styles['editar-subasta-page']}>
+      <div className={styles['form-container']}>
+        <div className={styles['form-box']}>
+          <h2 className={styles['h2-subasta']}>Editar Perfil</h2>
+          <form className={styles['form-subasta']} onSubmit={handleSubmit}>
+            <label>Nombre</label>
+            <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
+
+            <label>Apellido</label>
+            <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
+
+            <label>Email</label>
+            <input type="text" name="email" value={formData.email} onChange={handleChange} />
+
+            <label>Municipio</label>
+            <input type="text" name="municipality" value={formData.municipality} onChange={handleChange} />
+
+            <label>Localidad</label>
+            <input type="text" name="locality" value={formData.locality} onChange={handleChange} />
+
+            {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
+            
+            <button className={styles.button} onClick={handleGoToForgotPassword}>
+                ¿Cambiar contraseña?
             </button>
+            <button type="submit">Guardar Cambios</button>
           </form>
         </div>
       </div>
-    );
-  }
-  
-  export default EditarDetallesUsuario;
-  
-  
+    </div>
+  );
+}
 
-
-
-
-
-// /change-users-details
+export default EditarDetallesUsuario;

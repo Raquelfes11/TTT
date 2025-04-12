@@ -5,8 +5,11 @@ import styles from './ChangePassword.module.css';
 function ChangePassword({ user }) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [touched, setTouched] = useState(false);
+  const [passwordMismatch, setPasswordMismatch] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,7 +17,7 @@ function ChangePassword({ user }) {
     setTouched(true);
     setError('');
 
-    if (newPassword.length < 8) {
+    if (newPassword.length < 8 || passwordMismatch) {
       return;
     }
 
@@ -50,11 +53,18 @@ function ChangePassword({ user }) {
     }
   };
 
+  // Verifica si las contraseñas coinciden en tiempo real
+  const handleConfirmPasswordChange = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setPasswordMismatch(value !== newPassword);
+  };
+
   return (
     <div className={styles.background}>
       <div className={styles.container}>
         <h2>Cambiar Contraseña</h2>
-        <form onSubmit={handleSubmit}>
+        <form className={styles['form-subasta']} onSubmit={handleSubmit}>
           <label htmlFor="oldPassword">Contraseña Actual</label>
           <input
             type="password"
@@ -71,12 +81,29 @@ function ChangePassword({ user }) {
             id="newPassword"
             placeholder="Introduce tu nueva contraseña"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => {
+              setNewPassword(e.target.value);
+              setPasswordMismatch(e.target.value !== confirmPassword); // actualiza si cambia la original
+            }}
+            required
+          />
+
+          <label htmlFor="confirmPassword">Repetir Nueva Contraseña</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Repite tu nueva contraseña"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
             required
           />
 
           {touched && newPassword.length < 8 && (
             <p className={styles['error-message']}>La nueva contraseña debe tener al menos 8 caracteres.</p>
+          )}
+
+          {passwordMismatch && (
+            <p className={styles['error-message']}>Las contraseñas no coinciden.</p>
           )}
 
           {error && (
@@ -93,4 +120,3 @@ function ChangePassword({ user }) {
 }
 
 export default ChangePassword;
-
