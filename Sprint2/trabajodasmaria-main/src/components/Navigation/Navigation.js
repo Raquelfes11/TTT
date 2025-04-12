@@ -8,6 +8,7 @@ function Navigation({ products, setFilteredProducts }) {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null); // Estado local para el usuario
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   // Verificar si hay un usuario en el localStorage cuando el componente se monta
@@ -16,6 +17,22 @@ function Navigation({ products, setFilteredProducts }) {
     if (storedUser) {
       setUser(JSON.parse(storedUser)); // Establece el usuario desde el localStorage
     }
+
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/auctions/categories/');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data.results); // Guardamos las categorías en el estado
+        } else {
+          console.error('No se pudieron cargar las categorías');
+        }
+      } catch (error) {
+        console.error('Error al obtener las categorías:', error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const handleSearchSubmit = (e) => {
