@@ -81,6 +81,11 @@ function MisSubastas() {
         <div className={styles['subastas-list']}>
           {subastas.map(subasta => (
             <div className={styles['subasta-card']} key={subasta.id}>
+              <img
+                  src={subasta.thumbnail}
+                  alt={`Imagen de ${subasta.title}`}
+                  style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '15px' }}
+                />
               <h3>{subasta.title}</h3>
               <p>{subasta.description}</p>
               <button onClick={() => handleUpdateSubasta(subasta.id)}>Actualizar</button>
