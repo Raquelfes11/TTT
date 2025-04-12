@@ -101,7 +101,7 @@ function Navigation({ products, setFilteredProducts }) {
     <nav className={styles['main-navigation']}>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/misPujas">Pujas</a></li>
+        <li><a href="/misPujas">Mis Pujas</a></li>
         <li><a href="/wishlist">WishList</a></li>
 
         {user && (
