@@ -16,6 +16,7 @@ import Wishlist from './components/WishList/WishList';
 import MisSubastas from './components/MisSubastas/MisSubastas';
 import CrearSubasta from './components/CrearSubasta/CrearSubasta';
 import EditarSubasta from './components/EditarSubasta/EditarSubasta'; 
+import ChangePassword from './components/ChangePassword/ChangePassword';
 import './styles.css';
 
 function App() {
@@ -119,6 +120,7 @@ function App() {
         <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
         <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
         <Route path="/editar-subasta/:id" element={<EditarSubasta user={user} />} /> 
+        <Route path="/ChangePassword" element={<ChangePassword user={user} />} />
       </Routes>
       <Footer />
     </div>

@@ -86,7 +86,7 @@ function LoginForm({ onLogin }) {
                 onChange={handlePasswordChange}
                 required
               />
-              <Link to="/forgot-password" className={styles['forgot-password-link']}>Forgot Password?</Link>
+              <Link to="/ChangePassword" className={styles['forgot-password-link']}>Forgot Password?</Link>
             </section>
 
             <button type="submit" className={styles['login-button']} disabled={isButtonDisabled}>Log In</button>
