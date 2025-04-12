@@ -113,7 +113,7 @@ function App() {
         <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
         <Route path="/product-list" element={<ProductList filteredProducts={filteredProducts} />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/MisPujas" element={<MisPujas />} />
+        <Route path="/MisPujas" element={<MisPujas />} user={user} />
         <Route path="/search" element={<ProductSearch products={products} setFilteredProducts={setFilteredProducts} />} />
         <Route path="/usuario" element={user ? <UserDetails user={user} /> : <Navigate to="/login" />} />
         <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
