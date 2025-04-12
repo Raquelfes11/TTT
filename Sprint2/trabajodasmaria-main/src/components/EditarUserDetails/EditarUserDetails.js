@@ -78,7 +78,6 @@ function EditarDetallesUsuario({ user }) {
             <button className={styles.button} onClick={handleGoToForgotPassword}>
                 ¿Cambiar contraseña?
             </button>
-            
             <button type="submit">Guardar Cambios</button>
           </form>
         </div>
