@@ -46,10 +46,10 @@ function MisRatings() {
             <div className={styles['valoracion-item']} key={item.id}>
               <img src={item.auction_thumbnail} alt={item.auction_title} />
               <h3>{item.auction_title}</h3>
-              <p>💰 Precio: {item.auction_price} €</p>
-              <p>📂 Categoría: {item.auction_category}</p>
-              <p>📅 Estado: {item.auction_is_open ? "Abierta" : "Cerrada"}</p>
-              <p>⭐ Valoración: {item.rating}</p>
+              <p>Precio: {item.auction_price} €</p>
+              <p>Categoría: {item.auction_category}</p>
+              <p>Estado: {item.auction_is_open ? "Abierta" : "Cerrada"}</p>
+              <p>Valoración: {item.rating}</p>
             </div>
           ))}
 
