@@ -9,6 +9,8 @@ function ProductDetail() {
   const [isPujaModalOpen, setIsPujaModalOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isPujaInProgress, setIsPujaInProgress] = useState(false); 
+  const [userRating, setUserRating] = useState(0);
+  const [ratingId, setRatingId] = useState(null); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -17,15 +19,14 @@ function ProductDetail() {
         if (token) {
           setIsAuthenticated(true);
         }
-  
+
         const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/`);
         if (response.ok) {
           const data = await response.json();
-          console.log(data.auctioneer)
-
           const sortedBids = data.bids.sort((a, b) => b.price - a.price);
           setProduct({...data, bids: sortedBids});
-  
+
+          // Si hay una puja almacenada en localStorage, agregarla
           const storedPujas = JSON.parse(localStorage.getItem("misPujas")) || [];
           const productPujas = storedPujas.filter(puja => puja.id === data.id);
           if (productPujas.length > 0) {
@@ -39,7 +40,7 @@ function ProductDetail() {
         console.error("Error al obtener el producto:", error);
       }
     };
-  
+
     fetchProductDetails();
   }, [id]);
 
@@ -78,8 +79,6 @@ function ProductDetail() {
         }),
       });
 
-      console.log(parseInt(pujaAmount, 10), parseInt(id, 10), user.user.id)
-
       if (response.ok) {
         alert("Has pujado por este producto");
         setIsPujaInProgress(false); 
@@ -100,6 +99,127 @@ function ProductDetail() {
     setIsPujaModalOpen(false); 
   };
 
+  const fetchUserRating = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const rating = await response.json();
+        setUserRating(rating.rating);
+        setRatingId(rating.id);
+
+        // Guardar la valoración y su ID en localStorage
+        localStorage.setItem('userRating', JSON.stringify({ rating: rating.rating, id: rating.id }));
+      } else {
+        setUserRating(0);
+        setRatingId(null);
+      }
+    } catch (error) {
+      console.error("Error al obtener tu rating:", error);
+    }
+  };
+
+  const StarRating = ({ rating, onChange }) => {
+    const stars = [1, 2, 3, 4, 5];
+
+    return (
+      <div className={styles.starRating}>
+        {stars.map((star) => (
+          <span
+            key={star}
+            onClick={() => onChange(star)}
+            style={{ color: star <= rating ? '#ffd700' : '#ccc' }}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    // Revisar el localStorage para persistir la valoración cuando la página se recarga
+    const storedRating = JSON.parse(localStorage.getItem('userRating'));
+    if (storedRating) {
+      setUserRating(storedRating.rating);
+      setRatingId(storedRating.id);
+    }
+
+    fetchUserRating();
+  }, [id]);  
+
+  const handleRatingChange = async (newRating) => {
+    const accessToken = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const method = ratingId ? 'PUT' : 'POST';
+    const endpoint = ratingId
+      ? `http://127.0.0.1:8000/api/auctions/${id}/ratings/${ratingId}/`
+      : `http://127.0.0.1:8000/api/auctions/${id}/ratings/`;
+
+    try {
+      const response = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          rating: newRating,
+          user: user.user.id,
+          auction: parseInt(id),
+        }),
+      });
+
+      if (response.ok) {
+        alert("Valoración registrada");
+        setUserRating(newRating);
+        if (!ratingId) {
+          const newData = await response.json();
+          setRatingId(newData.id);
+          localStorage.setItem('userRating', JSON.stringify({ rating: newRating, id: newData.id }));
+        }
+      } else {
+        const data = await response.json();
+        console.error("Error al valorar:", data);
+        alert("Ya valoraste o hubo un error");
+      }
+    } catch (error) {
+      console.error("Error al enviar la valoración:", error);
+    }
+  };
+
+  const handleDeleteRating = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/${ratingId}/`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Valoración eliminada");
+        setUserRating(0);
+        setRatingId(null);
+        localStorage.removeItem('userRating'); // Eliminar la valoración del localStorage
+      } else {
+        alert("Error al eliminar la valoración");
+      }
+    } catch (error) {
+      console.error("Error al eliminar la valoración:", error);
+    }
+  };
 
   return (
     <div className={styles.productDetails}>
@@ -119,13 +239,21 @@ function ProductDetail() {
                 <li><strong>Stock:</strong> {product.stock}</li>
                 <li><strong>Marca:</strong> {product.brand}</li>
                 <li><strong>Categoría:</strong> {product.category?.name || product.category}</li>
-                <li><strong>Rating:</strong> {product.rating}</li>
+                <li><strong>Rating:</strong> {product.average_rating }</li>
                 <li><strong>Fecha de creación:</strong> {product.creation_date}</li>
                 <li><strong>Fecha de cierre:</strong> {product.closing_date}</li>
               </ul>
               <div className={styles.auctioneerInfo}>
                 <h4>Subastador:</h4>
                 <p>{product.auctioneer}</p>
+              </div>
+              <div className={styles.ratingSection}>
+                <StarRating rating={userRating} onChange={handleRatingChange} />
+                {ratingId && (
+                  <button className={styles.deleteRating} onClick={handleDeleteRating}>
+                    Eliminar valoración
+                  </button>
+                )}
               </div>
             </div>
 

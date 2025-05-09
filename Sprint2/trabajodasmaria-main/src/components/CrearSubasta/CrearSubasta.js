@@ -9,7 +9,6 @@ function CrearSubasta() {
   const [image, setImage] = useState('');
   const [startPrice, setStartPrice] = useState('');
   const [stock, setStock] = useState('');
-  const [rating, setRating] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [brand, setBrand] = useState('');
@@ -58,7 +57,6 @@ function CrearSubasta() {
       thumbnail: image,
       price: parseFloat(startPrice),
       stock: parseInt(stock),
-      rating: parseFloat(rating),
       category: selectedCategory,
       brand,
       auctioneer: user.user.id,  
@@ -144,18 +142,6 @@ function CrearSubasta() {
               onChange={(e) => setStock(Math.max(0, e.target.value))} 
               min="0"
               inputMode="numeric"  
-              required
-            />
-
-            <label htmlFor="rating">Rating:</label>
-            <input
-              type="number"
-              id="rating"
-              value={rating}
-              onChange={(e) => setRating(Math.min(5, Math.max(0, e.target.value)))} 
-              min="0"
-              max="5"
-              step="0.1"
               required
             />
             

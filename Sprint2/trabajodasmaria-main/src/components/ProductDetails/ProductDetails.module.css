@@ -163,3 +163,32 @@
   justify-content: space-between;
 }
 
+.starRating {
+  font-size: 30px;
+  cursor: pointer;
+  color: #ffd700;
+}
+
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.deleteRating {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.deleteRating:hover {
+  background-color: #cc0000;
+}
+
