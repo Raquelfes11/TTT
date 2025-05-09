@@ -154,6 +154,8 @@ function Navigation({ products, setFilteredProducts }) {
                 <button onClick={() => navigate('/usuario')}>Perfil</button>
                 <button onClick={handleLogout}>Cerrar sesión</button>
                 <button onClick={() => navigate('/mis-subastas')}>Mis Subastas</button> 
+                <button onClick={() => navigate('/mis-comentarios')}>Mis Comentarios</button>
+                <button onClick={() => navigate('/mis-ratings')}>Mis Valoraciones</button>
               </div>
             )}
           </li>
