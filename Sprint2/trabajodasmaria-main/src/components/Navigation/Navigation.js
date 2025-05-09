@@ -11,6 +11,7 @@ function Navigation({ products, setFilteredProducts }) {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [isOpenFilter, setIsOpenFilter] = useState('');
+  const [ratingFilter, setRatingFilter] = useState('');
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -55,6 +56,10 @@ function Navigation({ products, setFilteredProducts }) {
       if (categoryFilter) {
         filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); 
       }
+
+      if (ratingFilter) {
+        filtered = filtered.filter(product => product.valoracion >= parseFloat(ratingFilter));
+      }
     
       setFilteredProducts(filtered); 
       navigate('/product-list');
@@ -72,7 +77,11 @@ function Navigation({ products, setFilteredProducts }) {
       if (categoryFilter) {
         params.append('categoria', categoryFilter);
       }
-    
+
+      if (ratingFilter) {
+        params.append('valoracionMin', ratingFilter);
+      }
+      
       if (isOpenFilter !== '') {
         params.append('isOpen', isOpenFilter); 
       }
@@ -184,6 +193,17 @@ function Navigation({ products, setFilteredProducts }) {
           <option value="true">Abiertas</option>
           <option value="false">Cerradas</option>
         </select>
+
+        <input
+          type="number"
+          min="1"
+          max="5"
+          step="0.1"
+          placeholder="Valoración mínima"
+          value={ratingFilter}
+          onChange={(e) => setRatingFilter(e.target.value)}
+        />
+
 
         <button type="submit">Buscar</button>
       </form>
