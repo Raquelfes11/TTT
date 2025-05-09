@@ -121,7 +121,7 @@ function App() {
         <Route path="/crear-subasta" element={<CrearSubasta />} user={user} />
         <Route path="/mis-subastas" element={<MisSubastas user={user} />} />
         <Route path="/mis-comentarios" element={<MisComentarios />} />
-        <Route path="/mis-ratings" element={<MisRatingS />} />
+        <Route path="/mis-ratings" element={<MisRatings />} />
         <Route path="/editar-subasta/:id" element={<EditarSubasta user={user} />} /> 
         <Route path="/ChangePassword" element={<ChangePassword user={user} />} />
         <Route path="/change-users-details" element={<EditarDetallesUsuario user={user} />} />
