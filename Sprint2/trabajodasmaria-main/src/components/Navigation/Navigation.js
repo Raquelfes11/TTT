@@ -10,6 +10,7 @@ function Navigation({ products, setFilteredProducts }) {
   const [user, setUser] = useState(null); 
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const [isOpenFilter, setIsOpenFilter] = useState('');
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -34,26 +35,58 @@ function Navigation({ products, setFilteredProducts }) {
     fetchCategories();
   }, []);
 
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    let filtered = products;
-
-    if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
     
-    if (priceFilter) {
-      filtered = filtered.filter(product => product.price <= parseFloat(priceFilter));
-    }
-
-    if (categoryFilter) {
-      filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); 
-    }
+    if (isOpenFilter === '') {
+      let filtered = products;
     
-    setFilteredProducts(filtered);
-    navigate('/product-list');
+      if (searchTerm) {
+        filtered = filtered.filter(product =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+    
+      if (priceFilter) {
+        filtered = filtered.filter(product => product.price <= parseFloat(priceFilter));
+      }
+    
+      if (categoryFilter) {
+        filtered = filtered.filter(product => product.category === parseInt(categoryFilter)); 
+      }
+    
+      setFilteredProducts(filtered); 
+      navigate('/product-list');
+    } else {
+      const params = new URLSearchParams();
+    
+      if (searchTerm) {
+        params.append('texto', searchTerm);
+      }
+    
+      if (priceFilter) {
+        params.append('precioMax', priceFilter);
+      }
+    
+      if (categoryFilter) {
+        params.append('categoria', categoryFilter);
+      }
+    
+      if (isOpenFilter !== '') {
+        params.append('isOpen', isOpenFilter); 
+      }
+    
+      fetch(`http://127.0.0.1:8000/api/auctions/?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+          setFilteredProducts(data.results);  
+          navigate('/product-list');
+        })
+        .catch(error => {
+          console.error('Error al obtener productos:', error);
+        });
+    }
   };
 
   const handleLogout = async () => {
@@ -142,6 +175,16 @@ function Navigation({ products, setFilteredProducts }) {
             <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
+
+        <select
+          value={isOpenFilter}
+          onChange={(e) => setIsOpenFilter(e.target.value)}
+        >
+          <option value="">Todas</option>
+          <option value="true">Abiertas</option>
+          <option value="false">Cerradas</option>
+        </select>
+
         <button type="submit">Buscar</button>
       </form>
     </nav>

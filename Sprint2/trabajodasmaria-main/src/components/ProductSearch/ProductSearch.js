@@ -6,13 +6,13 @@ export default function AuctionSearch({ setFilteredAuctions }) {
   const [selectedCategory, setSelectedCategory] = useState(""); 
   const [minPrice, setMinPrice] = useState(""); 
   const [maxPrice, setMaxPrice] = useState(""); 
+  const [selectedStatus, setSelectedStatus] = useState("");  // Nuevo estado para el filtro de estado
   const [categories, setCategories] = useState([]); 
   const [auctions, setAuctions] = useState([]); 
   const [filtered, setFiltered] = useState([]); 
   const [noResults, setNoResults] = useState(false); 
 
   useEffect(() => {
-
     fetch("http://localhost:8000/api/auctions/categories")
       .then((response) => response.json())
       .then((categoriesData) => {
@@ -42,6 +42,9 @@ export default function AuctionSearch({ setFilteredAuctions }) {
     if (maxPrice) {
       url += `precioMax=${maxPrice}&`;
     }
+    if (selectedStatus !== "") {
+      url += `isOpen=${selectedStatus === "true"}&`;
+    }    
   
     url = url.endsWith('&') ? url.slice(0, -1) : url;
   
@@ -64,25 +67,30 @@ export default function AuctionSearch({ setFilteredAuctions }) {
   const handleSearchChange = (e) => {
     const term = e.target.value.trim().toLowerCase(); 
     setSearchTerm(term);
-    fetchAuctions();
   };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     setSelectedCategory(category);
-    fetchAuctions();
   };
 
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
     if (name === "minPrice") setMinPrice(value);
     if (name === "maxPrice") setMaxPrice(value);
-    fetchAuctions();
+  };
+
+  const handleStatusChange = (e) => {  // Manejar cambio en el filtro de estado
+    setSelectedStatus(e.target.value);
   };
 
   useEffect(() => {
     setFilteredAuctions(filtered);
   }, [filtered, setFilteredAuctions]);
+
+  useEffect(() => {
+    fetchAuctions();
+  }, [searchTerm, selectedCategory, minPrice, maxPrice, selectedStatus]);  
 
   return (
     <div>
@@ -129,6 +137,18 @@ export default function AuctionSearch({ setFilteredAuctions }) {
           onChange={handlePriceChange}
           placeholder="Max"
         />
+      </div>
+      <div>
+        <label htmlFor="status">Estado de la Subasta:</label>
+        <select
+          id="status"
+          value={selectedStatus}
+          onChange={handleStatusChange}
+        >
+          <option value="">Todos</option>
+          <option value="true">Abierta</option>
+          <option value="false">Cerrada</option>
+        </select>
       </div>
       {noResults && <p>No hay subastas que coincidan con la búsqueda.</p>}
     </div>
