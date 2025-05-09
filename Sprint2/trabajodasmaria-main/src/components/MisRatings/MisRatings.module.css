@@ -65,4 +65,22 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
   }
+
+  .btn-ver-detalles {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-ver-detalles:hover {
+    background-color: #5a6268;
+  }
+  
   
