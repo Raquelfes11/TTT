@@ -19,6 +19,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword';
 import EditarDetallesUsuario from './components/EditarUserDetails/EditarUserDetails';
 import MisComentarios from "./components/MisComentarios/MisComentarios"
 import MisRatings from "./components/MisRatings/MisRatings"
+import ValorarProducto from "./components/ValorarProducto/ValorarProducto"
 import './styles.css';
 
 function App() {
@@ -125,6 +126,7 @@ function App() {
         <Route path="/editar-subasta/:id" element={<EditarSubasta user={user} />} /> 
         <Route path="/ChangePassword" element={<ChangePassword user={user} />} />
         <Route path="/change-users-details" element={<EditarDetallesUsuario user={user} />} />
+        <Route path="/valorar/:id" element={<ValorarProducto />} />
       </Routes>
       <Footer />
     </div>

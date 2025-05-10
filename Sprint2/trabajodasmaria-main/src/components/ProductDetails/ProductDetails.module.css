@@ -163,27 +163,6 @@
   justify-content: space-between;
 }
 
-.ratingSection {
-  margin-top: 20px;
-}
-
-.stars {
-  margin-bottom: 10px;
-}
-
-.starFilled {
-  color: gold;
-}
-
-.starEmpty {
-  color: lightgray;
-}
-
-.ratingButtons {
-  display: flex;
-  gap: 10px;
-}
-
 .saveButton {
   background-color: #28a745;
   color: white;

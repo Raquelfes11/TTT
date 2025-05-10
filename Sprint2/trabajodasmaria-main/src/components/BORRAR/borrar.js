@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './ProductDetails.module.css';
 
 function ProductDetail() {
@@ -9,6 +9,8 @@ function ProductDetail() {
   const [isPujaModalOpen, setIsPujaModalOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isPujaInProgress, setIsPujaInProgress] = useState(false); 
+  const [userRating, setUserRating] = useState(0);
+  const [ratingId, setRatingId] = useState(null); 
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -100,6 +102,32 @@ function ProductDetail() {
   const handleCancelPuja = () => {
     setIsPujaInProgress(false); 
     setIsPujaModalOpen(false); 
+  };
+
+  const fetchUserRating = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const rating = await response.json();
+        setUserRating(rating.rating);
+        setRatingId(rating.id);
+        localStorage.setItem('userRating', JSON.stringify({ rating: rating.rating, id: rating.id }));
+      } else {
+        setUserRating(0);
+        setRatingId(null);
+      }
+    } catch (error) {
+      console.error("Error al obtener tu rating:", error);
+    }
   };
 
   useEffect(() => {
@@ -220,6 +248,99 @@ function ProductDetail() {
       console.error("Error al actualizar comentario:", error);
     }
   };
+  
+  const StarRating = ({ rating, onChange }) => {
+    const stars = [1, 2, 3, 4, 5];
+
+    return (
+      <div className={styles.starRating}>
+        {stars.map((star) => (
+          <span
+            key={star}
+            onClick={() => onChange(star)}
+            style={{ color: star <= rating ? '#ffd700' : '#ccc' }}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    const storedRating = JSON.parse(localStorage.getItem('userRating'));
+    if (storedRating) {
+      setUserRating(storedRating.rating);
+      setRatingId(storedRating.id);
+    }
+
+    fetchUserRating();
+  }, [id]);  
+
+  const handleRatingChange = async (newRating) => {
+    const accessToken = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const method = ratingId ? 'PUT' : 'POST';
+    const endpoint = ratingId
+      ? `http://127.0.0.1:8000/api/auctions/${id}/ratings/${ratingId}/`
+      : `http://127.0.0.1:8000/api/auctions/${id}/ratings/`;
+
+    try {
+      const response = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          rating: newRating,
+          user: user.user.id,
+          auction: parseInt(id),
+        }),
+      });
+
+      if (response.ok) {
+        alert("Valoración registrada");
+        setUserRating(newRating);
+        if (!ratingId) {
+          const newData = await response.json();
+          setRatingId(newData.id);
+          localStorage.setItem('userRating', JSON.stringify({ rating: newRating, id: newData.id }));
+        }
+      } else {
+        const data = await response.json();
+        console.error("Error al valorar:", data);
+        alert("Ya valoraste o hubo un error");
+      }
+    } catch (error) {
+      console.error("Error al enviar la valoración:", error);
+    }
+  };
+
+  const handleDeleteRating = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/${ratingId}/`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Valoración eliminada");
+        setUserRating(0);
+        setRatingId(null);
+        localStorage.removeItem('userRating'); 
+      } else {
+        alert("Error al eliminar la valoración");
+      }
+    } catch (error) {
+      console.error("Error al eliminar la valoración:", error);
+    }
+  };
 
   return (
     <div className={styles.productDetails}>
@@ -246,6 +367,14 @@ function ProductDetail() {
               <div className={styles.auctioneerInfo}>
                 <h4>Subastador:</h4>
                 <p>{product.auctioneer}</p>
+              </div>
+              <div className={styles.ratingSection}>
+                <StarRating rating={userRating} onChange={handleRatingChange} />
+                {ratingId && (
+                  <button className={styles.deleteRating} onClick={handleDeleteRating}>
+                    Eliminar valoración
+                  </button>
+                )}
               </div>
             </div>
 
@@ -345,11 +474,6 @@ function ProductDetail() {
                 ) : (
                   <p className={styles.inactiveAuction}>Puja no disponible</p>
                 )}
-
-                {/* NUEVO BOTÓN DE VALORAR */}
-                <Link to={`/valorar/${id}`} className={styles.btnValorar}>
-                  <button>Valorar producto</button>
-                </Link>
               </>
             )}
           </div>
