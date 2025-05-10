@@ -403,27 +403,10 @@ function ProductDetail() {
             </div>
           </div>
 
-          <div className={styles.bidsSection}>
-              <h3 className={styles.bidsTitle}>Historial de Pujas</h3>
-              {product.bids && product.bids.length > 0 ? (
-                <ul className={styles.bidList}>
-                  {product.bids.map((bid) => (
-                    <li key={bid.id} className={styles.bidItem}>
-                      💰 <strong>{bid.price}€</strong> — 👤 {bid.bidder_username} — 🕒{" "}
-                      {new Date(bid.creation_date).toLocaleString()}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className={styles.noBids}>No hay pujas aún para este producto.</p>
-              )}
-            </div>
-
             {/* Sección de comentarios */}
             <div className={styles.commentsSection}>
               <h3>Comentarios</h3>
 
-              {/* Formulario de comentario si el usuario está autenticado */}
               {isAuthenticated && (
                 <form onSubmit={handleSubmitComment} className={styles.commentForm}>
                   <textarea
@@ -443,11 +426,6 @@ function ProductDetail() {
                   {comments.map((comment) => (
                     <li key={comment.id} className={styles.commentItem}>
                       <strong>{comment.user}</strong>: {comment.text}
-                      {/* Agregar console.log para ver los valores */}
-                      {/* {console.log("ID del comentario:", comment.user)} */}
-                      {/* {console.log("ID del usuario autenticado:", JSON.parse(localStorage.getItem('user')).user.username)} */}
-
-                      {/* Mostrar el botón de eliminar solo si el comentario es del usuario autenticado */}
                       {isAuthenticated && comment.user === JSON.parse(localStorage.getItem('user')).user.username && (
                         <div className={styles.commentActions}>
                           {editingCommentId === comment.id ? (
