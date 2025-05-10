@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // Importa Link para la navegación
+import { Link } from 'react-router-dom';
 import styles from './MisRatings.module.css';
 
 function MisRatings() {
