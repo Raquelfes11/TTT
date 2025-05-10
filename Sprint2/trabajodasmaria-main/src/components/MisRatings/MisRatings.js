@@ -51,7 +51,7 @@ function MisRatings() {
               <p>Categoría: {item.auction_category}</p>
               <p>Estado: {item.auction_is_open ? "Abierta" : "Cerrada"}</p>
               <p>Valoración: {item.rating}</p>
-              <Link to={`/products/${item.id}`} className={styles['btn-ver-detalles']}>
+              <Link to={`/products/${item.auction_id}`} className={styles['btn-ver-detalles']}>
                 Ver detalles
               </Link>
             </div>
