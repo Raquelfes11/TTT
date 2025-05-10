@@ -137,7 +137,7 @@ function ProductDetail() {
         if (response.ok) {
           const data = await response.json();
           console.log("Comentarios cargados:", data);
-          setComments(data);
+          setComments(data.results);
         } else {
           console.error("Error al obtener comentarios");
         }
