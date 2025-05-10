@@ -13,6 +13,8 @@ function ProductDetail() {
   const [ratingId, setRatingId] = useState(null); 
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedCommentText, setEditedCommentText] = useState(''); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -194,6 +196,64 @@ function ProductDetail() {
       console.error("Error al enviar el comentario:", error);
     }
   };
+
+  const handleDeleteComment = async (commentId) => {
+    const accessToken = localStorage.getItem("accessToken");
+  
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/comments/${commentId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        alert("Comentario eliminado");
+        // Elimina el comentario de la lista local
+        setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
+      } else {
+        alert("Error al eliminar el comentario");
+      }
+    } catch (error) {
+      console.error("Error al eliminar el comentario:", error);
+    }
+  };
+
+  const handleUpdateComment = async (e, commentId) => {
+    e.preventDefault();
+    const token = localStorage.getItem("accessToken");
+  
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/comments/${commentId}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: 'Comentario',
+          text: editedCommentText,
+        }),
+      });
+  
+      if (response.ok) {
+        alert("Comentario actualizado");
+        setEditingCommentId(null);
+        setEditedCommentText('');
+        // Recargar comentarios
+        const data = await response.json();
+        setComments((prev) =>
+          prev.map((c) => (c.id === commentId ? data : c))
+        );
+      } else {
+        alert("Error al actualizar el comentario");
+      }
+    } catch (error) {
+      console.error("Error al actualizar comentario:", error);
+    }
+  };
+  
   
 
   const StarRating = ({ rating, onChange }) => {
@@ -383,6 +443,44 @@ function ProductDetail() {
                   {comments.map((comment) => (
                     <li key={comment.id} className={styles.commentItem}>
                       <strong>{comment.user}</strong>: {comment.text}
+                      {/* Agregar console.log para ver los valores */}
+                      {/* {console.log("ID del comentario:", comment.user)} */}
+                      {/* {console.log("ID del usuario autenticado:", JSON.parse(localStorage.getItem('user')).user.username)} */}
+
+                      {/* Mostrar el botón de eliminar solo si el comentario es del usuario autenticado */}
+                      {isAuthenticated && comment.user === JSON.parse(localStorage.getItem('user')).user.username && (
+                        <div className={styles.commentActions}>
+                          {editingCommentId === comment.id ? (
+                            <form onSubmit={(e) => handleUpdateComment(e, comment.id)} className={styles.editCommentForm}>
+                              <textarea
+                                value={editedCommentText}
+                                onChange={(e) => setEditedCommentText(e.target.value)}
+                                rows="2"
+                              />
+                              <button type="submit">Guardar</button>
+                              <button type="button" onClick={() => setEditingCommentId(null)}>Cancelar</button>
+                            </form>
+                          ) : (
+                            <>
+                              <button
+                                onClick={() => {
+                                  setEditingCommentId(comment.id);
+                                  setEditedCommentText(comment.text);
+                                }}
+                                className={styles.editCommentButton}
+                              >
+                                Editar
+                              </button>
+                              <button 
+                                onClick={() => handleDeleteComment(comment.id)} 
+                                className={styles.deleteCommentButton}
+                              >
+                                Eliminar
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>

@@ -240,6 +240,16 @@
   padding: 0;
 }
 
+.deleteCommentButton {
+  background-color:  rgb(200, 100, 200);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
 
 
 
