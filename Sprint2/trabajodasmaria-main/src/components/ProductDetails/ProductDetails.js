@@ -11,6 +11,8 @@ function ProductDetail() {
   const [isPujaInProgress, setIsPujaInProgress] = useState(false); 
   const [userRating, setUserRating] = useState(0);
   const [ratingId, setRatingId] = useState(null); 
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -43,6 +45,7 @@ function ProductDetail() {
 
     fetchProductDetails();
   }, [id]);
+
 
   const handlePujar = () => {
     if (product.stock > 0 && isAuthenticated) {
@@ -126,6 +129,72 @@ function ProductDetail() {
       console.error("Error al obtener tu rating:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/comments/`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Comentarios cargados:", data);
+          setComments(data);
+        } else {
+          console.error("Error al obtener comentarios");
+        }
+      } catch (error) {
+        console.error("Error de red al obtener comentarios:", error);
+      }
+    };
+  
+    fetchComments();
+  }, [id]);
+
+  // Enviar un nuevo comentario
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+
+    if (!isAuthenticated) {
+      alert("Por favor, inicia sesión para poder comentar.");
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem('user')); 
+
+    if (!newComment.trim()) {
+      alert("Por favor, escribe un comentario.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/comments/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({
+          title: "Comentario",
+          text: newComment,
+        }),
+      });
+
+      if (response.ok) {
+        const newCommentData = await response.json();
+        console.log("Nuevo comentario recibido:", newCommentData);
+        setComments(prev => Array.isArray(prev) ? [...prev, newCommentData] : [newCommentData]);
+        setNewComment(''); // limpia el input
+        alert("Comentario enviado!");
+      } else {
+        const errorData = await response.json();
+        console.error("Error al agregar comentario:", errorData);
+        // alert("Hubo un error al enviar tu comentario");
+        alert(errorData.detail || JSON.stringify(errorData) || "Hubo un error al enviar tu comentario");
+      }
+    } catch (error) {
+      console.error("Error al enviar el comentario:", error);
+    }
+  };
+  
 
   const StarRating = ({ rating, onChange }) => {
     const stars = [1, 2, 3, 4, 5];
@@ -273,6 +342,55 @@ function ProductDetail() {
               )}
             </div>
           </div>
+
+          <div className={styles.bidsSection}>
+              <h3 className={styles.bidsTitle}>Historial de Pujas</h3>
+              {product.bids && product.bids.length > 0 ? (
+                <ul className={styles.bidList}>
+                  {product.bids.map((bid) => (
+                    <li key={bid.id} className={styles.bidItem}>
+                      💰 <strong>{bid.price}€</strong> — 👤 {bid.bidder_username} — 🕒{" "}
+                      {new Date(bid.creation_date).toLocaleString()}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.noBids}>No hay pujas aún para este producto.</p>
+              )}
+            </div>
+
+            {/* Sección de comentarios */}
+            <div className={styles.commentsSection}>
+              <h3>Comentarios</h3>
+
+              {/* Formulario de comentario si el usuario está autenticado */}
+              {isAuthenticated && (
+                <form onSubmit={handleSubmitComment} className={styles.commentForm}>
+                  <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Escribe tu comentario"
+                    rows="3"
+                    className={styles.commentInput}
+                  />
+                  <button type="submit" className={styles.commentButton}>Enviar Comentario</button>
+                </form>
+              )}
+
+              {/* Mostrar los comentarios */}
+              {comments.length > 0 ? (
+                <ul className={styles.commentList}>
+                  {comments.map((comment) => (
+                    <li key={comment.id} className={styles.commentItem}>
+                      <strong>{comment.user}</strong>: {comment.text}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.noComments}>No hay comentarios aún.</p>
+              )}
+            </div>
+
 
           <div className={styles.actionButtons}>
             {!isPujaInProgress && (

@@ -192,3 +192,56 @@
   background-color: #cc0000;
 }
 
+.commentsSection {
+  margin-top: 2rem;
+}
+
+.commentList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.commentItem {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commentInput {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.commentButton {
+  padding: 10px 20px;
+  background-color: rgb(244, 134, 228);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.commentButton:hover {
+  background-color: rgb(200, 100, 200);
+}
+
+.commentList {
+  list-style: none;
+  padding: 0;
+}
+
+
+
+
+
+
