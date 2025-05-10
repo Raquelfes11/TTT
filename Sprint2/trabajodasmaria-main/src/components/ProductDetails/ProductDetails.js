@@ -120,8 +120,6 @@ function ProductDetail() {
         const rating = await response.json();
         setUserRating(rating.rating);
         setRatingId(rating.id);
-
-        // Guardar la valoración y su ID en localStorage
         localStorage.setItem('userRating', JSON.stringify({ rating: rating.rating, id: rating.id }));
       } else {
         setUserRating(0);
@@ -184,12 +182,11 @@ function ProductDetail() {
         const newCommentData = await response.json();
         console.log("Nuevo comentario recibido:", newCommentData);
         setComments(prev => Array.isArray(prev) ? [...prev, newCommentData] : [newCommentData]);
-        setNewComment(''); // limpia el input
+        setNewComment(''); 
         alert("Comentario enviado!");
       } else {
         const errorData = await response.json();
         console.error("Error al agregar comentario:", errorData);
-        // alert("Hubo un error al enviar tu comentario");
         alert(errorData.detail || JSON.stringify(errorData) || "Hubo un error al enviar tu comentario");
       }
     } catch (error) {
@@ -210,7 +207,6 @@ function ProductDetail() {
   
       if (response.ok) {
         alert("Comentario eliminado");
-        // Elimina el comentario de la lista local
         setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
       } else {
         alert("Error al eliminar el comentario");
@@ -241,7 +237,6 @@ function ProductDetail() {
         alert("Comentario actualizado");
         setEditingCommentId(null);
         setEditedCommentText('');
-        // Recargar comentarios
         const data = await response.json();
         setComments((prev) =>
           prev.map((c) => (c.id === commentId ? data : c))
@@ -254,8 +249,6 @@ function ProductDetail() {
     }
   };
   
-  
-
   const StarRating = ({ rating, onChange }) => {
     const stars = [1, 2, 3, 4, 5];
 
@@ -275,7 +268,6 @@ function ProductDetail() {
   };
 
   useEffect(() => {
-    // Revisar el localStorage para persistir la valoración cuando la página se recarga
     const storedRating = JSON.parse(localStorage.getItem('userRating'));
     if (storedRating) {
       setUserRating(storedRating.rating);
@@ -341,7 +333,7 @@ function ProductDetail() {
         alert("Valoración eliminada");
         setUserRating(0);
         setRatingId(null);
-        localStorage.removeItem('userRating'); // Eliminar la valoración del localStorage
+        localStorage.removeItem('userRating'); 
       } else {
         alert("Error al eliminar la valoración");
       }
