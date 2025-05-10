@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import styles from "./ValorarProducto.module.css";
 
 function ValorarProducto() {
@@ -7,7 +7,6 @@ function ValorarProducto() {
   const [rating, setRating] = useState(0);
   const [ratingId, setRatingId] = useState(null); // ID del rating si existe
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const token = localStorage.getItem("accessToken");
 
@@ -41,10 +40,7 @@ function ValorarProducto() {
       return;
     }
 
-    const url = ratingId
-      ? `http://127.0.0.1:8000/api/auctions/${id}/ratings/my/${ratingId}/`
-      : `http://127.0.0.1:8000/api/auctions/${id}/ratings/`;
-
+    const url = `http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`;
     const method = ratingId ? "PUT" : "POST";
 
     try {
@@ -74,22 +70,22 @@ function ValorarProducto() {
 
   const handleDelete = async () => {
     if (!ratingId) return;
-
+  
     const confirmed = window.confirm("¿Estás seguro de que deseas eliminar tu valoración?");
     if (!confirmed) return;
-
+  
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/my/${ratingId}/`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`, {
         method: "DELETE",
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-
+  
       if (response.status === 204) {
         alert("Valoración eliminada.");
-        setRating(0);
-        setRatingId(null);
+        setRating(1); // Reseteamos la valoración a 0
+        setRatingId(null); // Eliminamos el ID de la valoración
       } else {
         alert("Error al eliminar valoración.");
       }
@@ -97,6 +93,7 @@ function ValorarProducto() {
       console.error("Error al eliminar:", error);
     }
   };
+  
 
   if (!token) return <p>Debes <Link to="/login">iniciar sesión</Link> para valorar.</p>;
   if (loading) return <p>Cargando valoración...</p>;
