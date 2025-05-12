@@ -39,12 +39,16 @@ function ValorarProducto() {
       alert("Debes iniciar sesión para valorar.");
       return;
     }
-
-    const url = `http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`;
-    const method = ratingId ? "PUT" : "POST";
-
+  
+    const isEditing = ratingId !== null;
+    const url = isEditing
+      ? `http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`
+      : `http://127.0.0.1:8000/api/auctions/${id}/ratings/`;
+  
+    const method = isEditing ? 'PUT' : 'POST';
+  
     try {
-      const response = await fetch(url, {
+      const res = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -52,21 +56,20 @@ function ValorarProducto() {
         },
         body: JSON.stringify({ rating }),
       });
-
-      if (response.ok) {
-        alert(ratingId ? "Valoración actualizada" : "¡Gracias por valorar!");
-        if (!ratingId) {
-          const newData = await response.json();
-          setRatingId(newData.id);
-        }
-      } else {
-        const errorData = await response.json();
-        alert("Error: " + JSON.stringify(errorData));
+  
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.detail || "Error al enviar valoración.");
       }
+  
+      const data = await res.json();
+      setRatingId(data.id);
+      alert("Valoración guardada correctamente.");
     } catch (error) {
-      console.error("Error al enviar:", error);
+      console.error("Error al valorar:", error.message);
+      alert("Hubo un error al valorar.");
     }
-  };
+  };  
 
   const handleDelete = async () => {
     if (!ratingId) return;
