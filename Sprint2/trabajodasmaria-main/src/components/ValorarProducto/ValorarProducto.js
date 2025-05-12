@@ -3,9 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import styles from "./ValorarProducto.module.css";
 
 function ValorarProducto() {
-  const { id } = useParams(); // ID de la subasta
+  const { id } = useParams();
   const [rating, setRating] = useState(0);
-  const [ratingId, setRatingId] = useState(null); // ID del rating si existe
+  const [ratingId, setRatingId] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("accessToken");
@@ -13,14 +13,13 @@ function ValorarProducto() {
   useEffect(() => {
     if (!token) return;
 
-    // Buscar si ya hay una valoración del usuario
     fetch(`http://127.0.0.1:8000/api/auctions/${id}/ratings/my/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     })
       .then(res => {
-        if (res.status === 404) return null; // No hay valoración
+        if (res.status === 404) return null;
         return res.json();
       })
       .then(data => {
@@ -87,8 +86,8 @@ function ValorarProducto() {
   
       if (response.status === 204) {
         alert("Valoración eliminada.");
-        setRating(1); // Reseteamos la valoración a 0
-        setRatingId(null); // Eliminamos el ID de la valoración
+        setRating(1); 
+        setRatingId(null);
       } else {
         alert("Error al eliminar valoración.");
       }
