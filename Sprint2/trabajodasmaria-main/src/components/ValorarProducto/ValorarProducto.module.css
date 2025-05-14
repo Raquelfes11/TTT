@@ -1,0 +1,100 @@
+/* Contenedor principal del formulario de valoración */
+.valorarProductoContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Contenido del formulario */
+  .valorarProductoForm {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  /* Título */
+  .valorarProductoTitle {
+    color: #333;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Etiqueta del campo de puntuación */
+  .valorarProductoForm label {
+    display: block;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* Select de puntuación */
+  .valorarProductoForm select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+  
+  /* Botón enviar/actualizar */
+  .valorarProductoButton {
+    padding: 10px 20px;
+    background-color: rgb(244, 134, 228);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .valorarProductoButton:hover {
+    background-color: rgb(200, 100, 200);
+  }
+  
+  /* Botón eliminar */
+  .deleteValoracionButton {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .deleteValoracionButton:hover {
+    background-color: #c82333;
+  }
+  
+  /* Botón volver */
+  .valorarProductoLink {
+    display: block;
+    text-align: center;
+  }
+  
+  .valorarProductoLink button {
+    background-color: #ccc;
+    border: none;
+    padding: 10px 20px;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+  
+  .valorarProductoLink button:hover {
+    background-color: #bbb;
+  }
+  

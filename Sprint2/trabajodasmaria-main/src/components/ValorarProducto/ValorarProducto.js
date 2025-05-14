@@ -101,30 +101,38 @@ function ValorarProducto() {
   if (loading) return <p>Cargando valoración...</p>;
 
   return (
-    <div className={styles.container}>
-      <h2>Valorar producto</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Puntuación:
-          <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-            <option value={0} disabled>Selecciona una puntuación</option>
-            {[1, 2, 3, 4, 5].map(num => (
+    <div className={styles.valorarProductoContainer}>
+        <form className={styles.valorarProductoForm} onSubmit={handleSubmit}>
+            <h2 className={styles.valorarProductoTitle}>Valorar producto</h2>
+            
+            <label>
+            Puntuación:
+            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                <option value={0} disabled>Selecciona una puntuación</option>
+                {[1, 2, 3, 4, 5].map(num => (
                 <option key={num} value={num}>{num} estrella{num > 1 ? 's' : ''}</option>
-            ))}
+                ))}
             </select>
-        </label>
-        <br />
-        <button type="submit">
-          {ratingId ? "Actualizar valoración" : "Enviar valoración"}
-        </button>
-        {ratingId && (
-          <button type="button" className={styles.deleteButton} onClick={handleDelete} style={{ marginLeft: "1rem", backgroundColor: "red", color: "white" }}>
-            Eliminar valoración
-          </button>
-        )}
-        <Link to={`/products/${id}`} className={styles.linkButton} ><button>Volver</button></Link>
-      </form>
+            </label>
+
+            <button type="submit" className={styles.valorarProductoButton}>
+            {ratingId ? "Actualizar valoración" : "Enviar valoración"}
+            </button>
+
+            {ratingId && (
+            <button type="button" className={styles.deleteValoracionButton} onClick={handleDelete}>
+                Eliminar valoración
+            </button>
+            )}
+
+            <div className={styles.valorarProductoLink}>
+            <Link to={`/products/${id}`}>
+                <button>Volver</button>
+            </Link>
+            </div>
+        </form>
     </div>
+
   );
 }
 
